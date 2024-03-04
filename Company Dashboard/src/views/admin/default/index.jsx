@@ -269,17 +269,17 @@ const Dashboard = () => {
       <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3">
         <Widget
           icon={<GrSchedules className="h-7 w-7" />}
-          title={"Applied"}
+          title={"Application"}
           subtitle={ReceivedData.length}
         />
         <Widget
           icon={<MdOutlineTask className="h-6 w-6" />}
-          title={"Completed"}
+          title={"Posted Works"}
           subtitle={PendingData.length}
         />
         <Widget
           icon={<MdOutlinePendingActions className="h-7 w-7" />}
-          title={"Ongoing"}
+          title={"Shortlisted"}
           subtitle={PickupData.length}
         />
       </div>
@@ -292,7 +292,7 @@ const Dashboard = () => {
         </div> */}
         <div>
           <CheckTable
-            name="Applied Works"
+            name="Application"
             tableData={PendingData}
             action="Pick up"
             status="update/pending/topickup"
@@ -300,7 +300,7 @@ const Dashboard = () => {
         </div>
         <div>
           <CheckTable
-            name="Completed Works"
+            name="Posted Works"
             tableData={PickupData}
             action="Received"
             status="update/pickup/toreceived"
@@ -308,7 +308,7 @@ const Dashboard = () => {
         </div>
         <div>
           <CheckTable
-            name="Ongoing Works"
+            name="Shortlisted"
             tableData={ReceivedData}
             action="Delivery"
             status="update/received/todelivery"

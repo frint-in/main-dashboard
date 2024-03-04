@@ -14,15 +14,16 @@ const ProfileOverview = () => {
           <Banner />
         </div>
 
-        <div className="z-0 col-span-3 lg:!mb-0">
-          <Upload />
+        <div className="z-0 col-span-8 lg:!mb-0">
+          {/* <Upload /> */}
+          <General />
         </div>
-        <div className="col-span-5 lg:!mb-0">
-          {/* <Storage /> */}
+        {/* <div className="col-span-5 lg:!mb-0">
+          <Storage />
           <TaskCard />
         </div>
       </div>
-      {/* all project & ... */}
+      all project & ...
 
       <div className="grid h-full grid-cols-1 gap-5 lg:!grid-cols-12">
         <div className="col-span-5 lg:col-span-6 lg:mb-0 3xl:col-span-5">
@@ -32,7 +33,7 @@ const ProfileOverview = () => {
           <General />
         </div>
 
-        {/* <div className="col-span-5 lg:col-span-12 lg:mb-0 3xl:!col-span-3">
+        <div className="col-span-5 lg:col-span-12 lg:mb-0 3xl:!col-span-3">
           <Notification />
         </div> */}
       </div>

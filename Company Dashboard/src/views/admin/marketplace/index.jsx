@@ -13,18 +13,28 @@ import { tableColumnsTopCreators } from "./variables/tableColumnsTopCreators";
 import HistoryCard from "./components/HistoryCard";
 import TopCreatorTable from "./components/TableTopCreators";
 import NftCard from "../../../components/card/NftCard";
+import IntCard from "./components/IntCard";
 
 const Marketplace = () => {
+  const colors = [
+    "#FFDBB0",
+    "#B6FFB0",
+    "#EAB0FF",
+    "#B0D9FF",
+    "#FFB0B5",
+    "#FFF7B0",
+  ];
+
   return (
-    <div className="mt-3 grid h-full grid-cols-1">
+    <div className="mt-3 grid h-full grid-cols-1 gap-5 xl:grid-cols-2">
       <div className="col-span-1 h-fit w-full xl:col-span-1 2xl:col-span-2">
         {/* NFt Banner */}
-        {/* <Banner /> */}
+        <Banner />
 
         {/* NFt Header */}
         <div className="mb-4 mt-5 flex flex-col justify-between px-4 md:flex-row md:items-center">
           <h4 className="ml-1 text-2xl font-bold text-navy-700 dark:text-white">
-            Internships
+            Posted Internships
           </h4>
           <ul className="mt-4 flex items-center justify-between md:mt-0 md:justify-center md:!gap-5 2xl:!gap-12">
             <li>
@@ -32,7 +42,7 @@ const Marketplace = () => {
                 className="text-base font-medium text-brand-500 hover:text-brand-500 dark:text-white"
                 href=" "
               >
-                Art
+                IT
               </a>
             </li>
             <li>
@@ -40,7 +50,7 @@ const Marketplace = () => {
                 className="text-base font-medium text-brand-500 hover:text-brand-500 dark:text-white"
                 href=" "
               >
-                Music
+                Marketing
               </a>
             </li>
             <li>
@@ -48,7 +58,7 @@ const Marketplace = () => {
                 className="text-base font-medium text-brand-500 hover:text-brand-500 dark:text-white"
                 href=" "
               >
-                Collection
+                Sales
               </a>
             </li>
             <li>
@@ -56,7 +66,7 @@ const Marketplace = () => {
                 className="text-base font-medium text-brand-500 hover:text-brand-500 dark:text-white"
                 href=" "
               >
-                <a href=" ">Sports</a>
+                <a href=" ">Design</a>
               </a>
             </li>
           </ul>
@@ -65,71 +75,18 @@ const Marketplace = () => {
         {/* NFTs trending card */}
         <div className="z-20 grid grid-cols-1 gap-5 md:grid-cols-3">
           <NftCard
-            bidders={[avatar1, avatar2, avatar3]}
             title="Abstract Colors"
-            author="Esthera Jackson"
-            price="0.91"
+            stipend="3000 per month"
             image={NFt3}
-          />
-          <NftCard
-            bidders={[avatar1, avatar2, avatar3]}
-            title="ETH AI Brain"
-            author="Nick Wilson"
-            price="0.7"
-            image={NFt2}
-          />
-          <NftCard
-            bidders={[avatar1, avatar2, avatar3]}
-            title="Mesh Gradients"
-            author="Will Smith"
-            price="2.91"
-            image={NFt4}
-          />
-        </div>
-
-        {/* Recenlty Added setion */}
-        <div className="mb-5 mt-5 flex items-center justify-between px-[26px]">
-          <h4 className="text-2xl font-bold text-navy-700 dark:text-white">
-            Freelancing Works
-          </h4>
-        </div>
-
-        {/* Recently Add NFTs */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          <NftCard
-            bidders={[avatar1, avatar2, avatar3]}
-            title="Abstract Colors"
-            author="Esthera Jackson"
-            price="0.91"
-            image={NFt4}
-          />
-          <NftCard
-            bidders={[avatar1, avatar2, avatar3]}
-            title="ETH AI Brain"
-            author="Nick Wilson"
-            price="0.7"
-            image={NFt5}
-          />
-          <NftCard
-            bidders={[avatar1, avatar2, avatar3]}
-            title="Mesh Gradients"
-            author="Will Smith"
-            price="2.91"
-            image={NFt6}
+            date="20 July 2024"
+            company="Amazon"
+            // tag={["Part-time", "Full-time", "internship"]}
+            type="internship"
+            link="/"
+            location="Guwahati"
           />
         </div>
       </div>
-
-      {/* right side section */}
-
-      {/* <div className="col-span-1 h-full w-full rounded-xl 2xl:col-span-1">
-        <TopCreatorTable
-          extra="mb-5"
-          tableData={tableDataTopCreators}
-          columnsData={tableColumnsTopCreators}
-        />
-        <HistoryCard />
-      </div> */}
     </div>
   );
 };

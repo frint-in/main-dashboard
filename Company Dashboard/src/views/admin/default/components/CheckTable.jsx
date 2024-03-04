@@ -54,7 +54,7 @@ const CheckTable = ({ name, tableData, action, status }) => {
             <tr>
               <th className="border-b border-gray-200 pr-16 pb-[10px] text-center dark:!border-navy-700">
                 <div className="text-xs font-bold tracking-wide text-gray-600 lg:text-xs">
-                  Company Name
+                  Name
                 </div>
               </th>
               <th className="border-b border-gray-200 pr-16 pb-[10px] text-center dark:!border-navy-700">

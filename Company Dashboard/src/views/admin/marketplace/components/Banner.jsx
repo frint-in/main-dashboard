@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import nft1 from "../../../../assets/img/nfts/NftBanner1.png";
 import { FaPlus } from "react-icons/fa";
 
@@ -17,10 +18,11 @@ const Banner1 = () => {
         </p> */}
 
         <div className="mt-[36px] flex items-center justify-between gap-4 sm:justify-start 2xl:gap-10">
-          <button className="text-black linear gap-2 flex items-center rounded-xl bg-white px-4 py-2 text-center text-base font-medium transition duration-200 hover:!bg-white/80 active:!bg-white/70">
+          <Link to="/admin/postinternship" className="text-black linear gap-2 flex items-center rounded-xl bg-white px-4 py-2 text-center text-base font-medium transition duration-200 hover:!bg-white/80 active:!bg-white/70">
             New Internship
             <FaPlus />
-          </button>
+          </Link>
+          
           {/* <button
             href=" "
             className="text-base font-medium text-lightPrimary hover:text-lightPrimary 2xl:ml-2"

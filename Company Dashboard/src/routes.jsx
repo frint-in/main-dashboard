@@ -9,6 +9,7 @@ import DeliveredDashboard from "./views/admin/Orders_sidebar/Delivered_sidebar/i
 import NFTMarketplace from "./views/admin/marketplace";
 import Profile from "./views/admin/profile/index";
 import DataTables from "./views/admin/tables/index";
+import { MdScheduleSend } from "react-icons/md";
 
 
 // Auth Imports
@@ -24,7 +25,7 @@ import {
   MdPendingActions,
   MdLocalShipping,
   MdDoneOutline,
-  MdOutlineTask
+  MdOutlineTask,
 } from "react-icons/md";
 import { RiFolderReceivedFill } from "react-icons/ri";
 import { IoStorefront } from "react-icons/io5";
@@ -33,7 +34,7 @@ import { CgProfile } from "react-icons/cg";
 import { FaUserEdit } from "react-icons/fa";
 import { BiSolidShoppingBags } from "react-icons/bi";
 import EditProfile from "./views/admin/editProfile";
-
+import PostInternship from "./views/admin/postInternship";
 
 const routes = [
   {
@@ -43,23 +44,23 @@ const routes = [
     icon: <MdHome className="h-6 w-6" />,
     component: <MainDashboard />,
   },
- 
+
   {
-    name: "Applied Works",
+    name: "Applicants",
     layout: "/admin",
     icon: <GrSchedules className="h-6 w-6" />,
     path: "pending-list",
     component: <PendingDashboard />,
   },
   {
-    name: "Completed Works",
+    name: "Posted Works",
     layout: "/admin",
     icon: <MdOutlineTask className="h-6 w-6" />,
     path: "pickup-list",
     component: <PickupDashboard />,
   },
   {
-    name: "Ongoing Works",
+    name: "Shortlisted",
     layout: "/admin",
     icon: <MdPendingActions className="h-6 w-6" />,
     path: "received-list",
@@ -68,11 +69,18 @@ const routes = [
   {
     name: "Internships",
     layout: "/admin",
-    path: "nft-marketplace",
+    path: "internships",
     icon: <BiSolidShoppingBags className="h-6 w-6" />,
     component: <NFTMarketplace />,
   },
-  
+
+  {
+    name: "Post Internship",
+    layout: "/admin",
+    path: "postinternship",
+    icon: <MdScheduleSend className="h-6 w-6" />,
+    component: <PostInternship />,
+  },
   // {
   //   name: "All Delivered",
   //   layout: "/admin",
@@ -115,7 +123,5 @@ const routes = [
   //   icon: <MdLock className="h-6 w-6" />,
   //   component: <SignIn />,
   // },
- 
-  
 ];
 export default routes;

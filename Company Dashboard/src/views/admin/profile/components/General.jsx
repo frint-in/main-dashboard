@@ -1,5 +1,6 @@
 import Card from "../../../../components/card";
 import React from "react";
+import { Link } from "react-router-dom"
 
 const General = () => {
   return (
@@ -18,32 +19,32 @@ const General = () => {
         </p>
       </div>
       {/* Cards */}
-      <div className="grid grid-cols-2 gap-4 px-2">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-4 px-2 ">
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
-          <p className="text-sm text-gray-600">Education</p>
+          <p className="text-sm text-gray-600">Category</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            Stanford University
+            Students Community
           </p>
         </div>
 
         <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
-          <p className="text-sm text-gray-600">Languages</p>
+          <p className="text-sm text-gray-600">Website</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            English, Spanish, Italian
+            <Link to="/">frint.in</Link>
           </p>
         </div>
 
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
-          <p className="text-sm text-gray-600">Skills</p>
+          <p className="text-sm text-gray-600">Location</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            Product Design
+            Guwahati, Assam
           </p>
         </div>
 
         <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Email</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            ritavkashyap123@gmail.com
+            help.frint@gmail.com
           </p>
         </div>
 
@@ -55,9 +56,9 @@ const General = () => {
         </div>
 
         <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
-          <p className="text-sm text-gray-600">Birthday</p>
+          <p className="text-sm text-gray-600">Date of Foundation</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            20 July 1986
+            20 July 2022
           </p>
         </div>
       </div>
