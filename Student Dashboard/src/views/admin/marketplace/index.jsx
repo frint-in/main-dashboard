@@ -32,7 +32,7 @@ const Marketplace = () => {
                 className="text-base font-medium text-brand-500 hover:text-brand-500 dark:text-white"
                 href=" "
               >
-                Art
+                IT
               </a>
             </li>
             <li>
@@ -40,7 +40,7 @@ const Marketplace = () => {
                 className="text-base font-medium text-brand-500 hover:text-brand-500 dark:text-white"
                 href=" "
               >
-                Music
+                Marketing
               </a>
             </li>
             <li>
@@ -48,7 +48,7 @@ const Marketplace = () => {
                 className="text-base font-medium text-brand-500 hover:text-brand-500 dark:text-white"
                 href=" "
               >
-                Collection
+                Sales
               </a>
             </li>
             <li>
@@ -56,7 +56,7 @@ const Marketplace = () => {
                 className="text-base font-medium text-brand-500 hover:text-brand-500 dark:text-white"
                 href=" "
               >
-                <a href=" ">Sports</a>
+                <a href=" ">Design</a>
               </a>
             </li>
           </ul>
@@ -65,59 +65,38 @@ const Marketplace = () => {
         {/* NFTs trending card */}
         <div className="z-20 grid grid-cols-1 gap-5 md:grid-cols-3">
           <NftCard
-            bidders={[avatar1, avatar2, avatar3]}
             title="Abstract Colors"
-            author="Esthera Jackson"
-            price="0.91"
+            stipend="3000 per month"
             image={NFt3}
-          />
-          <NftCard
-            bidders={[avatar1, avatar2, avatar3]}
-            title="ETH AI Brain"
-            author="Nick Wilson"
-            price="0.7"
-            image={NFt2}
-          />
-          <NftCard
-            bidders={[avatar1, avatar2, avatar3]}
-            title="Mesh Gradients"
-            author="Will Smith"
-            price="2.91"
-            image={NFt4}
+            date="20 July 2024"
+            company="Amazon"
+            // tag={["Part-time", "Full-time", "internship"]}
+            link="/"
+            type="internship"
+            location="Guwahati"
           />
         </div>
 
         {/* Recenlty Added setion */}
-        <div className="mb-5 mt-5 flex items-center justify-between px-[26px]">
+        {/* <div className="mb-5 mt-5 flex items-center justify-between px-[26px]">
           <h4 className="text-2xl font-bold text-navy-700 dark:text-white">
             Freelancing Works
           </h4>
         </div>
 
-        {/* Recently Add NFTs */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        Recently Add NFTs
+        <div className="z-20 grid grid-cols-1 gap-5 md:grid-cols-3">
           <NftCard
-            bidders={[avatar1, avatar2, avatar3]}
             title="Abstract Colors"
-            author="Esthera Jackson"
-            price="0.91"
-            image={NFt4}
+            stipend="3000 per month"
+            image={NFt3}
+            date="20 July 2024"
+            company="Amazon"
+            tag={["Part-time", "Full-time", "internship"]}
+            link="/"
+            location="Guwahati"
           />
-          <NftCard
-            bidders={[avatar1, avatar2, avatar3]}
-            title="ETH AI Brain"
-            author="Nick Wilson"
-            price="0.7"
-            image={NFt5}
-          />
-          <NftCard
-            bidders={[avatar1, avatar2, avatar3]}
-            title="Mesh Gradients"
-            author="Will Smith"
-            price="2.91"
-            image={NFt6}
-          />
-        </div>
+        </div> */}
       </div>
 
       {/* right side section */}

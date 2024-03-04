@@ -18,32 +18,32 @@ const General = () => {
         </p>
       </div>
       {/* Cards */}
-      <div className="grid grid-cols-2 gap-4 px-2">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-4 px-2">
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Education</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            Stanford University
+            Assam Engineering College
           </p>
         </div>
 
         <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Languages</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            English, Spanish, Italian
+            Assamese, English, Hindi
           </p>
         </div>
 
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Skills</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            Product Design
+            Software Developer, Coder
           </p>
         </div>
 
         <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Email</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            ritavkashyap123@gmail.com
+            abc@gmail.com
           </p>
         </div>
 
@@ -57,7 +57,7 @@ const General = () => {
         <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Birthday</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            20 July 1986
+            7 May 2002
           </p>
         </div>
       </div>

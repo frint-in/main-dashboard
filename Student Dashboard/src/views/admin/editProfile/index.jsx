@@ -12,7 +12,15 @@ const EditProfile = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="name"
+              htmlFor="profile "
+            >
+              Profle Pic
+            </label>
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="name"
             >
               Name
             </label>
@@ -27,7 +35,7 @@ const EditProfile = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="email"
+              htmlFor="email"
             >
               Email
             </label>
@@ -42,7 +50,7 @@ const EditProfile = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="gender"
+              htmlFor="gender"
             >
               Gender
             </label>
@@ -57,7 +65,7 @@ const EditProfile = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="phone"
+              htmlFor="phone"
             >
               Phone Number
             </label>
@@ -72,7 +80,7 @@ const EditProfile = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="specialisation"
+              htmlFor="specialisation"
             >
               Specialisation
             </label>
@@ -87,7 +95,7 @@ const EditProfile = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="description"
+              htmlFor="description"
             >
               Description
             </label>
@@ -102,7 +110,7 @@ const EditProfile = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="education"
+              htmlFor="education"
             >
               Education
             </label>
@@ -117,7 +125,7 @@ const EditProfile = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="dob"
+              htmlFor="dob"
             >
               Date of Birth
             </label>
@@ -132,7 +140,7 @@ const EditProfile = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="language"
+              htmlFor="language"
             >
               Languages
             </label>
@@ -147,7 +155,7 @@ const EditProfile = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="skills"
+              htmlFor="skills"
             >
               Skills
             </label>
@@ -158,6 +166,14 @@ const EditProfile = () => {
               placeholder="Skills"
               required
             />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="resume"
+            >
+              Resume
+            </label>
           </div>
         </form>
         <div className="flex items-center justify-between">

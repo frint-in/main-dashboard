@@ -73,7 +73,7 @@ const Navbar = (props) => {
         </span>
  
         {/* start Notification */}
-        <Dropdown
+        {/* <Dropdown
           button={
             <p className="cursor-pointer">
               <FaLocationDot className="h-4 w-4 text-gray-700 dark:text-white" />
@@ -97,7 +97,7 @@ const Navbar = (props) => {
           }
           classNames={"py-2 top-6 -left-[250px] md:-left-[330px] w-max"}
           animation="origin-[75%_0%] md:origin-top-right transition-all duration-300 ease-in-out"
-        />
+        /> */}
         
 
         <Dropdown
