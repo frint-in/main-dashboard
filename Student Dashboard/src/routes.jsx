@@ -49,7 +49,7 @@ const routes = [
     name: "Applied Works",
     layout: "/admin",
     icon: <GrSchedules className="h-6 w-6" />,
-    path: "applied works",
+    path: "applied-works",
     component: <PendingDashboard />,
   },
   {

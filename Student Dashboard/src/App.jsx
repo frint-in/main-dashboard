@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Admin from "./layouts/admin";
 // import Auth from "./layouts/auth";
 import Auth from "./views/auth/Auth"
+import Signup from "./views/auth/Signup";
 
 const App = () => {
   return (
@@ -10,6 +11,7 @@ const App = () => {
       <Routes>
         {/* <Route path="auth/*" element={<Auth />} /> */}
         <Route path="/auth" element={<Auth />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="admin/*" element={<Admin />} />
         <Route path="/" element={<Navigate to="/admin" replace />} />
       </Routes>
