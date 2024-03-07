@@ -14,7 +14,9 @@ import HistoryCard from "./components/HistoryCard";
 import TopCreatorTable from "./components/TableTopCreators";
 import NftCard from "../../../components/card/NftCard";
 import IntCard from "./components/IntCard";
-
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getAllInterships } from "../../../api/company";
+import dayjs from 'dayjs'
 const Marketplace = () => {
   const colors = [
     "#FFDBB0",
@@ -24,6 +26,24 @@ const Marketplace = () => {
     "#FFB0B5",
     "#FFF7B0",
   ];
+
+  const queryClient = useQueryClient();
+
+
+  const {
+    isLoading,
+    isError,
+    data: internships,
+    error,
+  } = useQuery({
+    queryKey: ["interships"], // Include user.uid in the query key
+    queryFn: () => getAllInterships(), // Call fetchEventsById with user.uid
+  });
+  console.log("hi2");
+  console.log("data in frontend", internships);
+
+  // console.log('time?', internships.createdAt);
+  console.log("dajs tryouts", dayjs(internships[0].createdAt).format("MM-DD-YYYY"));
 
   return (
     <div className="mt-3 grid h-full grid-cols-1 gap-5 xl:grid-cols-2">
@@ -74,17 +94,20 @@ const Marketplace = () => {
 
         {/* NFTs trending card */}
         <div className="z-20 grid grid-cols-1 gap-5 md:grid-cols-3">
+        {!isLoading && internships.map((intership) => (
           <NftCard
-            title="Abstract Colors"
-            stipend="3000 per month"
-            image={NFt3}
-            date="20 July 2024"
-            company="Amazon"
-            // tag={["Part-time", "Full-time", "internship"]}
-            type="internship"
-            link="/"
-            location="Guwahati"
-          />
+          title={intership.description}
+          stipend={intership.stipend || 'not given'}
+          image={NFt3}
+          date={dayjs(intership.createdAt).format("h:mm A MM-DD-YYYY")}
+          company={intership.name}
+          // tag={["Part-time", "Full-time", "internship"]}
+          type="internship"
+          link="/"
+          location={intership.description}
+        />
+        )) }
+
         </div>
       </div>
     </div>
