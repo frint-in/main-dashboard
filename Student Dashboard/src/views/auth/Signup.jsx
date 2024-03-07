@@ -4,12 +4,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 
-export default function SignIn({setIsAdminAuthenticated}) {
+export default function Signup({setIsAdminAuthenticated}) {
 
   const navigate = useNavigate()
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [phono, setPhono] = useState('');
+  const [uname, setUname] = useState('');
 
 
   const handleUser = async (e) => {
@@ -17,7 +19,7 @@ export default function SignIn({setIsAdminAuthenticated}) {
     e.preventDefault();
 
     try {
-      const res = await axios.post('/api/auth/signin', { email, password },
+      const res = await axios.post('/api/auth/signup', { email, password, uname, phono },
       { withCredentials: true }
 
       );
@@ -40,7 +42,7 @@ export default function SignIn({setIsAdminAuthenticated}) {
   }
 
   return (
-    <div className="mt-16 mb-16 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-center" >
+    <div className="mt-16 mb-16 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-start" >
       {/* Sign in section */}
       <div className="mt-[10vh] w-full max-w-full flex-col items-center md:pl-4 lg:pl-0 xl:max-w-[420px]">
         <h4 className="mb-2.5 text-4xl font-bold text-navy-700 dark:text-white">
@@ -85,6 +87,29 @@ export default function SignIn({setIsAdminAuthenticated}) {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)} 
+        />
+
+<InputField
+          // variant="auth"
+          extra="mb-3"
+          label="Name*"
+          placeholder=""
+          id="uname"
+          type="text"
+          value={uname}
+          onChange={(e) => setUname(e.target.value)}
+        />
+
+        {/* Password */}
+        <InputField
+          // variant="auth"
+          extra="mb-3"
+          label="Phone number*"
+          placeholder="********"
+          id="phono"
+          type="text"
+          value={phono}
+          onChange={(e) => setPhono(e.target.value)} 
         />
         
         {/* Checkbox */}
