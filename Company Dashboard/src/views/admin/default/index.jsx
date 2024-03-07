@@ -14,8 +14,13 @@ import { columnsDataCheck } from "./variables/columnsData";
 
 import Widget from "../../../components/widget/Widget";
 import CheckTable from "../default/components/CheckTable";
+import CheckTablePostedWorks from "../default/components/CheckTablePostedWorks";
 import tableDataCheck from "./variables/tableDataCheck.json";
 import Banner1 from "../marketplace/components/Banner";
+
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getAllInterships } from "../../../api/company";
+import { getAllApprovedApplicants } from "../../../api/intership";
 
 const Dashboard = () => {
   const url = useSelector((state) => state.shop.value2);
@@ -28,11 +33,29 @@ const Dashboard = () => {
   const [TotalData, setTotalData] = useState([]);
   const [Earning, setEarning] = useState([]);
 
+  const {
+    isLoading,
+    isError,
+    data: internships,
+    error,
+  } = useQuery({
+    queryKey: ["interships"], // Include user.uid in the query key
+    queryFn: () => getAllInterships(), // Call fetchEventsById with user.uid
+  });
+
+
+  const {
+    data: applicants,
+  } = useQuery({
+    queryKey: ["approvedApplicants"], // Include user.uid in the query key
+    queryFn: () => getAllApprovedApplicants(), // Call fetchEventsById with user.uid
+  });
+  
   const PendingOrders = async () => {
     try {
-      const response = await Axios.get(`/api/pending/orders`, {
-        withCredentials: true,
-      });
+      // const response = await Axios.get(`/api/pending/orders`, {
+      //   withCredentials: true,
+      // });
       if (response.status === 200) {
         const filteredData = response.data.filter(
           (order) => order.servicelocation === url
@@ -70,47 +93,47 @@ const Dashboard = () => {
     PendingOrders();
   }, [url, Date]);
 
-  const PickupOrders = async () => {
-    try {
-      const response = await Axios.get(`/api/pickup/orders`, {
-        withCredentials: true,
-      });
-      if (response.status === 200) {
-        const filteredData = response.data.filter(
-          (order) => order.servicelocation === url
-        );
-        if (Date2 === "today") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0] === Date
-          );
-          setPickupData(dataWithDate);
-        }
-        if (Date2 === "thismonth") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0].slice(0, 7) === Date
-          );
-          setPickupData(dataWithDate);
-        }
-        if (Date2 === "thisyear") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0].slice(0, 4) === Date
-          );
-          setPickupData(dataWithDate);
-        }
-        if (Date === "total") {
-          setPickupData(filteredData);
-        }
-      } else {
-        console.log("ooooopppppsssss");
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  // const PickupOrders = async () => {
+  //   try {
+  //     const response = await Axios.get(`/api/pickup/orders`, {
+  //       withCredentials: true,
+  //     });
+  //     if (response.status === 200) {
+  //       const filteredData = response.data.filter(
+  //         (order) => order.servicelocation === url
+  //       );
+  //       if (Date2 === "today") {
+  //         const dataWithDate = filteredData.filter(
+  //           (order) => order.createdat.split("T")[0] === Date
+  //         );
+  //         setPickupData(dataWithDate);
+  //       }
+  //       if (Date2 === "thismonth") {
+  //         const dataWithDate = filteredData.filter(
+  //           (order) => order.createdat.split("T")[0].slice(0, 7) === Date
+  //         );
+  //         setPickupData(dataWithDate);
+  //       }
+  //       if (Date2 === "thisyear") {
+  //         const dataWithDate = filteredData.filter(
+  //           (order) => order.createdat.split("T")[0].slice(0, 4) === Date
+  //         );
+  //         setPickupData(dataWithDate);
+  //       }
+  //       if (Date === "total") {
+  //         setPickupData(filteredData);
+  //       }
+  //     } else {
+  //       console.log("ooooopppppsssss");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    PickupOrders();
-  }, [url, Date]);
+  // useEffect(() => {
+  //   PickupOrders();
+  // }, [url, Date]);
 
   const ReceivedOrders = async () => {
     try {
@@ -156,9 +179,9 @@ const Dashboard = () => {
 
   const DeliveredOrders = async () => {
     try {
-      const response = await Axios.get(`/api/delivered/orders`, {
-        withCredentials: true,
-      });
+      // const response = await Axios.get(`/api/delivered/orders`, {
+      //   withCredentials: true,
+      // });
       if (response.status === 200) {
         const filteredData = response.data.filter(
           (order) => order.servicelocation === url
@@ -270,18 +293,18 @@ const Dashboard = () => {
       <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3">
         <Widget
           icon={<GrSchedules className="h-7 w-7" />}
-          title={"Application"}
+          title={"Registered Applicants"}
           subtitle={ReceivedData.length}
         />
         <Widget
           icon={<MdOutlineTask className="h-6 w-6" />}
           title={"Posted Works"}
-          subtitle={PendingData.length}
+          subtitle={internships?.length}
         />
         <Widget
           icon={<MdOutlinePendingActions className="h-7 w-7" />}
           title={"Shortlisted"}
-          subtitle={PickupData.length}
+          subtitle={applicants?.length}
         />
       </div>
 
@@ -308,12 +331,8 @@ const Dashboard = () => {
           />
         </div> */}
         <div>
-          <CheckTable
-            name="Posted Works"
-            tableData={PickupData}
-            action="Received"
-            status="update/pickup/toreceived"
-          />
+          <CheckTablePostedWorks/>
+          
         </div>
         <div>
           <CheckTable

@@ -16,9 +16,9 @@ const Dashboard = () => {
 
   const PendingOrders = async () => {
     try {
-      const response = await Axios.get(`/api/pending/orders`, {
-        withCredentials: true,
-      });
+      // const response = await Axios.get(`/api/pending/orders`, {
+      //   withCredentials: true,
+      // });
       if (response.status === 200) {
         const filteredData = response.data.filter(
           (order) => order.servicelocation === url
