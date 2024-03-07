@@ -43,7 +43,7 @@ const Marketplace = () => {
   console.log("data in frontend", internships);
 
   // console.log('time?', internships.createdAt);
-  console.log("dajs tryouts", dayjs(internships[0].createdAt).format("MM-DD-YYYY"));
+  // console.log("dajs tryouts", dayjs(internships[0].createdAt).format("MM-DD-YYYY"));
 
   return (
     <div className="mt-3 grid h-full grid-cols-1 gap-5 xl:grid-cols-2">

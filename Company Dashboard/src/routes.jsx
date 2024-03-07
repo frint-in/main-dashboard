@@ -94,13 +94,13 @@ const routes = [
     icon: <CgProfile className="h-6 w-6" />,
     component: <Profile />,
   },
-  {
-    name: "Edit Profile",
-    layout: "/admin",
-    path: "editProfile",
-    icon: <FaUserEdit className="h-6 w-6" />,
-    component: <EditProfile />,
-  },
+  // {
+  //   name: "Edit Profile",
+  //   layout: "/admin",
+  //   path: "editProfile",
+  //   icon: <FaUserEdit className="h-6 w-6" />,
+  //   component: <EditProfile />,
+  // },
   // {
   //   name: "Data Tables",
   //   layout: "/admin",
