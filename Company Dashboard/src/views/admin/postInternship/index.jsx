@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "../../../components/card";
 import { FaAngleDown } from "react-icons/fa";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
@@ -11,56 +11,66 @@ import { addInternship } from "../../../api/company";
 
 
 const PostInternship = () => {
-  const queryClient = useQueryClient();
+  const [name, setName] = useState('');
 
-  const createInternshipMutation = useMutation({
-    mutationFn: addInternship,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["internships"] });
-      console.log("success bro!");
-    },
-  });
-
-  const internshipSchema = z.object({
-    title: z.string().min(2).max(30),
-    companyName: z.string().min(2).max(30),
-    description: z.string(),
-    deadline: z.string(),
-    gender: z.string(),
-    stipend: z.string(),
-    type: z.string(),
-    experience: z.string(),
-    skills: z.string(),
-    image: z.any(),
-  });
+  const [image, setImage] = useState(null);
+  const [companyname, setCompanyname] = useState('');
+  const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
+  const [phono, setPhno] = useState('');
 
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors, isSubmitting },
-  } = useForm({
-    resolver: zodResolver(internshipSchema),
-  });
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+};
 
-  const submitData = (data) => {
-    console.log("IT WORKED", data);
 
-    const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("companyName", data.companyName);
-    formData.append("description", data.description);
-    formData.append("deadline", data.deadline);
-    formData.append("gender", data.gender);
-    formData.append("stipend", data.stipend);
-    formData.append("type", data.type);
-    formData.append("experience", data.experience);
-    formData.append("skills", data.skills);
-    formData.append("image", data.image[0]);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const formData = new FormData();
+  formData.append('image', image);
+  formData.append('name', name);
+  formData.append('description', description);
+  formData.append('location', location);
+  formData.append('phono', phono);
 
-    createInternshipMutation.mutate(formData);
-  };
+  try {
+      const response = await axios.post('http://localhost:8000/api/internship/addinternship', formData,    { withCredentials: true },{
+          headers: {
+              'Content-Type': 'multipart/form-data'
+          }
+      });
+      console.log(response.data);
+  } catch (error) {
+      console.error(error);
+  }
+};
+
+  // const submitData = (data) => {
+  //   console.log("IT WORKED", data);
+
+  //   const formData = new FormData();
+  //   formData.append("title", data.title);
+  //   formData.append("companyName", data.companyName);
+  //   formData.append("description", data.description);
+  //   formData.append("deadline", data.deadline);
+  //   formData.append("gender", data.gender);
+  //   formData.append("stipend", data.stipend);
+  //   formData.append("type", data.type);
+  //   formData.append("experience", data.experience);
+  //   formData.append("skills", data.skills);
+  //   formData.append("image", data.image[0]);
+
+  //   createInternshipMutation.mutate(formData, {
+  //     withCredentials: true
+  // });
+
+
+
+
+  // };
+
+
 
   return (
     <Card className="grid h-full w-full grid-cols-1 gap-3 rounded-[20px] bg-white bg-clip-border p-3 font-dm shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:shadow-none 2xl:grid-cols-11">
@@ -68,7 +78,7 @@ const PostInternship = () => {
         <h5 className="text-left text-xl font-bold leading-9 text-navy-700 dark:text-white">
           Internship Page
         </h5>
-        <form onSubmit={handleSubmit(submitData)} className="rounded pt-6 pb-8 mb-4 bg-white pl-3 dark:!bg-navy-800 ">
+        <form onSubmit={handleSubmit} className="rounded pt-6 pb-8 mb-4 bg-white pl-3 dark:!bg-navy-800 ">
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -78,13 +88,12 @@ const PostInternship = () => {
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              {...register("title")} 
+              
               id="title"
               type="text"
-              placeholder="Title"
+              placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} 
               required
             />
-            {errors.title && <p>{errors.title.message}</p>}
           </div>
 
           <div className="mb-4">
@@ -94,165 +103,61 @@ const PostInternship = () => {
   >
     Image <span style={{ color: "red" }}>*</span>
   </label>
-  <Controller
-            control={control}
-            name={"image"}
-            rules={{ required: "Recipe picture is required" }}
-            render={({ field: { value, onChange, ...field } }) => {
-              return (
-                <input
-                  {...field}
-                  value={value?.fileName}
-                  onChange={(event) => {
-                    onChange(event.target.files);
-                  }}
-                  type="file"
-                  id="image"
-                />
-              );
-            }}
-          />
+  <input type="file" onChange={handleImageChange} />
 </div>
 
 
           <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="company"
-            >
-              Company Name <span style={{ color: "red" }}>*</span>
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="companyName"
-              {...register("companyName")}
-              type="text"
-              placeholder="Company Name"
-              required
-            />
-             {errors.companyName && <p>{errors.companyName.message}</p>}
-          </div>
-          <div className="mb-4">
-            <label
+          <label
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="description"
             >
-              Description <span style={{ color: "red" }}>*</span>
+              description <span style={{ color: "red" }}>*</span>
             </label>
-            <textarea
-              rows={4}
-              {...register("description")} 
+            <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              
               id="description"
-              type="text"
-              placeholder="Description"
-              required
-            ></textarea>
-            {errors.description && <p>{errors.description.message}</p>}
-          </div>
-          <div className="mb-4">
+    type="text"
+    placeholder="Description"
+    value={description}
+    onChange={(e) => setDescription(e.target.value)}
+    required
+/>
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="deadline"
+              htmlFor="location"
             >
-              Application Deadline <span style={{ color: "red" }}>*</span>
+              location <span style={{ color: "red" }}>*</span>
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="deadline"
-              {...register("deadline")}
-              type="date"
-              placeholder="deadline"
-              required
-            />
-            {errors.deadline && <p>{errors.deadline.message}</p>}
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="gender"
-            >
-              Gender <span style={{ color: "red" }}>*</span>
-            </label>
-            <input
-            {...register("gender")}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="gender"
+              
+              id="location"
               type="text"
-              placeholder="Gender"
+              placeholder="Name" value={location} onChange={(e) => setLocation(e.target.value)} 
               required
             />
-             {errors.gender && <p>{errors.gender.message}</p>}
-          </div>
-          <div className="mb-4">
-            <label
+
+<label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="stipend"
+              htmlFor="phno"
             >
-              Stipend <span style={{ color: "red" }}>*</span>
+              phno <span style={{ color: "red" }}>*</span>
             </label>
             <input
-            {...register("stipend")}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="stipend"
-              type="number"
-              placeholder="Stipend"
+              
+              id="phno"
+              type="text"
+              placeholder="Name" value={phono} onChange={(e) => setPhno(e.target.value)} 
               required
             />
-             {errors.stipend && <p>{errors.stipend.message}</p>}
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="type"
-            >
-              Type <span style={{ color: "red" }}>*</span>
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="type"
-              {...register("type")}
-              type="text"
-              placeholder="Eg: Freelance or Internship"
-              required
-            />
-             {errors.type && <p>{errors.type.message}</p>}
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="experience"
-            >
-              Experience
-            </label>
-            <input
-            {...register("experience")} 
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="experience"
-              type="text"
-              placeholder="eg: Fresh, 1 year etc."
-            />
-             {errors.experience && <p>{errors.experience.message}</p>}
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="skills"
-            >
-              Skills
-            </label>
-            <input
-            {...register("skills")} 
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="skills"
-              type="text"
-              placeholder="Skills"
-            />
-            {errors.skills && <p>{errors.skills.message}</p>}
-          </div>
-        <div className="flex items-center justify-between">
+
+
+            
           <button
-                  disabled={isSubmitting}
+                  // disabled={isSubmitting}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:bg-gray-500"
             type="submit"
           >
