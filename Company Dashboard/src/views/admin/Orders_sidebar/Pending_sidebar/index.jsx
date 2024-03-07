@@ -13,6 +13,7 @@ const Dashboard = () => {
   const Date = useSelector((state) => state.date.value);
   const Date2 = useSelector((state) => state.date.value2);
   const [PendingData, setPendingData] = useState([]);
+  const [ReceivedData, setReceivedData] = useState([]);
 
   const PendingOrders = async () => {
     try {
@@ -60,13 +61,21 @@ const Dashboard = () => {
     <div>
       {/* table */}
 
-      <div className="mt-5 grid grid-cols-1 gap-5 xll:grid-cols-2">
+      <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-2">
         <div>
           <CheckTable
             name="Applied Works"
             tableData={PendingData}
             action="Pick up"
             status="update/pending/topickup"
+          />
+        </div>
+        <div>
+          <CheckTable
+            name="Shortlisted"
+            tableData={ReceivedData}
+            action="Delivery"
+            status="update/received/todelivery"
           />
         </div>
       </div>
