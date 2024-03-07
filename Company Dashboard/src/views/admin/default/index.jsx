@@ -15,6 +15,7 @@ import { columnsDataCheck } from "./variables/columnsData";
 import Widget from "../../../components/widget/Widget";
 import CheckTable from "../default/components/CheckTable";
 import tableDataCheck from "./variables/tableDataCheck.json";
+import Banner1 from "../marketplace/components/Banner";
 
 const Dashboard = () => {
   const url = useSelector((state) => state.shop.value2);
@@ -290,14 +291,22 @@ const Dashboard = () => {
         {/* <div>
           <CheckTable name="Total Works" tableData={TotalData} action={null} />
         </div> */}
-        <div>
+        <Banner1 />
+        <div className="grid grid-cols-1 gap-5 rounded-[20px] md:grid-cols-2">
+          <div className="grid grid-cols-1 rounded-[20px]">
+            <MiniCalendar />
+          </div>
+          {/* <TaskCard /> */}
+          <PieChartCard pieChartData={pieChartData} />
+        </div>
+        {/* <div>
           <CheckTable
             name="Application"
             tableData={PendingData}
             action="Pick up"
             status="update/pending/topickup"
           />
-        </div>
+        </div> */}
         <div>
           <CheckTable
             name="Posted Works"
@@ -313,13 +322,6 @@ const Dashboard = () => {
             action="Delivery"
             status="update/received/todelivery"
           />
-        </div>
-        <div className="grid grid-cols-1 gap-5 rounded-[20px] md:grid-cols-2">
-          <div className="grid grid-cols-1 rounded-[20px]">
-            <MiniCalendar />
-          </div>
-          {/* <TaskCard /> */}
-          <PieChartCard pieChartData={pieChartData} />
         </div>
         {/* <div>
           <CheckTable
