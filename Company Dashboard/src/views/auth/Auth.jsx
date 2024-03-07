@@ -1,199 +1,125 @@
-import React, { useState } from "react";
-import "./auth.scss";
-import {
-  FaUser,
-  FaLock,
-  FaEnvelope,
-  FaFacebookF,
-  FaTwitter,
-  FaGoogle,
-  FaLinkedinIn,
-  FaPhoneAlt,
-  FaGraduationCap,
-  FaSuitcase,
-  FaEye,
-  FaEyeSlash,
-} from "react-icons/fa";
+import InputField from "../../components/fields/InputField";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const Auth = () => {
-  const [eye, setEye] = useState("password");
 
-  const togglePasswordVisibility = () => {
-    const inputElement1 = document.getElementById("myInput1");
-    const inputElement2 = document.getElementById("myInput2");
+export default function SignIn({setIsAdminAuthenticated}) {
 
-    if (inputElement1.type && inputElement2.type === "password") {
-      inputElement1.type = inputElement2.type = "text";
-      setEye("text");
-    } else {
-      inputElement1.type = inputElement2.type = "password";
-      setEye("password");
+  const navigate = useNavigate()
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+
+  const handleUser = async (e) => {
+    
+    e.preventDefault();
+
+    try {
+      const res = await axios.post('/api/auth/signinadmin', { email, password },
+      { withCredentials: true }
+
+      );
+      if (res.data) {
+        console.log(res.data);
+        navigate('/admin/default');
+        // setIsAdminAuthenticated(true)
+        // sessionStorage.setItem('token', res.data.token)
+        alert('Sign in successfull')
+
+      } else {
+        alert('Invalid Credentials')
+        console.log('invalid credentials');
+      }
+    } catch (error) {
+      console.log(error);
+      
     }
-  };
-
-  const [isSignUpMode, setSignUpMode] = useState(false);
-  // const [selectedOption, setSelectedOption] = useState(null);
-
-  const handleSignUpClick = () => {
-    setSignUpMode(true);
-  };
-
-  const handleSignInClick = () => {
-    setSignUpMode(false);
-  };
-
-  // const handleOptionChange = (option) => {
-  //   setSelectedOption(option);
-  // };
+    
+  }
 
   return (
-    <div className="Auth">
-      <div className={`container ${isSignUpMode ? "sign-up-mode" : ""}`}>
-        <div className="forms-container">
-          <div className="signin-signup">
-            <form action="#" className="sign-in-form">
-              <h2 className="title">Sign in</h2>
-              <div className="input-field">
-                <div className="fas">
-                  <FaEnvelope fontSize="20" />
-                </div>
-                <input type="email" placeholder="Email" />
-              </div>
-              <div className="input-field">
-                <div className="fas">
-                  <FaLock fontSize="20" />
-                </div>
-                <input type="password" placeholder="Password" id="myInput1" />
-                {eye === "password" ? (
-                  <FaEye className="eye" onClick={togglePasswordVisibility} />
-                ) : (
-                  <FaEyeSlash
-                    className="eye"
-                    onClick={togglePasswordVisibility}
-                  />
-                )}
-              </div>
-              <input type="submit" defaultValue="Login" className="btn solid" />
-              {/* <p className="social-text">Or Sign in with social platforms</p>
-              <div className="social-media">
-                <a href="#" className="social-icon">
-                  <FaFacebookF fontSize="20" />
-                </a>
-                <a href="#" className="social-icon">
-                  <FaTwitter fontSize="20" />
-                </a>
-                <a href="#" className="social-icon">
-                  <FaGoogle fontSize="20" />
-                </a>
-                <a href="#" className="social-icon">
-                  <FaLinkedinIn fontSize="20" />
-                </a>
-              </div> */}
-            </form>
-            <form action="#" className="sign-up-form">
-              <h2 className="title">Sign up</h2>
-              {/* <div className="category">
-                <div className="radio_group">
-                  <input type="radio" name="like" />
-                  <label htmlFor="like">
-                    <FaGraduationCap fontSize="2.5rem" />
-                  </label>
-                </div>
-                <div className="radio_group">
-                  <input type="radio" name="like" />
-                  <label htmlFor="like">
-                    <FaSuitcase fontSize="2rem" />
-                  </label>
-                </div>
-              </div> */}
-              <div className="input-field">
-                <div className="fas">
-                  <FaUser fontSize="20" />
-                </div>
-                <input type="text" placeholder="Name" />
-              </div>
-              <div className="input-field">
-                <div className="fas">
-                  <FaEnvelope fontSize="20" />
-                </div>
-                <input type="email" placeholder="Email" />
-              </div>
-              <div className="input-field">
-                <div className="fas">
-                  <FaPhoneAlt fontSize="20" />
-                </div>
-                <input type="tel" placeholder="Phone Number" />
-              </div>
-              <div className="input-field">
-                <div className="fas">
-                  <FaLock fontSize="20" />
-                </div>
-                <input type="password" placeholder="Password" id="myInput2" />
-                {eye === "password" ? (
-                  <FaEye className="eye" onClick={togglePasswordVisibility} />
-                ) : (
-                  <FaEyeSlash
-                    className="eye"
-                    onClick={togglePasswordVisibility}
-                  />
-                )}
-              </div>
-              <input type="submit" className="btn" defaultValue="Sign up" />
-              {/* <p className="social-text">Or Sign up with social platforms</p>
-              <div className="social-media">
-                <a href="#" className="social-icon">
-                  <FaFacebookF fontSize="20" />
-                </a>
-                <a href="#" className="social-icon">
-                  <FaTwitter fontSize="20" />
-                </a>
-                <a href="#" className="social-icon">
-                  <FaGoogle fontSize="20" />
-                </a>
-                <a href="#" className="social-icon">
-                  <FaLinkedinIn fontSize="20" />
-                </a>
-              </div> */}
-            </form>
+    <div className="mt-16 mb-16 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-center" >
+      {/* Sign in section */}
+      <div className="mt-[10vh] w-full max-w-full flex-col items-center md:pl-4 lg:pl-0 xl:max-w-[420px]">
+        <h4 className="mb-2.5 text-4xl font-bold text-navy-700 dark:text-white">
+          Sign In
+        </h4>
+        <p className="mb-9 ml-1 text-base text-gray-600">
+          Enter your email and password to sign in!
+        </p>
+        {/* <div className="mb-6 flex h-[50px] w-full items-center justify-center gap-2 rounded-xl bg-lightPrimary hover:cursor-pointer dark:bg-navy-800">
+          <div className="rounded-full text-xl">
+            <FcGoogle />
           </div>
+          <h5 className="text-sm font-medium text-navy-700 dark:text-white">
+            Sign In with Google
+          </h5>
+        </div> */}
+        {/* <div className="mb-6 flex items-center  gap-3">
+          <div className="h-px w-full bg-gray-200 dark:bg-navy-700" />
+          <p className="text-base text-gray-600 dark:text-white"> or </p>
+          <div className="h-px w-full bg-gray-200 dark:bg-navy-700" />
+        </div> */}
+        {/* Email */}
+        <form onSubmit={handleUser} >
+        <InputField
+          // variant="auth"
+          extra="mb-3"
+          label="Email*"
+          placeholder="mail@simmmple.com"
+          id="email"
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        {/* Password */}
+        <InputField
+          // variant="auth"
+          extra="mb-3"
+          label="Password*"
+          placeholder="********"
+          id="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)} 
+        />
+        
+        {/* Checkbox */}
+        <div className="mb-4 flex items-center justify-between px-2">
+          {/* <div className="flex items-center">
+            <Checkbox />
+            <p className="ml-2 text-sm font-medium text-navy-700 dark:text-white">
+              Keep me logged In
+            </p>
+          </div> */}
+          <a
+            className="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
+            href=" "
+          >
+            Forgot Password?
+          </a>
         </div>
-        <div className="panels-container">
-          <div className="panel left-panel">
-            <div className="content">
-              <h3>New here ?</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Debitis, ex ratione. Aliquid!
-              </p>
-              <button
-                className="btn transparent"
-                id="sign-up-btn"
-                onClick={handleSignUpClick}
-              >
-                Sign up
-              </button>
-            </div>
-          </div>
-          <div className="panel right-panel">
-            <div className="content">
-              <h3>One of us ?</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-                laboriosam ad deleniti.
-              </p>
-              <button
-                className="btn transparent"
-                id="sign-in-btn"
-                onClick={handleSignInClick}
-              >
-                Sign in
-              </button>
-            </div>
-          </div>
-        </div>
+        <button className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
+         type="submit"
+         >
+          Sign In
+        </button>
+        </form>
+        {/* <div className="mt-4">
+          <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">
+            Not registered yet?
+          </span>
+          <a
+            href=" "
+            className="ml-1 text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
+          >
+            Create an account
+          </a>
+        </div> */}
       </div>
     </div>
   );
-};
-
-export default Auth;
+}
