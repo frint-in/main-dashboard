@@ -1,14 +1,27 @@
 import React from "react";
 import Card from "../../../components/card";
 import { FaAngleDown } from "react-icons/fa";
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import axios from 'axios'
+import { addInternship } from "../../../api/company";
 
 
 const PostInternship = () => {
+
+  const queryClient = useQueryClient();
+
+  const createInternshipMutation = useMutation({
+    mutationFn: addInternship,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['internships']});
+      console.log("success bro!")
+    }
+  });
+
 
   const internshipSchema = z.object({
     title: z.string().min(2).max(30),
@@ -20,11 +33,13 @@ const PostInternship = () => {
     type: z.string(),
     experience: z.string(),
     skills: z.string(),
+    image: z.any()
   });
 
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(internshipSchema),
@@ -33,7 +48,18 @@ const PostInternship = () => {
   const submitData = (data) => {
     console.log("IT WORKED", data);
 
-
+    
+    const formData = new FormData();
+    
+    formData.append("image", data.image[0]);
+    // formData.append("hi", data.companyName);
+    data = { ...data, image: data.image[0] };
+    formData.append("image", JSON.stringify(data))
+    
+    console.log("formData", formData);
+    
+    createInternshipMutation.mutate(formData)
+    
   };
 
   return (
@@ -60,6 +86,35 @@ const PostInternship = () => {
             />
             {errors.title && <p>{errors.title.message}</p>}
           </div>
+
+          <div className="mb-4">
+  <label
+    className="block text-gray-700 text-sm font-bold mb-2"
+    htmlFor="image"
+  >
+    Image <span style={{ color: "red" }}>*</span>
+  </label>
+  <Controller
+            control={control}
+            name={"image"}
+            rules={{ required: "Recipe picture is required" }}
+            render={({ field: { value, onChange, ...field } }) => {
+              return (
+                <input
+                  {...field}
+                  value={value?.fileName}
+                  onChange={(event) => {
+                    onChange(event.target.files[0]);
+                  }}
+                  type="file"
+                  id="image"
+                />
+              );
+            }}
+          />
+</div>
+
+
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
