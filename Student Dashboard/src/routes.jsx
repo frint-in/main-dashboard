@@ -13,6 +13,7 @@ import DataTables from "./views/admin/tables/index";
 
 // Auth Imports
 import SignIn from "./views/auth/SignIn";
+import Auth from "./views/auth/Auth";
 
 // Icon Imports
 import {
@@ -104,9 +105,9 @@ const routes = [
   // {
   //   name: "Sign In",
   //   layout: "/auth",
-  //   path: "sign-in",
+  //   path: "",
   //   icon: <MdLock className="h-6 w-6" />,
-  //   component: <SignIn />,
+  //   component: <Auth />,
   // },
   // {
   //   name: "Sign In",
