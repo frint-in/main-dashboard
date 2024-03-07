@@ -11,17 +11,15 @@ import { addInternship } from "../../../api/company";
 
 
 const PostInternship = () => {
-
   const queryClient = useQueryClient();
 
   const createInternshipMutation = useMutation({
     mutationFn: addInternship,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['internships']});
-      console.log("success bro!")
-    }
+      queryClient.invalidateQueries({ queryKey: ["internships"] });
+      console.log("success bro!");
+    },
   });
-
 
   const internshipSchema = z.object({
     title: z.string().min(2).max(30),
@@ -33,8 +31,9 @@ const PostInternship = () => {
     type: z.string(),
     experience: z.string(),
     skills: z.string(),
-    image: z.any()
+    image: z.any(),
   });
+
 
   const {
     register,
@@ -48,18 +47,19 @@ const PostInternship = () => {
   const submitData = (data) => {
     console.log("IT WORKED", data);
 
-    
     const formData = new FormData();
-    
+    formData.append("title", data.title);
+    formData.append("companyName", data.companyName);
+    formData.append("description", data.description);
+    formData.append("deadline", data.deadline);
+    formData.append("gender", data.gender);
+    formData.append("stipend", data.stipend);
+    formData.append("type", data.type);
+    formData.append("experience", data.experience);
+    formData.append("skills", data.skills);
     formData.append("image", data.image[0]);
-    // formData.append("hi", data.companyName);
-    data = { ...data, image: data.image[0] };
-    formData.append("image", JSON.stringify(data))
-    
-    console.log("formData", formData);
-    
-    createInternshipMutation.mutate(formData)
-    
+
+    createInternshipMutation.mutate(formData);
   };
 
   return (
@@ -104,7 +104,7 @@ const PostInternship = () => {
                   {...field}
                   value={value?.fileName}
                   onChange={(event) => {
-                    onChange(event.target.files[0]);
+                    onChange(event.target.files);
                   }}
                   type="file"
                   id="image"
