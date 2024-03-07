@@ -4,6 +4,7 @@ import Admin from "./layouts/admin";
 // import Auth from "./layouts/auth";
 import Auth from "./views/auth/Auth"
 import Signup from "./views/auth/Signup";
+import SingleInternship from "./views/admin/singleInternship";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="admin/*" element={<Admin />} />
         <Route path="/" element={<Navigate to="/admin" replace />} />
+
       </Routes>
     </Router>
   );
