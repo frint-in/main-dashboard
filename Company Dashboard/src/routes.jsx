@@ -44,28 +44,27 @@ const routes = [
     icon: <MdHome className="h-6 w-6" />,
     component: <MainDashboard />,
   },
-
   {
     name: "Applicants",
     layout: "/admin",
     icon: <GrSchedules className="h-6 w-6" />,
-    path: "pending-list",
+    path: "applicants",
     component: <PendingDashboard />,
   },
-  {
-    name: "Posted Works",
-    layout: "/admin",
-    icon: <MdOutlineTask className="h-6 w-6" />,
-    path: "pickup-list",
-    component: <PickupDashboard />,
-  },
-  {
-    name: "Shortlisted",
-    layout: "/admin",
-    icon: <MdPendingActions className="h-6 w-6" />,
-    path: "received-list",
-    component: <ReceivedDashboard />,
-  },
+  // {
+  //   name: "Posted Works",
+  //   layout: "/admin",
+  //   icon: <MdOutlineTask className="h-6 w-6" />,
+  //   path: "pickup-list",
+  //   component: <PickupDashboard />,
+  // },
+  // {
+  //   name: "Shortlisted",
+  //   layout: "/admin",
+  //   icon: <MdPendingActions className="h-6 w-6" />,
+  //   path: "received-list",
+  //   component: <ReceivedDashboard />,
+  // },
   {
     name: "Internships",
     layout: "/admin",
