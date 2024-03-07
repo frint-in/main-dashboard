@@ -43,7 +43,7 @@ const Marketplace = () => {
   console.log("data in frontend", internships);
 
   // console.log('time?', internships.createdAt);
-  console.log("dajs tryouts", dayjs(internships[0].createdAt).format("MM-DD-YYYY"));
+  // console.log("dajs tryouts", dayjs(internships[0].createdAt).format("MM-DD-YYYY"));
 
   return (
     <div className="mt-3 grid h-full grid-cols-1 gap-5 xl:grid-cols-2">
@@ -94,7 +94,7 @@ const Marketplace = () => {
 
         {/* NFTs trending card */}
         <div className="z-20 grid grid-cols-1 gap-5 md:grid-cols-3">
-        {!isLoading && internships.map((intership) => (
+        {!isLoading &&   internships.map((intership) => (
           <NftCard
           title={intership.description}
           stipend={intership.stipend || 'not given'}
@@ -107,6 +107,7 @@ const Marketplace = () => {
           location={intership.description}
         />
         )) }
+        
 
         </div>
       </div>
