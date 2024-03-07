@@ -20,6 +20,7 @@ import Banner1 from "../marketplace/components/Banner";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllInterships } from "../../../api/company";
+import { getAllApprovedApplicants } from "../../../api/intership";
 
 const Dashboard = () => {
   const url = useSelector((state) => state.shop.value2);
@@ -40,6 +41,14 @@ const Dashboard = () => {
   } = useQuery({
     queryKey: ["interships"], // Include user.uid in the query key
     queryFn: () => getAllInterships(), // Call fetchEventsById with user.uid
+  });
+
+
+  const {
+    data: applicants,
+  } = useQuery({
+    queryKey: ["approvedApplicants"], // Include user.uid in the query key
+    queryFn: () => getAllApprovedApplicants(), // Call fetchEventsById with user.uid
   });
   
   const PendingOrders = async () => {
@@ -284,7 +293,7 @@ const Dashboard = () => {
       <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3">
         <Widget
           icon={<GrSchedules className="h-7 w-7" />}
-          title={"Application"}
+          title={"Registered Applicants"}
           subtitle={ReceivedData.length}
         />
         <Widget
@@ -295,7 +304,7 @@ const Dashboard = () => {
         <Widget
           icon={<MdOutlinePendingActions className="h-7 w-7" />}
           title={"Shortlisted"}
-          subtitle={PickupData.length}
+          subtitle={applicants?.length}
         />
       </div>
 
