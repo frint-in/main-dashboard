@@ -10,47 +10,6 @@ const Dashboard = () => {
   const Date2 = useSelector((state) => state.date.value2);
   const [DeliveredData, setDeliveredData] = useState([]);
 
-  const DeliveredOrders = async () => {
-    try {
-      // const response = await Axios.get(`/api/delivered/orders`, {
-      //   withCredentials: true,
-      // });
-      if (response.status === 200) {
-        const filteredData = response.data.filter(
-          (order) => order.servicelocation === url
-        );
-        if (Date2 === "today") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0] === Date
-          );
-          setDeliveredData(dataWithDate);
-        }
-        if (Date2 === "thismonth") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0].slice(0, 7) === Date
-          );
-          setDeliveredData(dataWithDate);
-        }
-        if (Date2 === "thisyear") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0].slice(0, 4) === Date
-          );
-          setDeliveredData(dataWithDate);
-        }
-        if (Date === "total") {
-          setDeliveredData(filteredData);
-        }
-      } else {
-        console.log("ooopppssss");
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  useEffect(() => {
-    DeliveredOrders();
-  }, [url, Date]);
 
   return (
     <div>
