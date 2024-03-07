@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-const AXIOS_BASE_URL = 'http://localhost:8000'
+const AXIOS_BASE_URL = import.meta.env.VITE_REACT_API_BASE_ROUTE
+
+console.log("hello>>>",AXIOS_BASE_URL);
 
 export async function addInternship() {
     const response = await axios.post(`${AXIOS_BASE_URL}/api/internship/addinternship`);
@@ -12,7 +14,8 @@ export async function addInternship() {
 export async function getAllInterships() {
   try {
     console.log("hi1");
-    const response = await axios.get(`http://localhost:8000/api/internship/all`);
+    // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
+    const response = await axios.get(`${import.meta.env.VITE_REACT_API_BASE_ROUTE}/api/internship/all`);
     console.log("hi1");
 
     const data = response.data;
@@ -26,32 +29,4 @@ export async function getAllInterships() {
 
 }
 
- 
-  export async function createPost(newPost) {
-    const response = await fetch(`http://localhost:3000/posts`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newPost)
-    });
-    return response.json()
-  }
   
-  export async function updatePost(updatedPost) {
-    const response = await fetch(`http://localhost:3000/posts/${updatedPost.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(updatedPost)
-    });
-    return response.json()
-  }
-  
-  export async function deletePost(id) {
-    const response = await fetch(`http://localhost:3000/posts/${id}`, {
-      method: "DELETE",
-    });
-    return response.json()
-  }
