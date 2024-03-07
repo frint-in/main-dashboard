@@ -16,6 +16,10 @@ import Widget from "../../../components/widget/Widget";
 import CheckTable from "../default/components/CheckTable";
 import tableDataCheck from "./variables/tableDataCheck.json";
 
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getStudentByToken } from "../../../api/student";
+
+
 const Dashboard = () => {
   const url = useSelector((state) => state.shop.value2);
   const Date = useSelector((state) => state.date.value);
@@ -27,53 +31,11 @@ const Dashboard = () => {
   const [TotalData, setTotalData] = useState([]);
   const [Earning, setEarning] = useState([]);
 
-  const PendingOrders = async () => {
-    try {
-      // const response = await Axios.get(`/api/pending/orders`, {
-      //   withCredentials: true,
-      // });
-      if (response.status === 200) {
-        const filteredData = response.data.filter(
-          (order) => order.servicelocation === url
-        );
-        if (Date2 === "today") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0] === Date
-          );
-          setPendingData(dataWithDate);
-        }
-        if (Date2 === "thismonth") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0].slice(0, 7) === Date
-          );
-          setPendingData(dataWithDate);
-        }
-        if (Date2 === "thisyear") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0].slice(0, 4) === Date
-          );
-          setPendingData(dataWithDate);
-        }
-        if (Date === "total") {
-          setPendingData(filteredData);
-        }
-      } else {
-        console.log("ooooopppppsssss");
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  useEffect(() => {
-    PendingOrders();
-  }, [url, Date]);
-
   const PickupOrders = async () => {
     try {
-      const response = await Axios.get(`/api/pickup/orders`, {
-        withCredentials: true,
-      });
+      // const response = await Axios.get(`/api/pickup/orders`, {
+      //   withCredentials: true,
+      // });
       if (response.status === 200) {
         const filteredData = response.data.filter(
           (order) => order.servicelocation === url
@@ -107,155 +69,20 @@ const Dashboard = () => {
     }
   };
 
-  useEffect(() => {
-    PickupOrders();
-  }, [url, Date]);
 
-  const ReceivedOrders = async () => {
-    try {
-      const response = await Axios.get(`/api/received/orders`, {
-        withCredentials: true,
-      });
-      if (response.status === 200) {
-        const filteredData = response.data.filter(
-          (order) => order.servicelocation === url
-        );
-        if (Date2 === "today") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0] === Date
-          );
-          setReceivedData(dataWithDate);
-        }
-        if (Date2 === "thismonth") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0].slice(0, 7) === Date
-          );
-          setReceivedData(dataWithDate);
-        }
-        if (Date2 === "thisyear") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0].slice(0, 4) === Date
-          );
-          setReceivedData(dataWithDate);
-        }
-        if (Date === "total") {
-          setReceivedData(filteredData);
-        }
-      } else {
-        console.log("ooooopppppsssss");
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  const {
+    isLoading,
+    isError,
+    data: student,
+    error,
+  } = useQuery({
+    queryKey: ["student"], 
+    queryFn: () => getStudentByToken(), 
+  });
 
-  useEffect(() => {
-    ReceivedOrders();
-  }, [url, Date]);
+  console.log('the logged in user',student );
 
-  const DeliveredOrders = async () => {
-    try {
-      // const response = await Axios.get(`/api/delivered/orders`, {
-      //   withCredentials: true,
-      // });
-      if (response.status === 200) {
-        const filteredData = response.data.filter(
-          (order) => order.servicelocation === url
-        );
-        if (Date2 === "today") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0] === Date
-          );
-          setDeliveredData(dataWithDate);
-        }
-        if (Date2 === "thismonth") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0].slice(0, 7) === Date
-          );
-          setDeliveredData(dataWithDate);
-        }
-        if (Date2 === "thisyear") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0].slice(0, 4) === Date
-          );
-          setDeliveredData(dataWithDate);
-        }
-        if (Date === "total") {
-          setDeliveredData(filteredData);
-        }
-      } else {
-        console.log("ooopppssss");
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
 
-  useEffect(() => {
-    DeliveredOrders();
-  }, [url, Date]);
-
-  const TotalOrders = async () => {
-    try {
-      const response = await Axios.get(`/api/total/orders`, {
-        withCredentials: true,
-      });
-      if (response.status === 200) {
-        const filteredData = response.data.filter(
-          (order) => order.servicelocation === url
-        );
-        if (Date2 === "today") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0] === Date
-          );
-          setTotalData(dataWithDate);
-          const todayEarnings = dataWithDate.reduce(
-            (accumulator, order) => accumulator + order.price,
-            0
-          );
-          setEarning(todayEarnings);
-        }
-        if (Date2 === "thismonth") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0].slice(0, 7) === Date
-          );
-          setTotalData(dataWithDate);
-          const monthlyEarnings = dataWithDate.reduce(
-            (accumulator, order) => accumulator + order.price,
-            0
-          );
-          setEarning(monthlyEarnings);
-        }
-        if (Date2 === "thisyear") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0].slice(0, 4) === Date
-          );
-          setTotalData(dataWithDate);
-          const yearlyEarnings = dataWithDate.reduce(
-            (accumulator, order) => accumulator + order.price,
-            0
-          );
-          setEarning(yearlyEarnings);
-        }
-        if (Date === "total") {
-          setTotalData(filteredData);
-          const totalEarnings = filteredData.reduce(
-            (accumulator, order) => accumulator + order.price,
-            0
-          );
-          setEarning(totalEarnings);
-        }
-      } else {
-        console.log("ooopppppssss.......error");
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  useEffect(() => {
-    TotalOrders();
-  }, [url, Date]);
 
   const pieChartData = [
     PendingData.length,
