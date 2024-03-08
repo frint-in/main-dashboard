@@ -1,7 +1,26 @@
+import { useParams } from "react-router-dom";
 import Card from "../../../../components/card";
 import React from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+// import { getAllInterships } from "../../../../api/student";
+import { findIntershipById } from "../../../../api/user";
 
 const General = () => {
+  const {id} = useParams();
+  const queryClient = useQueryClient();
+
+  const {
+    isLoading,
+    isError,
+    data: internship,
+    error,
+  } = useQuery({
+    queryKey: ["intership", id], // Include user.uid in the query key
+    queryFn: () => findIntershipById(id), // Call fetchEventsById with user.uid
+  });
+  console.log("this is general");
+  console.log("data in frontend", internship);
+
   return (
     <Card extra={"w-full h-full p-3"}>
       {/* Header */}
