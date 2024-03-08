@@ -36,7 +36,6 @@ import { BiSolidShoppingBags } from "react-icons/bi";
 import EditProfile from "./views/admin/editProfile";
 import SingleInternship from "./views/admin/singleInternship";
 
-
 const routes = [
   {
     name: "Main Dashboard",
@@ -99,7 +98,7 @@ const routes = [
   {
     // name: "Edit Profile",
     layout: "/admin",
-    path: "single internship",
+    path: "single internship/:id",
     // icon: <FaUserEdit className="h-6 w-6" />,
     component: <SingleInternship />,
   },

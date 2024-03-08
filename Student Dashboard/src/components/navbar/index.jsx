@@ -11,11 +11,27 @@ import { changezooroad, changehengrabari } from "../../feature/Shop/ShopSlice";
 import axios from "axios";
 
 
+import { useMutation, useQuery, useQueryClient   } from "@tanstack/react-query";
+import { getStudentByToken } from "../../api/student";
+
+
 
 import avatar from "../../assets/img/avatars/avatar4.png";
 import { changethismonth, changethisyear, changetoday, changetotal } from "../../feature/Date/DateSlice";
 
 const Navbar = (props) => {
+  const {
+    isLoading,
+    isError,
+    data: student,
+    error,
+  } = useQuery({
+    queryKey: ["student"], 
+    queryFn: () => getStudentByToken(), 
+  });
+
+  console.log('the logged in user',student );
+
   const navigate = useNavigate()
   const { onOpenSidenav, brandText } = props;
   const [darkmode, setDarkmode] = React.useState(false);
@@ -46,7 +62,7 @@ const Navbar = (props) => {
         <div className="h-6 w-[224px] pt-1">
           <Link
             className="text-sm font-normal text-navy-700 hover:underline dark:text-white dark:hover:text-white"
-            href=" "
+            to=" "
           >
             Welcome 
             <span className="mx-1 text-sm text-navy-700 hover:text-navy-700 dark:text-white">
@@ -58,7 +74,7 @@ const Navbar = (props) => {
             to="#"
             className="font-bold capitalize hover:text-navy-700 dark:hover:text-white"
           >
-            Ritav Kashyap
+            {student?.uname}
           </Link>
         </p>
       </div>

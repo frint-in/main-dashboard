@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-const AXIOS_BASE_URL = import.meta.env.VITE_REACT_API_BASE_ROUTE
+const AXIOS_BASE_URL = import.meta.env.VITE_REACT_BASE_ROUTE
+const AXIOS_API_BASE_URL = import.meta.env.VITE_REACT_BASE_ROUTE
+
 
 console.log("hello>>>",AXIOS_BASE_URL);
 

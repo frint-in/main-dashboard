@@ -8,6 +8,7 @@ import { getStudentByToken } from "../../../api/student";
 const EditProfile = () => {
   
   const [uname, setUname] = useState('');
+  const [avatar, setAvatar] = useState('');
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState('');
   const [phno, setphno] = useState('');
