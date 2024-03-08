@@ -17,7 +17,7 @@ import CheckTable from "../default/components/CheckTable";
 import tableDataCheck from "./variables/tableDataCheck.json";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getStudentByToken } from "../../../api/student";
+import { getStudentByToken, getUserApprovedApplications, getUserCompletedApplications, getUserPendingApplications } from "../../../api/student";
 
 
 const Dashboard = () => {
@@ -71,13 +71,32 @@ const Dashboard = () => {
 
 
   const {
-    isLoading,
-    isError,
     data: student,
-    error,
   } = useQuery({
     queryKey: ["student"], 
     queryFn: () => getStudentByToken(), 
+  });
+
+
+  const {
+    data: pending_applications,
+  } = useQuery({
+    queryKey: ["pending"], 
+    queryFn: () => getUserPendingApplications(), 
+  });
+
+  const {
+    data: approved_applications,
+  } = useQuery({
+    queryKey: ["approved"], 
+    queryFn: () => getUserApprovedApplications(), 
+  });
+
+  const {
+    data: completed_applications,
+  } = useQuery({
+    queryKey: ["completed"], 
+    queryFn: () => getUserCompletedApplications(), 
   });
 
   console.log('the logged in user',student );
@@ -85,10 +104,9 @@ const Dashboard = () => {
 
 
   const pieChartData = [
-    PendingData.length,
-    PickupData.length,
-    ReceivedData.length,
-    DeliveredData.length,
+    pending_applications?.length,
+    approved_applications?.length,
+    completed_applications?.length,
   ];
 
   return (
@@ -97,17 +115,17 @@ const Dashboard = () => {
         <Widget
           icon={<GrSchedules className="h-7 w-7" />}
           title={"Applied"}
-          subtitle={ReceivedData.length}
+          subtitle={pending_applications?.length}
         />
         <Widget
           icon={<MdOutlineTask className="h-6 w-6" />}
           title={"Completed"}
-          subtitle={PendingData.length}
+          subtitle={completed_applications?.length}
         />
         <Widget
           icon={<MdOutlinePendingActions className="h-7 w-7" />}
           title={"Ongoing"}
-          subtitle={PickupData.length}
+          subtitle={approved_applications?.length}
         />
       </div>
 
@@ -120,7 +138,7 @@ const Dashboard = () => {
         <div>
           <CheckTable
             name="Applied Works"
-            tableData={PendingData}
+            tableData={pending_applications}
             action="Pick up"
             status="update/pending/topickup"
           />
@@ -128,7 +146,7 @@ const Dashboard = () => {
         <div>
           <CheckTable
             name="Completed Works"
-            tableData={PickupData}
+            tableData={completed_applications}
             action="Received"
             status="update/pickup/toreceived"
           />
@@ -136,7 +154,7 @@ const Dashboard = () => {
         <div>
           <CheckTable
             name="Ongoing Works"
-            tableData={ReceivedData}
+            tableData={approved_applications}
             action="Delivery"
             status="update/received/todelivery"
           />
