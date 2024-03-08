@@ -35,6 +35,8 @@ import { FaUserEdit } from "react-icons/fa";
 import { BiSolidShoppingBags } from "react-icons/bi";
 import EditProfile from "./views/admin/editProfile";
 import PostInternship from "./views/admin/postInternship";
+import StudentProfile from "./views/admin/studentProfile";
+import EditInternship from "./views/admin/editInternship";
 
 const routes = [
   {
@@ -43,13 +45,6 @@ const routes = [
     path: "default",
     icon: <MdHome className="h-6 w-6" />,
     component: <MainDashboard />,
-  },
-  {
-    name: "Applicants",
-    layout: "/admin",
-    icon: <GrSchedules className="h-6 w-6" />,
-    path: "applicants",
-    component: <PendingDashboard />,
   },
   // {
   //   name: "Posted Works",
@@ -93,6 +88,27 @@ const routes = [
     path: "profile",
     icon: <CgProfile className="h-6 w-6" />,
     component: <Profile />,
+  },
+  {
+    // name: "Applicants",
+    layout: "/admin",
+    // icon: <GrSchedules className="h-6 w-6" />,
+    path: "applied shorted/:id",
+    component: <PendingDashboard />,
+  },
+  {
+    // name: "Profile",
+    layout: "/admin",
+    path: "edit internship/:id",
+    // icon: <CgProfile className="h-6 w-6" />,
+    component: <EditInternship />,
+  },
+  {
+    // name: "Profile",
+    layout: "/admin",
+    path: "student details/:id",
+    // icon: <CgProfile className="h-6 w-6" />,
+    component: <StudentProfile />,
   },
   // {
   //   name: "Edit Profile",

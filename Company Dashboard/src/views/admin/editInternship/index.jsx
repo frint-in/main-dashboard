@@ -398,11 +398,11 @@
 
 
 
-  import React, { useState } from "react";
+import React, { useState } from "react";
 import Card from "../../../components/card";
 import axios from "axios";
 
-const PostInternship = () => {
+const EditInternship = () => {
   const [formData, setFormData] = useState({
     name: "",
     image: null,
@@ -447,7 +447,7 @@ const PostInternship = () => {
       );
       console.log(response.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -577,7 +577,7 @@ const PostInternship = () => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
               id="deadline"
               name="deadline"
-              type="date"
+              type="text"
               placeholder="Deadline"
               value={formData.deadline}
               onChange={handleInputChange}
@@ -616,7 +616,7 @@ const PostInternship = () => {
               id="type"
               name="type"
               type="text"
-              placeholder="freelance/internship"
+              placeholder="Type"
               value={formData.type}
               onChange={handleInputChange}
               required
@@ -692,7 +692,7 @@ const PostInternship = () => {
               id="mode"
               name="mode"
               type="text"
-              placeholder="remote/onsite"
+              placeholder="Mode"
               value={formData.mode}
               onChange={handleInputChange}
               required
@@ -703,7 +703,7 @@ const PostInternship = () => {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:bg-gray-500"
             type="submit"
           >
-            Submit
+            Save
           </button>
         </form>
       </div>
@@ -711,4 +711,4 @@ const PostInternship = () => {
   );
 };
 
-export default PostInternship;
+export default EditInternship;

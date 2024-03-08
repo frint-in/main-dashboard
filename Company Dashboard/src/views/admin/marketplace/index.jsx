@@ -96,6 +96,7 @@ const Marketplace = () => {
         <div className="z-20 grid grid-cols-1 gap-5 md:grid-cols-3">
         {internships?.map((intership) => (
           <NftCard
+          id={intership._id}
           title={intership.description}
           stipend={intership.stipend || 'not given'}
           image={NFt3}
