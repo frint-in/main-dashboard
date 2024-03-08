@@ -24,15 +24,17 @@ const EditProfile = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.put(`http://localhost:8000/api/user/${student._id}`, { email, uname, phno, gender, description, specialisation, education, dob, languages, skills, resume },
-      { withCredentials: true }
 
-      );
       if (res.data) {
         console.log(res.data);
         // navigate('/auth');
         // setIsAdminAuthenticated(true)
         // sessionStorage.setItem('token', res.data.token)
+
+        const res = await axios.put(`http://localhost:8000/api/user/${student._id}`, { email, uname, phno, gender, description, specialisation, education, dob, languages, skills, resume },
+        { withCredentials: true }
+        )
+
         alert('Profile is saved')
 
       } else {
