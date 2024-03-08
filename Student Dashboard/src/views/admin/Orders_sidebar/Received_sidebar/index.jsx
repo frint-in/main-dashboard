@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 
 
 import CheckTable from "../../default/components/CheckTable";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getStudentByToken, getUserApprovedApplications, getUserCompletedApplications, getUserPendingApplications } from "../../../../api/student";
 
 
 const Dashboard = () => {
@@ -15,7 +17,12 @@ const Dashboard = () => {
   const Date2 = useSelector((state) => state.date.value2)
 const [ReceivedData, setReceivedData] = useState([]);
 
-
+const {
+  data: approved_applications,
+} = useQuery({
+  queryKey: ["approved"], 
+  queryFn: () => getUserApprovedApplications(), 
+});
  
 
   
@@ -32,7 +39,7 @@ const [ReceivedData, setReceivedData] = useState([]);
       <div>
           <CheckTable
             name="Ongoing Works"
-            tableData={ReceivedData}
+            tableData={approved_applications}
             action= "Delivery"
             status= "update/received/todelivery"
           />
