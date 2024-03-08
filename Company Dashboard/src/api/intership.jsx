@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-const AXIOS_BASE_URL = import.meta.env.VITE_REACT_API_BASE_ROUTE
+// const AXIOS_BASE_URL = import.meta.env.VITE_REACT_API_BASE_ROUTE
 
-console.log("hello>>>",AXIOS_BASE_URL);
+// console.log("hello>>>",AXIOS_BASE_URL);
 
 // export async function addInternship() {
 //     const response = await axios.post(`${AXIOS_BASE_URL}/api/internship/addinternship`);
@@ -15,7 +15,7 @@ export async function getAllApprovedApplicants() {
   try {
     console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
-    const response = await axios.get(`${import.meta.env.VITE_REACT_API_BASE_ROUTE}/api/internship/getUsersWithapproved`);
+    const response = await axios.get(`/api/internship/getUsersWithapproved`);
     console.log("hi1");
 
     const data = response.data;

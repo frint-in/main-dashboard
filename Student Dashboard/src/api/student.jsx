@@ -1,13 +1,13 @@
 import axios from 'axios'
 
-const AXIOS_BASE_URL = import.meta.env.VITE_REACT_BASE_ROUTE
-const AXIOS_API_BASE_URL = import.meta.env.VITE_REACT_BASE_ROUTE
+// const AXIOS_BASE_URL = import.meta.env.VITE_REACT_BASE_ROUTE
+// const AXIOS_API_BASE_URL = import.meta.env.VITE_REACT_BASE_ROUTE
 
 
-console.log("hello>>>",AXIOS_BASE_URL);
+// console.log("hello>>>",AXIOS_BASE_URL);
 
 export async function getStudentByToken() {
-    const response = await axios.get(`${AXIOS_BASE_URL}/api/user/finduserbytoken`, {withCredentials: true});
+    const response = await axios.get(`/api/user/finduserbytoken`, {withCredentials: true});
     const data = response.data;
 
     return data;
@@ -17,7 +17,7 @@ export async function getAllInterships() {
   try {
     console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
-    const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
+    const response = await axios.get(`/api/internship/all`);
     console.log("hi1");
 
     const data = response.data;
@@ -35,7 +35,7 @@ export async function getAllInterships() {
 export async function getUserPendingApplications() {
 
   try {
-    const response = await axios.get(`${AXIOS_BASE_URL}/api/user/getUserWithPendingStatusForInternship`, {withCredentials: true});
+    const response = await axios.get(`/api/user/getUserWithPendingStatusForInternship`, {withCredentials: true});
     const data = response.data;
   
     return data;
@@ -49,7 +49,7 @@ export async function getUserPendingApplications() {
 export async function getUserApprovedApplications() {
 
   try {
-    const response = await axios.get(`${AXIOS_BASE_URL}/api/user/getUserWithApprovedStatusForInternship`, {withCredentials: true});
+    const response = await axios.get(`/api/user/getUserWithApprovedStatusForInternship`, {withCredentials: true});
     const data = response.data;
   
     return data;
@@ -64,7 +64,7 @@ export async function getUserApprovedApplications() {
 export async function getUserCompletedApplications() {
 
   try {
-    const response = await axios.get(`${AXIOS_BASE_URL}/api/user/getUserWithCompletedStatusForInternship`, {withCredentials: true});
+    const response = await axios.get(`/api/user/getUserWithCompletedStatusForInternship`, {withCredentials: true});
     const data = response.data;
   
     return data;
