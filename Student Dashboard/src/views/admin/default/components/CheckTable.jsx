@@ -31,22 +31,22 @@ const CheckTable = ({ name, tableData, action, status }) => {
         <table className="w-full" variant="simple" color="gray-500" mb="24px">
           <thead>
             <tr>
-              <th className="border-b border-gray-200 pr-16 pb-[10px] text-center dark:!border-navy-700">
+              <th className="border-b border-gray-200 pb-[10px] text-center dark:!border-navy-700">
                 <div className="text-xs font-bold tracking-wide text-gray-600 lg:text-xs">
                   Company Name
                 </div>
               </th>
-              <th className="border-b border-gray-200 pr-16 pb-[10px] text-center dark:!border-navy-700">
+              <th className="border-b border-gray-200 pb-[10px] text-center dark:!border-navy-700">
                 <div className="text-xs font-bold tracking-wide text-gray-600 lg:text-xs">
                 Position
                 </div>
               </th>
-              <th className="border-b border-gray-200 pr-16 pb-[10px] text-center dark:!border-navy-700">
-                <div className="text-xs font-bold tracking-wide text-gray-600 lg:text-xs">
+              <th className="border-b border-gray-200 pb-[10px] text-center dark:!border-navy-700">
+                <div className="text-xs font-bold tracking-wide text-gray-600 lg:text-xs ">
                   Type
                 </div>
               </th>
-              <th className="border-b border-gray-200 pr-16 pb-[10px] text-center dark:!border-navy-700">
+              <th className="border-b border-gray-200 pb-[10px] text-center dark:!border-navy-700">
                 <div className="text-xs font-bold tracking-wide text-gray-600 lg:text-xs">
                   Status
                 </div>
@@ -58,16 +58,16 @@ const CheckTable = ({ name, tableData, action, status }) => {
 
             {tableData?.map((row) => (
               <tr key={row.internshipId}>
-                <td className="text-sm font-bold text-navy-700 dark:text-white ">
+                <td className="text-sm font-bold text-navy-700 dark:text-white text-center">
                   {row.name}
                 </td>
-                <td className="pt-[15px] pb-[16px] sm:text-[14px]">
+                <td className="pt-[15px] pb-[16px] sm:text-[14px] text-center">
                   {row.position}
                 </td>
-                <td className="pt-[15px] pb-[16px] sm:text-[14px]">
+                <td className="pt-[15px] pb-[16px] sm:text-[14px] text-center">
                   {row.type}
                 </td>
-                <td className="pt-[15px] pb-[16px] sm:text-[14px]">
+                <td className="pt-[15px] pb-[16px] sm:text-[14px] text-center">
                   {row.status}
                 </td>
               </tr>

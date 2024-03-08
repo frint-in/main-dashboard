@@ -26,18 +26,13 @@ const General = () => {
       {/* Header */}
       <div className="mt-2 mb-8 w-full">
         <h4 className="px-2 text-xl font-bold text-navy-700 dark:text-white">
-        Title
+        {internship?.name || 'Company Name' }
         </h4>
         <h5 className="px-2 text-l font-bold text-navy-700 dark:text-white">
-        Company Name
+        {internship?.companyName || 'Company Name' }
         </h5>
         <p className="mt-2 px-2 text-base text-gray-600">
-          (Description)
-          As we live, our hearts turn colder. Cause pain is what we go through
-          as we become older. We get insulted by others, lose trust for those
-          others. We get back stabbed by friends. It becomes harder for us to
-          give others a hand. We get our heart broken by people we love, even
-          that we give them all...
+          {internship?.description}
         </p>
       </div>
       {/* Cards */}
@@ -45,54 +40,54 @@ const General = () => {
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Position</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            Assam Engineering College
+          {internship?.position}
           </p>
         </div>
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Location</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            Assam Engineering College
+            {internship?.location}
           </p>
         </div>
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Mode</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            Assam Engineering College
+          {internship?.mode || 'mode'}
           </p>
         </div>
 
         <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Deadline </p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            Assamese, English, Hindi
+          {internship?.deadline || 'deadline'}
           </p>
         </div>
 
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Stipend</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            Software Developer, Coder
+          {internship?.stipend || 'stipend'}
           </p>
         </div>
 
         <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Type</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            abc@gmail.com
+          {internship?.type || 'remote/onsite'}
           </p>
         </div>
 
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Experience</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            +91 9365353256
+          {internship?.experience || 'experience'}
           </p>
         </div>
 
         <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Skills</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            7 May 2002
+            {internship?.skills || 'Skills'}
           </p>
         </div>
       </div>

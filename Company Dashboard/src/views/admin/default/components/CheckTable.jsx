@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 // import Checkbox from "../../../../components/checkbox/index";
 import Card from "../../../../components/card/index";
 import axios from "axios";
+import { FcApproval } from "react-icons/fc";
 import Popup from "../../../../components/popup/Popup";
 
 function formatDate(dateString) {
@@ -100,12 +101,13 @@ const CheckTable = ({ name, tableData, action, status }) => {
                   </button>
                 </td>
                 <td className="pt-[15px] pb-[16px] sm:text-[14px]">
-                  <button
+                  {/* <button
                     className="bg-[#4318ff] text-white px-2 py-1 rounded"
                     onClick={(e) => pickup(row)}
                   >
                     {action}
-                  </button>
+                  </button> */}
+                  <FcApproval className="text-[2rem]"/>
                 </td>
               </tr>
             ))}

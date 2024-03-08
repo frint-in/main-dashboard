@@ -447,7 +447,7 @@ const PostInternship = () => {
       );
       console.log(response.data);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
@@ -616,7 +616,7 @@ const PostInternship = () => {
               id="type"
               name="type"
               type="text"
-              placeholder="Type"
+              placeholder="freelance/internship"
               value={formData.type}
               onChange={handleInputChange}
               required
@@ -692,7 +692,7 @@ const PostInternship = () => {
               id="mode"
               name="mode"
               type="text"
-              placeholder="Mode"
+              placeholder="remote/onsite"
               value={formData.mode}
               onChange={handleInputChange}
               required

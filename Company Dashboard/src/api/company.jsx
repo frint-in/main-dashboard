@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // const AXIOS_BASE_URL = import.meta.env.VITE_REACT_API_BASE_ROUTE
 
-console.log("hello>>>",AXIOS_BASE_URL);
+// console.log("hello>>>",AXIOS_BASE_URL);
 
 export async function addInternship() {
     const response = await axios.post(`/api/internship/addinternship`, {withCredentials: true},);
