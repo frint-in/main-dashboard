@@ -2,7 +2,7 @@ import Chart from "react-apexcharts";
 
 const PieChart = ({pieChartData}) => {
  const options = {
-    labels: ["Pending", "Pickup", "Received", "Delivered"],
+    labels: ["Pending", "Ongoing", "Completed", "Delivered"],
     colors: ["#4318FF", "#6AD2FF", "#b718ff", "#8E74FF"],
     chart: {
       width: "50px",

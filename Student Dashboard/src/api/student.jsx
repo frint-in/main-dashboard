@@ -17,7 +17,7 @@ export async function getAllInterships() {
   try {
     console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
-    const response = await axios.get(`${import.meta.env.VITE_REACT_API_BASE_ROUTE}/api/internship/all`);
+    const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
     console.log("hi1");
 
     const data = response.data;
@@ -32,25 +32,50 @@ export async function getAllInterships() {
 }
 
 
-export async function findIntershipById(id) {
+export async function getUserPendingApplications() {
+
   try {
-    console.log("hi1 findIntershipById");
-    const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/find/${id}`);
-    // const response = await axios.get(`${import.meta.env.VITE_REACT_API_BASE_ROUTE}/api/internship/all`);
-    console.log("hi2 findIntershipById");
-
+    const response = await axios.get(`${AXIOS_BASE_URL}/api/user/getUserWithPendingStatusForInternship`, {withCredentials: true});
     const data = response.data;
-    console.log("hi3 findIntershipById");
-
-    console.log("data>>>>", data);
-
   
     return data;
   } catch (error) {
-    console.log("error in getting all interships", error);
+    console.log("error in getting pending", error);
+    
   }
-
 }
+
+
+export async function getUserApprovedApplications() {
+
+  try {
+    const response = await axios.get(`${AXIOS_BASE_URL}/api/user/getUserWithApprovedStatusForInternship`, {withCredentials: true});
+    const data = response.data;
+  
+    return data;
+  } catch (error) {
+    console.log("error in getting pending", error);
+    
+  }
+}
+
+
+
+export async function getUserCompletedApplications() {
+
+  try {
+    const response = await axios.get(`${AXIOS_BASE_URL}/api/user/getUserWithCompletedStatusForInternship`, {withCredentials: true});
+    const data = response.data;
+  
+    return data;
+  } catch (error) {
+    console.log("error in getting pending", error);
+    
+  }
+}
+
+
+
 
 
   
