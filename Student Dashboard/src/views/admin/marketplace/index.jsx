@@ -13,6 +13,23 @@ import { tableColumnsTopCreators } from "./variables/tableColumnsTopCreators";
 import HistoryCard from "./components/HistoryCard";
 import TopCreatorTable from "./components/TableTopCreators";
 import NftCard from "../../../components/card/NftCard";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getAllInterships } from "../../../api/company";
+import dayjs from "dayjs";
+
+const queryClient = useQueryClient();
+
+const {
+  isLoading,
+  isError,
+  data: internships,
+  error,
+} = useQuery({
+  queryKey: ["interships"], // Include user.uid in the query key
+  queryFn: () => getAllInterships(), // Call fetchEventsById with user.uid
+});
+console.log("hi2");
+console.log("data in frontend", internships);
 
 const Marketplace = () => {
   return (
@@ -64,17 +81,19 @@ const Marketplace = () => {
 
         {/* NFTs trending card */}
         <div className="z-20 grid grid-cols-1 gap-5 md:grid-cols-3">
-          <NftCard
-            title="Abstract Colors"
-            stipend="3000 per month"
-            image={NFt3}
-            date="20 July 2024"
-            company="Amazon"
-            // tag={["Part-time", "Full-time", "internship"]}
-            link="/"
-            type="internship"
-            location="Guwahati"
-          />
+          {internships?.map((intership) => (
+            <NftCard
+              title="Abstract Colors"
+              stipend="3000 per month"
+              image={NFt3}
+              company="Amazon"
+              date={dayjs(intership.createdAt).format("DD-MM-YYYY")}
+              // tag={["Part-time", "Full-time", "internship"]}
+              link="/"
+              type="internship"
+              location="Guwahati"
+            />
+          ))}
         </div>
 
         {/* Recenlty Added setion */}
