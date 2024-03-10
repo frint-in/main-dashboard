@@ -29,4 +29,22 @@ export async function getAllInterships() {
 
 }
 
+export async function getUserById(id) {
+  try {
+    console.log("hi1");
+    // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
+    const response = await axios.get(`/api/user/find/${id}`);
+    console.log("hi1");
+
+    const data = response.data;
+    console.log("data>>>>", data);
+
+  
+    return data;
+  } catch (error) {
+    console.log("error in getting all interships", error);
+  }
+
+}
+
   

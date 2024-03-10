@@ -6,25 +6,29 @@ import Storage from "./components/Storage";
 import Upload from "./components/Upload";
 import TaskCard from "./components/TaskCard";
 
-// import { useMutation, useQuery, useQueryClient   } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient   } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import { getUserById } from "../../../api/user";
 // import { getStudentByToken } from "../../../api/student";
 
 
 
 const StudentProfile = () => {
 
+  const {id} = useParams()
 
-  // const {
-  //   isLoading,
-  //   isError,
-  //   data: student,
-  //   error,
-  // } = useQuery({
-  //   queryKey: ["student"], 
-  //   queryFn: () => getStudentByToken(), 
-  // });
 
-  // console.log('the logged in user',student );
+  const {
+    isLoading,
+    isError,
+    data: student,
+    error,
+  } = useQuery({
+    queryKey: ["user", id], 
+    queryFn: () => getUserById(id), 
+  });
+
+  console.log('the logged in user',student );
 
 
   return (

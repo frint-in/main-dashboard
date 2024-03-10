@@ -5,7 +5,7 @@ import Card from "../../../../components/card/index";
 import axios from "axios";
 import { FcApproval } from "react-icons/fc";
 import Popup from "../../../../components/popup/Popup";
-
+import {useNavigate} from 'react-router-dom'
 function formatDate(dateString) {
   const options = { year: "numeric", month: "long", day: "numeric" };
   return new Date(dateString).toLocaleDateString(undefined, options);
@@ -15,28 +15,15 @@ const CheckTable = ({ name, tableData, action, status }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
 
-  const pickup = async (order) => {
-    if (status === "update/pickup/toreceived") {
-      setSelectedOrderId(order._id);
-      setShowModal(true);
-    } else {
-      try {
-        const response = await axios.put(`/api/${status}/${order._id}`, {
-          withCredentials: true,
-        });
+  const navigate = useNavigate()
 
-        alert("Success");
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
+  const handleUserClick = (id) => { 
+    console.log('userId', id);
 
-    // setpickup();
-  };
+    navigate(`/admin/student details/${id}`)
+   }
 
-  // useEffect(() => {
-  //   pickup();
-  // }, [alert]);
+
 
   return (
     <Card extra={"w-full h-full sm:overflow-auto px-6"}>
@@ -60,17 +47,17 @@ const CheckTable = ({ name, tableData, action, status }) => {
               </th>
               <th className="border-b border-gray-200 pr-16 pb-[10px] text-center dark:!border-navy-700">
                 <div className="text-xs font-bold tracking-wide text-gray-600 lg:text-xs">
-                  Applied Date
+                  Phone
                 </div>
               </th>
               <th className="border-b border-gray-200 pr-16 pb-[10px] text-center dark:!border-navy-700">
                 <div className="text-xs font-bold tracking-wide text-gray-600 lg:text-xs">
-                  Position
+                  Email
                 </div>
               </th>
               <th className="border-b border-gray-200 pr-16 pb-[10px] text-center dark:!border-navy-700">
                 <div className="text-xs font-bold tracking-wide text-gray-600 lg:text-xs">
-                  Duration
+                  Specialization
                 </div>
               </th>
               <th className="border-b border-gray-200 pr-16 pb-[10px] text-center dark:!border-navy-700">
@@ -82,33 +69,36 @@ const CheckTable = ({ name, tableData, action, status }) => {
           </thead>
           <tbody>
             {tableData.map((row, _id) => (
-              <tr key={row._id}>
-                <td className="text-sm font-bold text-navy-700 dark:text-white">
-                  {row.name}
+              <tr key={row.userId}>
+                <td className="text-sm font-bold text-navy-700 dark:text-white" onClick={() => handleUserClick(row.userId)}>
+                  {row.uname}
                 </td>
-                <td className="pt-[15px] pb-[16px] sm:text-[14px]">
-                  {formatDate(row.createdat)}
+                <td className="pt-[15px] pb-[16px] sm:text-[14px]" onClick={() => handleUserClick(row.userId)}>
+                  {row?.phoneNumber || 'not given'}
                 </td>
-                <td className="pt-[15px] pb-[16px] sm:text-[14px]">
-                  {formatDate(row.pickupdate)}
+                <td className="pt-[15px] pb-[16px] sm:text-[14px]" onClick={() =>handleUserClick(row.userId)}>
+                  {row?.email}
                 </td>
-                <td className="pt-[15px] pb-[16px] sm:text-[14px]">
+                <td className="pt-[15px] pb-[16px] sm:text-[14px]" onClick={() =>handleUserClick(row.userId)}>
+                  {row?.specialization || 'not given'}
+                </td>
+                <td className="pt-[15px] pb-[16px] sm:text-[14px]" onClick={() => handleUserClick(row.userId)}>
                   <button
                     className="bg-[#4318ff] text-white px-2 py-1 rounded"
                     //  onClick={() => pending(order)}
                   >
-                    Details
+                    {action}
                   </button>
                 </td>
-                <td className="pt-[15px] pb-[16px] sm:text-[14px]">
-                  {/* <button
+                {/* <td className="pt-[15px] pb-[16px] sm:text-[14px]">
+                  <button
                     className="bg-[#4318ff] text-white px-2 py-1 rounded"
                     onClick={(e) => pickup(row)}
                   >
                     {action}
-                  </button> */}
+                  </button>
                   <FcApproval className="text-[2rem]"/>
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>

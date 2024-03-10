@@ -46,3 +46,47 @@ export async function getIntershipById(id) {
   }
 
 }
+
+export async function getUsersWithIntershipId(id) {
+  try {
+    console.log("hi1");
+    // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
+    const response = await axios.get(`/api/internship/getUsersWithInternship/${id}`);
+    console.log("hi1");
+
+    const data = response.data;
+    console.log("data>>>>", data);
+
+    const modifiedDataArray = [];
+
+    // Iterate over each object in the response array
+    data.forEach(obj => {
+        // Filter the applications array based on the internship key
+        const filteredApplication = obj.applications.find(app => app.internship === id);
+
+        console.log('filteredApplications>>>>',filteredApplication);
+        // Create a new object with required fields
+        const newObj = {
+            uname: obj.uname,
+            email: obj.email,
+            userId: obj._id,
+            applicationsStatus: filteredApplication.status,
+            companyName: filteredApplication.name
+            
+        };
+
+        // Push the new object into the separate array
+        modifiedDataArray.push(newObj);
+    });
+
+    // Now modifiedDataArray contains the required data
+    console.log(modifiedDataArray);
+
+  
+    return modifiedDataArray;
+  } catch (error) {
+    console.log("error in getting intership by id", error);
+  }
+
+}
+
