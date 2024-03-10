@@ -42,6 +42,9 @@ const Dashboard = () => {
   
           const pendingApplications =    filteredApplications("pending");
           const approvedApplications =   filteredApplications("approved")  ;
+          
+
+
 
           
           console.log('pendingApplications>>>>>>', pendingApplications);
@@ -70,6 +73,7 @@ const Dashboard = () => {
                       <div>
                         {pendingApplications && (
                           <CheckTable
+                            intershipId={id}
                             name="Applied Works"
                             tableData={pendingApplications}
                             action="Approve"
@@ -80,6 +84,7 @@ const Dashboard = () => {
                       <div>
                         {approvedApplications && (
                           <CheckTable
+                          intershipId={id}
                             name="Shortlisted"
                             tableData={approvedApplications}
                             action="Complete"

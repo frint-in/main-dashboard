@@ -4,7 +4,7 @@ import { useState } from "react";
 import Card from "../card";
 import { Link } from "react-router-dom";
 
-const NftCard = ({
+const   NftCard = ({
   id,
   title,
   stipend,

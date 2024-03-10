@@ -97,15 +97,15 @@ const Marketplace = () => {
         {internships?.map((intership) => (
           <NftCard
           id={intership._id}
-          title={intership.description}
+          title={intership.name}
           stipend={intership.stipend || 'not given'}
           image={NFt3}
-          date={dayjs(intership.createdAt).format("h:mm A MM-DD-YYYY")}
-          company={intership.name}
+          date={dayjs(intership.createdAt).format("MM-DD-YYYY")}
+          company={intership.companyName}
           // tag={["Part-time", "Full-time", "internship"]}
           type="internship"
           link="/"
-          location={intership.description}
+          location={intership.location}
         />
         )) }
         

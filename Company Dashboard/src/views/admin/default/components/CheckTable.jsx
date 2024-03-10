@@ -6,16 +6,20 @@ import axios from "axios";
 import { FcApproval } from "react-icons/fc";
 import Popup from "../../../../components/popup/Popup";
 import {useNavigate} from 'react-router-dom'
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { approveUserByIntershipId, completeUserByIntershipId } from "../../../../api/intership";
+
 function formatDate(dateString) {
   const options = { year: "numeric", month: "long", day: "numeric" };
   return new Date(dateString).toLocaleDateString(undefined, options);
 }
 
-const CheckTable = ({ name, tableData, action, status }) => {
+const CheckTable = ({ intershipId,name, tableData, action, status }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
 
   const navigate = useNavigate()
+  const queryClient = useQueryClient();
 
   const handleUserClick = (id) => { 
     console.log('userId', id);
@@ -23,13 +27,62 @@ const CheckTable = ({ name, tableData, action, status }) => {
     navigate(`/admin/student details/${id}`)
    }
 
-   const handleButtonSubmit = (action) => { 
+
+   const updateApprovedStatusMutation = useMutation({
+    mutationFn: approveUserByIntershipId,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['intershipUsers']});
+      console.log("success bro!")
+    }
+  });
+
+  const updateCompletedStatusMutation = useMutation({
+    mutationFn: completeUserByIntershipId,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['intershipUsers']});
+      console.log("success bro!")
+    }
+  });
+
+
+   const handleButtonSubmit = async (action, userId) => { 
         if (action === 'Approve') {
           console.log('approved');
+
+          console.log(userId);
+          // updateApprovedStatusMutation.mutate(intershipId, userId)
+          const response = await axios.post(`/api/internship/updatetoapprove/${intershipId}`, {
+              id: userId
+          });
+
+          if (response) {
+            queryClient.invalidateQueries({ queryKey: ['intershipUsers']});
+          }
+
+          const data = response.data;
+          console.log("data>>>>", data);
+      
+        
+          return data;
         } else {
           console.log('completed');
+          // updateCompletedStatusMutation.mutate(userId)
+          const response = await axios.post(`/api/internship/updatetocomplete/${intershipId}`, {
+            id: userId
+        });
+
+        if (response) {
+          queryClient.invalidateQueries({ queryKey: ['intershipUsers']});
+        }
+
+        const data = response.data;
+        console.log("data>>>>", data);
+    
+      
+        return data;
         }
     }
+
 
 
 
@@ -93,7 +146,7 @@ const CheckTable = ({ name, tableData, action, status }) => {
                 <td className="pt-[15px] pb-[16px] sm:text-[14px]">
                   <button
                     className="bg-[#4318ff] text-white px-2 py-1 rounded"
-                     onClick={() => handleButtonSubmit(action)}
+                     onClick={() => handleButtonSubmit(action, row.userId)}
                   >
                     {action}
                   </button>

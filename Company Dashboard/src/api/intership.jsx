@@ -90,3 +90,43 @@ export async function getUsersWithIntershipId(id) {
 
 }
 
+
+export async function approveUserByIntershipId(internshipId, userId) {
+  try {
+    console.log("hi1");
+    // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
+    const response = await axios.post(`/api/internship/updatetoapprove/${internshipId}`, {
+      id: userId
+  });
+  const data = response.data;
+  console.log("data>>>>", data);
+
+
+  return data;
+  } catch (error) {
+    console.log("error in getting intership by id", error);
+  }
+
+}
+
+export async function completeUserByIntershipId(internshipId, userId) {
+  try {
+    console.log("hi1");
+    // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
+    const response = await axios.post(`/api/internship/updatetocomplete/${internshipId}`, {
+      id: userId
+    });
+    console.log("hi1");
+
+    const data = response.data;
+    console.log("data>>>>", data);
+
+  
+    return data;
+  } catch (error) {
+    console.log("error in getting intership by id", error);
+  }
+
+}
+
+
