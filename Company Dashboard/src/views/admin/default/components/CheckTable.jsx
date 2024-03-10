@@ -23,6 +23,14 @@ const CheckTable = ({ name, tableData, action, status }) => {
     navigate(`/admin/student details/${id}`)
    }
 
+   const handleButtonSubmit = (action) => { 
+        if (action === 'Approve') {
+          console.log('approved');
+        } else {
+          console.log('completed');
+        }
+    }
+
 
 
   return (
@@ -82,10 +90,10 @@ const CheckTable = ({ name, tableData, action, status }) => {
                 <td className="pt-[15px] pb-[16px] sm:text-[14px]" onClick={() =>handleUserClick(row.userId)}>
                   {row?.specialization || 'not given'}
                 </td>
-                <td className="pt-[15px] pb-[16px] sm:text-[14px]" onClick={() => handleUserClick(row.userId)}>
+                <td className="pt-[15px] pb-[16px] sm:text-[14px]">
                   <button
                     className="bg-[#4318ff] text-white px-2 py-1 rounded"
-                    //  onClick={() => pending(order)}
+                     onClick={() => handleButtonSubmit(action)}
                   >
                     {action}
                   </button>
