@@ -9,7 +9,6 @@
 // import axios from 'axios'
 // import { addInternship } from "../../../api/company";
 
-
 // const PostInternship = () => {
 //   const [name, setName] = useState('');
 
@@ -19,11 +18,9 @@
 //   const [location, setLocation] = useState('');
 //   const [phono, setPhno] = useState('');
 
-
 //   const handleImageChange = (e) => {
 //     setImage(e.target.files[0]);
 // };
-
 
 // const handleSubmit = async (e) => {
 //   e.preventDefault();
@@ -65,12 +62,7 @@
 //   //     withCredentials: true
 //   // });
 
-
-
-
 //   // };
-
-
 
 //   return (
 //     <Card className="grid h-full w-full grid-cols-1 gap-3 rounded-[20px] bg-white bg-clip-border p-3 font-dm shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:shadow-none 2xl:grid-cols-11">
@@ -88,10 +80,10 @@
 //             </label>
 //             <input
 //               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              
+
 //               id="title"
 //               type="text"
-//               placeholder="title" value={name} onChange={(e) => setName(e.target.value)} 
+//               placeholder="title" value={name} onChange={(e) => setName(e.target.value)}
 //               required
 //             />
 //           </div>
@@ -106,7 +98,6 @@
 //   <input type="file" onChange={handleImageChange} />
 // </div>
 
-
 //           <div className="mb-4">
 //           <label
 //               className="block text-gray-700 text-sm font-bold mb-2"
@@ -116,7 +107,7 @@
 //             </label>
 //             <input
 //               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              
+
 //               id="description"
 //     type="text"
 //     placeholder="Description"
@@ -136,7 +127,7 @@
 //             </label>
 //             <input
 //               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              
+
 //               id="description"
 //     type="text"
 //     placeholder="Description"
@@ -145,7 +136,6 @@
 //     required
 // />
 // </div>
-
 
 // <div className="mb-4">
 // <label
@@ -156,7 +146,7 @@
 //             </label>
 //             <input
 //               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              
+
 //               id="description"
 //     type="text"
 //     placeholder="Description"
@@ -165,8 +155,6 @@
 //     required
 // />
 // </div>
-
-
 
 // <div className="mb-4">
 // <label
@@ -177,7 +165,7 @@
 //             </label>
 //             <input
 //               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              
+
 //               id="description"
 //     type="text"
 //     placeholder="Description"
@@ -186,7 +174,6 @@
 //     required
 // />
 // </div>
-
 
 // <div className="mb-4">
 // <label
@@ -197,7 +184,7 @@
 //             </label>
 //             <input
 //               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              
+
 //               id="description"
 //     type="text"
 //     placeholder="Description"
@@ -206,7 +193,6 @@
 //     required
 // />
 // </div>
-
 
 // <div className="mb-4">
 // <label
@@ -217,7 +203,7 @@
 //             </label>
 //             <input
 //               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              
+
 //               id="description"
 //     type="text"
 //     placeholder="Description"
@@ -226,7 +212,6 @@
 //     required
 // />
 // </div>
-
 
 // <div className="mb-4">
 //             <label
@@ -237,10 +222,10 @@
 //             </label>
 //             <input
 //               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              
+
 //               id="location"
 //               type="text"
-//               placeholder="Name" value={location} onChange={(e) => setLocation(e.target.value)} 
+//               placeholder="Name" value={location} onChange={(e) => setLocation(e.target.value)}
 //               required
 //             />
 
@@ -252,15 +237,13 @@
 //             </label>
 //             <input
 //               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              
+
 //               id="phno"
 //               type="text"
-//               placeholder="Name" value={phono} onChange={(e) => setPhno(e.target.value)} 
+//               placeholder="Name" value={phono} onChange={(e) => setPhno(e.target.value)}
 //               required
 //             />
 
-
-            
 //           <button
 //                   // disabled={isSubmitting}
 //             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:bg-gray-500"
@@ -276,7 +259,6 @@
 // };
 
 // export default PostInternship;
-
 
 //-=========================================================================
 
@@ -308,7 +290,7 @@
 //   };
 
 //   return (
-// <Card className="grid h-full w-full grid-cols-1 gap-3 rounded-[20px] bg-white bg-clip-border p-3 font-dm shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:shadow-none 2xl:grid-cols-11"> 
+// <Card className="grid h-full w-full grid-cols-1 gap-3 rounded-[20px] bg-white bg-clip-border p-3 font-dm shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:shadow-none 2xl:grid-cols-11">
 // <div className="col-span-10 flex h-full w-full flex-col justify-center overflow-hidden rounded-xl bg-white pl-3 pb-4 dark:!bg-navy-800">
 //     <h5 className="text-left text-xl font-bold leading-9 text-navy-700 dark:text-white">
 //           Internship Page
@@ -336,69 +318,66 @@
 
 // export default PostInternship;
 
+// function App() {
+//   const schema = z
+//     .object({
+//       firstName: z.string().min(2).max(30),
+//       lastName: z.string().min(2).max(30),
+//       email: z.string().email(),
+//       age: z.number().min(18).max(70),
+//       password: z.string().min(5).max(20),
+//       confirmPassword: z.string().min(5).max(20),
+//     })
+//     .refine((data) => data.password === data.confirmPassword, {
+//       message: "Passwords do not match",
+//       path: ["confirmPassword"],
+//     });
 
-  // function App() {
-  //   const schema = z
-  //     .object({
-  //       firstName: z.string().min(2).max(30),
-  //       lastName: z.string().min(2).max(30),
-  //       email: z.string().email(),
-  //       age: z.number().min(18).max(70),
-  //       password: z.string().min(5).max(20),
-  //       confirmPassword: z.string().min(5).max(20),
-  //     })
-  //     .refine((data) => data.password === data.confirmPassword, {
-  //       message: "Passwords do not match",
-  //       path: ["confirmPassword"],
-  //     });
+//   const {
+//     register,
+//     handleSubmit,
+//     formState: { errors },
+//   } = useForm({
+//     resolver: zodResolver(schema),
+//   });
 
-  //   const {
-  //     register,
-  //     handleSubmit,
-  //     formState: { errors },
-  //   } = useForm({
-  //     resolver: zodResolver(schema),
-  //   });
+//   const submitData = (data) => {
+//     console.log("IT WORKED", data);
+//   };
 
-  //   const submitData = (data) => {
-  //     console.log("IT WORKED", data);
-  //   };
+//   return (
+//     <div className="App">
+//       <form onSubmit={handleSubmit(submitData)}>
+//         <label> First Name: </label>
+//         <input type="text" {...register("firstName")} />
+//         {errors.firstName && <span> {errors.firstName.message}</span>}
+//         <label> Last Name: </label>
+//         <input type="text" {...register("lastName")} />
+//         {errors.lastName && <span> {errors.lastName.message}</span>}
+//         <label> Email: </label>
+//         <input type="email" {...register("email")} />
+//         {errors.email && <span> {errors.email.message}</span>}
+//         <label> Age </label>
+//         <input type="number" {...register("age", { valueAsNumber: true })} />
+//         {errors.age && <span> {errors.age.message}</span>}
+//         <label> Password: </label>
+//         <input type="password" {...register("password")} />
+//         {errors.password && <span> {errors.password.message}</span>}
+//         <label> Confirm Password: </label>
+//         <input type="password" {...register("confirmPassword")} />
+//         {errors.confirmPassword && (
+//           <span> {errors.confirmPassword.message}</span>
+//         )}
 
-  //   return (
-  //     <div className="App">
-  //       <form onSubmit={handleSubmit(submitData)}>
-  //         <label> First Name: </label>
-  //         <input type="text" {...register("firstName")} />
-  //         {errors.firstName && <span> {errors.firstName.message}</span>}
-  //         <label> Last Name: </label>
-  //         <input type="text" {...register("lastName")} />
-  //         {errors.lastName && <span> {errors.lastName.message}</span>}
-  //         <label> Email: </label>
-  //         <input type="email" {...register("email")} />
-  //         {errors.email && <span> {errors.email.message}</span>}
-  //         <label> Age </label>
-  //         <input type="number" {...register("age", { valueAsNumber: true })} />
-  //         {errors.age && <span> {errors.age.message}</span>}
-  //         <label> Password: </label>
-  //         <input type="password" {...register("password")} />
-  //         {errors.password && <span> {errors.password.message}</span>}
-  //         <label> Confirm Password: </label>
-  //         <input type="password" {...register("confirmPassword")} />
-  //         {errors.confirmPassword && (
-  //           <span> {errors.confirmPassword.message}</span>
-  //         )}
+//         <input type="submit" />
+//       </form>
+//     </div>
+//   );
+// }
 
-  //         <input type="submit" />
-  //       </form>
-  //     </div>
-  //   );
-  // }
+// export default App;
 
-  // export default App;
-
-
-
-  import React, { useState } from "react";
+import React, { useState } from "react";
 import Card from "../../../components/card";
 import axios from "axios";
 
@@ -416,7 +395,7 @@ const PostInternship = () => {
     experience: "",
     skills: "",
     position: "",
-    mode: ""
+    mode: "",
   });
 
   const handleInputChange = (e) => {
@@ -430,20 +409,34 @@ const PostInternship = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // console.log("fromData>>>>>>>>>>", formData);
     const { image, ...restFormData } = formData;
+    // console.log("image>>>>>>>>", image);
     const formDataToSend = new FormData();
     formDataToSend.append("image", image);
+    // formDataToSend.append("Fuk-U","Rit")
     Object.entries(restFormData).forEach(([key, value]) => {
       formDataToSend.append(key, value);
     });
+    for (const [key, value] of formDataToSend.entries()) {
+      console.log(key," : " , value);
+    }
 
-    console.log("form data", formDataToSend);
+    // Log the JavaScript object
+    // console.log(formDataObject);
+   
+
+    // console.log("form data>>>>>>", formDataToSend);
 
     try {
       const response = await axios.post(
         "http://localhost:8000/api/internship/addinternship",
         formDataToSend,
-        { withCredentials: true }
+        { withCredentials: true },{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
       );
       console.log(response.data);
     } catch (error) {

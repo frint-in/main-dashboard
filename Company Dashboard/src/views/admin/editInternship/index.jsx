@@ -62,8 +62,8 @@ const EditInternship = () => {
     console.log("form data", formDataToSend);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/internship/addinternship",
+      const response = await axios.put(
+        `http://localhost:8000/api/internship/${id}`,
         formDataToSend,
         { withCredentials: true }
       );
