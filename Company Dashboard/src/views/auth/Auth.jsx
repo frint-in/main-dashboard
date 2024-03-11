@@ -23,9 +23,10 @@ export default function SignIn({setIsAdminAuthenticated}) {
       );
       if (res.data) {
         console.log(res.data);
-        navigate('/admin/default');
         // setIsAdminAuthenticated(true)
         // sessionStorage.setItem('token', res.data.token)
+        navigate('/admin/default');
+        // localStorage.setItem("isAuth", true)
         alert('Sign in successfull')
 
       } else {

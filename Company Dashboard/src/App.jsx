@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -12,15 +12,24 @@ import Profile from "./views/admin/profile";
 import Auth from "./views/auth/Auth";
 
 const App = () => {
+  const [isAuth, setIsAuth] = useState(null)
+
+  console.log(isAuth);
+
+  useEffect(() => {
+    setIsAuth(localStorage.getItem("isAuth"))
+  }, [])
+  console.log(localStorage.getItem("isAuth"));
   return (
     <Router>
       <Routes>
-        {/* <Route path="auth/*" element={<Auth />} /> */}
-        <Route path="/auth" element={<Auth />} />
+        {/* <Route path="auth/" element={<Auth />} /> */}
+        <Route path="/auth" element={isAuth ?<Navigate to="/admin" replace /> :<Auth />} />
+        {/* <Route path="admin/*" element={isAuth ?<Admin />: <Navigate to="/auth" replace />} /> */}
         <Route path="admin/*" element={<Admin />} />
         {/* <Route path="admin/applicants" element={<PendingDashboard/>} />
         <Route path="admin/profile" element={<Profile/>} /> */}
-        <Route path="/" element={<Navigate to="/admin" replace />} />
+        <Route path="/" element={isAuth ?<Navigate to="/admin" replace /> : <Navigate to="/auth" replace />} />
       </Routes>
     </Router>
   );
