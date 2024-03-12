@@ -23,9 +23,7 @@ import { getAllInterships } from "../../../api/company";
 import { getAllApprovedApplicants, getAllPendingApplicants } from "../../../api/intership";
 
 const Dashboard = () => {
-  const url = useSelector((state) => state.shop.value2);
-  const Date = useSelector((state) => state.date.value);
-  const Date2 = useSelector((state) => state.date.value2);
+
   const [PendingData, setPendingData] = useState([]);
   const [PickupData, setPickupData] = useState([]);
   const [ReceivedData, setReceivedData] = useState([]);
