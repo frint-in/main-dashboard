@@ -18,6 +18,7 @@ import { getStudentByToken } from "../../api/student";
 
 import avatar from "../../assets/img/avatars/avatar4.png";
 import { changethismonth, changethisyear, changetoday, changetotal } from "../../feature/Date/DateSlice";
+import { setAuthChecked } from "../../state/authSlice";
 
 const Navbar = (props) => {
   const {
@@ -35,8 +36,8 @@ const Navbar = (props) => {
   const navigate = useNavigate()
   const { onOpenSidenav, brandText } = props;
   const [darkmode, setDarkmode] = React.useState(false);
-  const Shop = useSelector((state) => state.shop.value1);
-  const Date = useSelector((state) => state.date.value);
+  // const Shop = useSelector((state) => state.shop.value);
+  // const Date = useSelector((state) => state.date.value);
   const dispatch = useDispatch()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,13 +45,16 @@ const Navbar = (props) => {
 
   const logout = async() => {
     try {
-      await axios.post(`/api/auth/logout`, {}, { withCredentials: true });
+      // await axios.post(`/api/auth/logout`, {}, { withCredentials: true });
       // setIsAdminAuthenticated(false);
       setEmail('');
       setPassword('');
+      dispatch(setAuthChecked(false))
       alert('Logged Out')
+
       // window.location.reload();
-      navigate('/auth/sign-in')
+      navigate('/')
+      
     } catch (error) {
       console.error('Error logging out:', error);
     }

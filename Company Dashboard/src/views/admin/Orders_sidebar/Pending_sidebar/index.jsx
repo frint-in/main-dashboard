@@ -16,9 +16,7 @@ import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
 
 const Dashboard = () => {
   const {id} = useParams();
-  const url = useSelector((state) => state.shop.value2);
-  const Date = useSelector((state) => state.date.value);
-  const Date2 = useSelector((state) => state.date.value2);
+
   const [PendingData, setPendingData] = useState([]);
   const [ReceivedData, setReceivedData] = useState([]);
 

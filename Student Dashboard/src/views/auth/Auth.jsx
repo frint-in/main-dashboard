@@ -2,11 +2,14 @@ import InputField from "../../components/fields/InputField";
 import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthChecked } from "../../state/authSlice";
 
 
 export default function SignIn({setIsAdminAuthenticated}) {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,10 +26,12 @@ export default function SignIn({setIsAdminAuthenticated}) {
       );
       if (res.data) {
         console.log(res.data);
-        navigate('/admin/default');
+      dispatch(setAuthChecked(true))
+        
         // setIsAdminAuthenticated(true)
         // sessionStorage.setItem('token', res.data.token)
-        alert('Sign in successfull')
+      alert('Sign in successfull')
+        // navigate('/admin/default');
 
       } else {
         alert('Invalid Credentials')

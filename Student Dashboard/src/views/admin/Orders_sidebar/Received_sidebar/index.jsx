@@ -12,9 +12,7 @@ import { getStudentByToken, getUserApprovedApplications, getUserCompletedApplica
 
 
 const Dashboard = () => {
-  const url = useSelector((state) => state.shop.value2)
-  const Date = useSelector((state) => state.date.value)
-  const Date2 = useSelector((state) => state.date.value2)
+
 const [ReceivedData, setReceivedData] = useState([]);
 
 const {

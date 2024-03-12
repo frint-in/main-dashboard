@@ -14,9 +14,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserCompletedApplications} from "../../../../api/student";
 
 const Dashboard = () => {
-  const url = useSelector((state) => state.shop.value2)
-  const Date = useSelector((state) => state.date.value)
-  const Date2 = useSelector((state) => state.date.value2)
+
 const [PickupData, setPickupData] = useState([]);
 
 const {
