@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthChecked } from "../../state/authSlice";
+import { useEffect } from "react";
 
 
 export default function SignIn({setIsAdminAuthenticated}) {
@@ -26,12 +27,14 @@ export default function SignIn({setIsAdminAuthenticated}) {
       );
       if (res.data) {
         console.log(res.data);
-      dispatch(setAuthChecked(true))
+      dispatch(setAuthChecked())
+      // localStorage.setItem("auth", JSON.stringify(true));
         
         // setIsAdminAuthenticated(true)
         // sessionStorage.setItem('token', res.data.token)
       alert('Sign in successfull')
-        // navigate('/admin/default');
+      navigate('/admin/default');
+
 
       } else {
         alert('Invalid Credentials')
@@ -43,6 +46,7 @@ export default function SignIn({setIsAdminAuthenticated}) {
     }
     
   }
+
 
   return (
     <div className="mt-16 mb-16 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-center" >

@@ -4,20 +4,21 @@ import { createSlice } from "@reduxjs/toolkit";
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    authChecked: false,
+    authChecked: JSON.parse(localStorage.getItem('auth')),
   },
   reducers: {
-    setAuthChecked: (state, action) => {
-      state.authChecked = action.payload;
+    setAuthChecked: (state) => {
+      state.authChecked =  localStorage.setItem("auth", JSON.stringify("hi"));
+
     },
-    // setAuthCheckedFalse: (state) => {
-    //     state.authChecked = false;
-    //   },
+    deleteAuthChecked: (state) => {
+        state.authChecked = localStorage.removeItem("auth");
+      },
     
   },
 });
 
-export const { setAuthChecked } = authSlice.actions;
+export const { setAuthChecked, deleteAuthChecked } = authSlice.actions;
 // export const selectUser = (state) => state.user.user;
 export const selectAuthChecked = (state) => state.auth.authChecked;
 

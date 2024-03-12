@@ -18,7 +18,7 @@ import { getStudentByToken } from "../../api/student";
 
 import avatar from "../../assets/img/avatars/avatar4.png";
 import { changethismonth, changethisyear, changetoday, changetotal } from "../../feature/Date/DateSlice";
-import { setAuthChecked } from "../../state/authSlice";
+import { deleteAuthChecked, setAuthChecked } from "../../state/authSlice";
 
 const Navbar = (props) => {
   const {
@@ -49,7 +49,10 @@ const Navbar = (props) => {
       // setIsAdminAuthenticated(false);
       setEmail('');
       setPassword('');
-      dispatch(setAuthChecked(false))
+      // dispatch(setAuthChecked())
+      // localStorage.removeItem("auth");
+      dispatch(deleteAuthChecked())
+
       alert('Logged Out')
 
       // window.location.reload();
