@@ -1,19 +1,51 @@
 import { useState } from "react";
 import General from "./components/General";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useColumnOrder } from "react-table";
 
 const SingleInternship = () => {
-  const [clicked, setClicked] = useState(false);
 
-  const handleClick = () => {
-    setClicked(true);
+  const {id} = useParams();
+
+  const queryClient = useQueryClient()
+
+  const {
+    data: student,
+  } = useQuery({
+    queryKey: ["student"], 
+    queryFn: () => getStudentByToken(), 
+  });
+
+  const current_internship = student?.applications.find( e => e.internship === id)
+
+  console.log("current_internship>>>>>>>>>>>>>>>", current_internship);
+
+
+
+  const handleClick = async () => {
+    try {
+      // Make the API call to update the internship status
+      const response = await axios.put(`/api/internships/${id}`);
+      // Update the UI state after successful API call
+
+      if (response.data) {
+        queryClient.invalidateQueries({ queryKey: ['student']});
+
+      }else{
+        console.log("no data");
+      }
+    } catch (error) {
+      console.error("Error applying for internship:", error);
+      // Handle error if necessary
+    }
   };
-
   return (
       <div>
         <General />
         <div className="mt-4 flex justify-end">
-          {!clicked ? (
+          { current_internship === undefined  ? (
             <Link
               // to="/admin/internships"
               onClick={handleClick}
