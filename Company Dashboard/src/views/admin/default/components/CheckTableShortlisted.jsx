@@ -144,12 +144,7 @@ const CheckTable = ({ intershipId,name, tableData, action, status }) => {
                   {row?.specialization || 'not given'}
                 </td>
                 <td className="pt-[15px] pb-[16px] sm:text-[14px]">
-                  <button
-                    className="bg-[#4318ff] text-white px-2 py-1 rounded"
-                     onClick={() => handleButtonSubmit(action, row.userId)}
-                  >
-                    {action}
-                  </button>
+                  {action}
                 </td>
                 {/* <td className="pt-[15px] pb-[16px] sm:text-[14px]">
                   <button

@@ -29,6 +29,24 @@ export async function getAllApprovedApplicants() {
 
 }
 
+
+
+export async function getAllPendingApplicants() {
+  try {
+    const response = await axios.get(`/api/internship/getUsersWithpending`);
+    console.log("hi1");
+
+    const data = response.data;
+    console.log("data>>>>", data);
+
+  
+    return data;
+  } catch (error) {
+    console.log("error in getting all interships", error);
+  }
+
+}
+
 export async function getIntershipById(id) {
   try {
     console.log("hi1");

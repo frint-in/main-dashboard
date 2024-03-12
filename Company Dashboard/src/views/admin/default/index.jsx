@@ -13,14 +13,14 @@ import { useState, useEffect } from "react";
 import { columnsDataCheck } from "./variables/columnsData";
 
 import Widget from "../../../components/widget/Widget";
-import CheckTable from "../default/components/CheckTable";
+import CheckTableShortlisted from "../default/components/CheckTableShortlisted";
 import CheckTablePostedWorks from "../default/components/CheckTablePostedWorks";
 import tableDataCheck from "./variables/tableDataCheck.json";
 import Banner1 from "../marketplace/components/Banner";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllInterships } from "../../../api/company";
-import { getAllApprovedApplicants } from "../../../api/intership";
+import { getAllApprovedApplicants, getAllPendingApplicants } from "../../../api/intership";
 
 const Dashboard = () => {
   const url = useSelector((state) => state.shop.value2);
@@ -39,66 +39,39 @@ const Dashboard = () => {
     data: internships,
     error,
   } = useQuery({
-    queryKey: ["interships"], // Include user.uid in the query key
-    queryFn: () => getAllInterships(), // Call fetchEventsById with user.uid
+    queryKey: ["interships"],
+    queryFn: () => getAllInterships(), 
   });
 
 
   const {
-    data: applicants,
+    data: approved_applicants,
   } = useQuery({
-    queryKey: ["approvedApplicants"], // Include user.uid in the query key
-    queryFn: () => getAllApprovedApplicants(), // Call fetchEventsById with user.uid
+    queryKey: ["approvedApplicants"], 
+    queryFn: () => getAllApprovedApplicants(), 
   });
 
-  // const PickupOrders = async () => {
-  //   try {
-  //     const response = await Axios.get(`/api/pickup/orders`, {
-  //       withCredentials: true,
-  //     });
-  //     if (response.status === 200) {
-  //       const filteredData = response.data.filter(
-  //         (order) => order.servicelocation === url
-  //       );
-  //       if (Date2 === "today") {
-  //         const dataWithDate = filteredData.filter(
-  //           (order) => order.createdat.split("T")[0] === Date
-  //         );
-  //         setPickupData(dataWithDate);
-  //       }
-  //       if (Date2 === "thismonth") {
-  //         const dataWithDate = filteredData.filter(
-  //           (order) => order.createdat.split("T")[0].slice(0, 7) === Date
-  //         );
-  //         setPickupData(dataWithDate);
-  //       }
-  //       if (Date2 === "thisyear") {
-  //         const dataWithDate = filteredData.filter(
-  //           (order) => order.createdat.split("T")[0].slice(0, 4) === Date
-  //         );
-  //         setPickupData(dataWithDate);
-  //       }
-  //       if (Date === "total") {
-  //         setPickupData(filteredData);
-  //       }
-  //     } else {
-  //       console.log("ooooopppppsssss");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
 
-  // useEffect(() => {
-  //   PickupOrders();
-  // }, [url, Date]);
+  const {
+    data: pending_applicants,
+  } = useQuery({
+    queryKey: ["pendingApplicants"], 
+    queryFn: () => getAllPendingApplicants(), 
+  });
+
+  const {
+    data: completed_applicants,
+  } = useQuery({
+    queryKey: ["completedApplicants"], 
+    queryFn: () => getAllPendingApplicants(), 
+  });
+
 
 
   const pieChartData = [
-    PendingData.length,
-    PickupData.length,
-    ReceivedData.length,
-    DeliveredData.length,
+    pending_applicants?.length,
+    completed_applicants?.length,
+    approved_applicants?.length,
   ];
 
   return (
@@ -107,7 +80,7 @@ const Dashboard = () => {
         <Widget
           icon={<GrSchedules className="h-7 w-7" />}
           title={"Registered Applicants"}
-          subtitle={ReceivedData.length}
+          subtitle={pending_applicants?.length}
         />
         <Widget
           icon={<MdOutlineTask className="h-6 w-6" />}
@@ -117,7 +90,7 @@ const Dashboard = () => {
         <Widget
           icon={<MdOutlinePendingActions className="h-7 w-7" />}
           title={"Shortlisted"}
-          subtitle={applicants?.length}
+          subtitle={approved_applicants?.length}
         />
       </div>
 
@@ -148,10 +121,10 @@ const Dashboard = () => {
           
         </div>
         <div>
-          <CheckTable
+          <CheckTableShortlisted
             name="Shortlisted"
-            tableData={ReceivedData}
-            action="Delivery"
+            tableData={approved_applicants}
+            action="Approved"
             status="update/received/todelivery"
           />
         </div>
