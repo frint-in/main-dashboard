@@ -1,100 +1,69 @@
-
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../../../components/card";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import { getIntershipById } from "../../../api/intership";
 
-
 const EditInternship = () => {
+  const { id } = useParams();
 
-  const [name, setName] = useState('');
-  const [image, setImage] = useState(null);
-  const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('');
-  const [phono, setPhono] = useState('');
-  const [companyName, setCompanyName] = useState('');
-  const [deadline, setDeadline] = useState('');
-  const [stipend, setStipend] = useState('');
-  const [type, setType] = useState('');
-  const [experience, setExperience] = useState('');
-  const [skills, setSkills] = useState('');
-  const [position, setPosition] = useState('');
-  const [mode, setMode] = useState('');
+  const [internship, setInternship] = useState({
+    name: "",
+    image: null,
+    description: "",
+    location: "",
+    phono: "",
+    companyName: "",
+    deadline: "",
+    stipend: "",
+    type: "",
+    experience: "",
+    skills: "",
+    position: "",
+    mode: "",
+  });
 
+  useEffect(() => {
+    const fetchInternship = async () => {
+      try {
+        const response = await getIntershipById(id);
+        setInternship(response);
+
+  console.log("internship within useEffect>>>>>>>>", internship);
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchInternship();
+  }, [id]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInternship((prevInternship) => ({
+      ...prevInternship,
+      [name]: value,
+    }));
+  };
+
+  console.log("internship>>>>>>>>", internship);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.put(
-        `http://localhost:8000/api/internship/updateinternship/${id}`,
-        {
-          name,
-          image,
-          description,
-          location,
-          phono,
-          companyName,
-          deadline,
-          stipend,
-          type,
-          experience,
-          skills,
-          position,
-          mode,
-        },
+      await axios.put(
+        `/api/internship/${id}`,
+        internship,
         { withCredentials: true }
       );
       alert("Profile is saved");
-      console.log(response.data);
-      if (response.data) {
-        console.log(response.data);
-      } else {
-        alert("Opps!! Something gone wrong");
-        console.log("invalid credentials");
-      }
-      
     } catch (error) {
       console.error(error);
+      alert("Oops! Something went wrong.");
     }
   };
-  const {id} = useParams();
-
-  
-
-  const {
-    isLoading,
-    isError,
-    data: intership,
-    error,
-  } = useQuery({
-    queryKey: ["intership", id], 
-    queryFn: () => getIntershipById(id), 
-  });
-  console.log("the logged in user", intership);
-
-  useState(() => {
-    if (intership) {
-      setName(student.name);
-      setDescription(student.description)
-      setLocation(student.location)
-      setPhono(student.phono)
-      setCompanyName(student.companyName)
-      setDeadline(student.deadline)
-      setStipend(student.stipend)
-      setType(student.type)
-      setExperience(student.experience)
-      setSkills(student.skills)
-      setPosition(student.position)
-      setMode(student.mode)
-
-    }
-  }, [intership]);
-
-
 
   return (
     <Card className="grid h-full w-full grid-cols-1 gap-3 rounded-[20px] bg-white bg-clip-border p-3 font-dm shadow-3xl shadow-shadow-500 dark:!bg-navy-800 2xl:grid-cols-11">
@@ -104,7 +73,7 @@ const EditInternship = () => {
         </h5>
         <form
           onSubmit={handleSubmit}
-          className="rounded pt-6 pb-8 mb-4 bg-white pl-3 dark:!bg-navy-800 "
+          className="rounded pt-6 pb-8 mb-4 bg-white pl-3 dark:!bg-navy-800"
         >
           <div className="mb-4">
             <label
@@ -119,14 +88,12 @@ const EditInternship = () => {
               name="name"
               type="text"
               placeholder="Title"
-              // value={formData.name}
-              // onChange={handleInputChange}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
+              value={internship?.name}
+              onChange={handleChange}
             />
           </div>
 
+          {/* Add the rest of your form fields here */}
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -134,7 +101,7 @@ const EditInternship = () => {
             >
               Image <span style={{ color: "red" }}>*</span>
             </label>
-            {/* <input type="file" onChange={handleImageChange} /> */}
+            {/* Input for image */}
           </div>
 
           <div className="mb-4">
@@ -152,11 +119,12 @@ const EditInternship = () => {
               placeholder="Description"
               // value={formData.description}
               // onChange={handleInputChange}
-              value={intership?.description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
+              value={internship?.description}
+              onChange={handleChange}
+              
             />
           </div>
+
 
           <div className="mb-4">
             <label
@@ -173,11 +141,12 @@ const EditInternship = () => {
               placeholder="Location"
               // value={formData.location}
               // onChange={handleInputChange}
-              value={intership?.location}
-              onChange={(e) => setLocation(e.target.value)}
-              required
+              value={internship?.location}
+              onChange={handleChange}
+              
             />
           </div>
+
 
           <div className="mb-4">
             <label
@@ -194,12 +163,11 @@ const EditInternship = () => {
               placeholder="Phone Number"
               // value={formData.phono}
               // onChange={handleInputChange}
-              value={intership?.phono}
-              onChange={(e) => setPhono(e.target.value)}
-              required
+              value={internship?.phono}
+              onChange={handleChange}
+              
             />
           </div>
-
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -215,9 +183,9 @@ const EditInternship = () => {
               placeholder="Company Name"
               // value={formData.companyName}
               // onChange={handleInputChange}
-              value={intership?.companyName}
-              onChange={(e) => setCompanyName(e.target.value)}
-              required
+              value={internship?.companyName}
+              onChange={handleChange}
+              
             />
           </div>
 
@@ -236,11 +204,12 @@ const EditInternship = () => {
               placeholder="Deadline"
               // value={formData.deadline}
               // onChange={handleInputChange}
-              value={intership?.deadline}
-              onChange={(e) => setDeadline(e.target.value)}
-              required
+              value={internship?.deadline}
+              onChange={handleChange}
+              
             />
           </div>
+
 
           <div className="mb-4">
             <label
@@ -257,11 +226,12 @@ const EditInternship = () => {
               placeholder="Stipend"
               // value={formData.stipend}
               // onChange={handleInputChange}
-              value={intership?.stipend}
-              onChange={(e) => setStipend(e.target.value)}
-              required
+              value={internship?.stipend}
+              onChange={handleChange}
+              
             />
           </div>
+
 
           <div className="mb-4">
             <label
@@ -278,9 +248,9 @@ const EditInternship = () => {
               placeholder="Type"
               // value={formData.type}
               // onChange={handleInputChange}
-              value={intership?.type}
-              onChange={(e) => setType(e.target.value)}
-              required
+              value={internship?.type}
+              onChange={handleChange}
+              
             />
           </div>
 
@@ -299,9 +269,9 @@ const EditInternship = () => {
               placeholder="Experience"
               // value={formData.experience}
               // onChange={handleInputChange}
-              value={intership?.experience}
-              onChange={(e) => setExperience(e.target.value)}
-              required
+              value={internship?.experience}
+              onChange={handleChange}
+              
             />
           </div>
 
@@ -320,12 +290,10 @@ const EditInternship = () => {
               placeholder="Skills"
               // value={formData.skills}
               // onChange={handleInputChange}
-              value={intership?.skills}
-              onChange={(e) => setSkills(e.target.value)}
-              required
+              value={internship?.skills}
+              onChange={handleChange}
             />
           </div>
-
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -341,12 +309,10 @@ const EditInternship = () => {
               placeholder="Position"
               // value={formData.position}
               // onChange={handleInputChange}
-              value={intership?.position}
-              onChange={(e) => setPosition(e.target.value)}
-              required
+              value={internship?.position}
+              onChange={handleChange}
             />
           </div>
-
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -362,9 +328,8 @@ const EditInternship = () => {
               placeholder="Mode"
               // value={formData.mode}
               // onChange={handleInputChange}
-              value={intership?.mode}
-              onChange={(e) => setMode(e.target.value)}
-              required
+              value={internship?.mode}
+              onChange={handleChange}
             />
           </div>
 
