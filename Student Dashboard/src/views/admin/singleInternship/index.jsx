@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useColumnOrder } from "react-table";
+import { applyInternshipByStudentTokenAndInternshipId } from "../../../api/internship";
 
 const SingleInternship = () => {
 
@@ -22,24 +23,17 @@ const SingleInternship = () => {
 
   console.log("current_internship>>>>>>>>>>>>>>>", current_internship);
 
-
+  const applyInternshipMutation = useMutation({
+    mutationFn: applyInternshipByStudentTokenAndInternshipId,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['student']});
+      console.log("success bro!")
+    }
+  });
 
   const handleClick = async () => {
-    try {
-      // Make the API call to update the internship status
-      const response = await axios.put(`/api/internships/${id}`);
-      // Update the UI state after successful API call
+    applyInternshipMutation.mutate(id)
 
-      if (response.data) {
-        queryClient.invalidateQueries({ queryKey: ['student']});
-
-      }else{
-        console.log("no data");
-      }
-    } catch (error) {
-      console.error("Error applying for internship:", error);
-      // Handle error if necessary
-    }
   };
   return (
       <div>
