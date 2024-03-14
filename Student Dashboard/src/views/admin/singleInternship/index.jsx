@@ -5,6 +5,7 @@ import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useColumnOrder } from "react-table";
 import { applyInternshipByStudentTokenAndInternshipId } from "../../../api/internship";
+import { getStudentByToken } from "../../../api/student";
 
 const SingleInternship = () => {
 
