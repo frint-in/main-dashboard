@@ -14,6 +14,7 @@ const NftCard = ({
   company,
   type,
   location,
+  logo,
 }) => {
   const [heart, setHeart] = useState(true);
   return (
@@ -30,6 +31,7 @@ const NftCard = ({
           <div className="absolute top-3 left-3 bg-white dark:bg-navy-700 p-2 rounded-full flex items-center gap-2">
             <GiStopwatch color="red" /> {date}
           </div>
+          <img src={logo} alt="" className="absolute top-36 w-auto h-20 p-2" />
           <div className="absolute top-11 left-3 font-bold text-2xl pt-4 text-white">
             {company}
           </div>

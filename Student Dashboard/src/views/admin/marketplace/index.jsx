@@ -81,18 +81,20 @@ const Marketplace = () => {
 
         {/* NFTs trending card */}
         <div className="z-20 grid grid-cols-1 gap-5 md:grid-cols-3">
-          {internships?.map((intership) => (
+          {internships?.map((intership, index) => (
             <NftCard
-              title={intership.description}
+              key={index}
+              title={intership.name}
               stipend={intership.stipend || "not given"}
               image={NFt3}
+              logo={intership.imgurl}
               date={dayjs(intership.createdAt).format("DD-MM-YYYY")}
-              company={intership.name}
+              company={intership.companyName}
               id={intership._id}
               // tag={["Part-time", "Full-time", "internship"]}
               type={intership.type}
               link={`/admin/single internship/${intership._id}`}
-              location={intership.description}
+              location={intership.location}
             />
           ))}
         </div>

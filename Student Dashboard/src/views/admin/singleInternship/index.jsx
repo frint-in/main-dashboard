@@ -36,6 +36,7 @@ const SingleInternship = () => {
     applyInternshipMutation.mutate(id)
 
   };
+  
   return (
       <div>
         <General />
