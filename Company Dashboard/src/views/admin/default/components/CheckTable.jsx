@@ -92,36 +92,36 @@ const CheckTable = ({ intershipId,name, tableData, action, status }) => {
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           {name}
         </div>
-        <button className="bg-[#4318ff] text-white px-2 py-1 rounded">
+        {/* <button className="bg-[#4318ff] text-white px-2 py-1 rounded">
           See All
-        </button>
+        </button> */}
       </header>
 
       <div className="mt-8 overflow-x-scroll xl:overflow-x-hidden  max-h-[340px]">
         <table className="w-full" variant="simple" color="gray-500" mb="24px">
           <thead>
             <tr>
-              <th className="border-b border-gray-200 pr-16 pb-[10px] text-center dark:!border-navy-700">
+              <th className="border-b border-gray-200 pb-[10px] text-center dark:!border-navy-700">
                 <div className="text-xs font-bold tracking-wide text-gray-600 lg:text-xs">
                   Name
                 </div>
               </th>
-              <th className="border-b border-gray-200 pr-16 pb-[10px] text-center dark:!border-navy-700">
+              <th className="border-b border-gray-200 pb-[10px] text-center dark:!border-navy-700">
                 <div className="text-xs font-bold tracking-wide text-gray-600 lg:text-xs">
                   Phone
                 </div>
               </th>
-              <th className="border-b border-gray-200 pr-16 pb-[10px] text-center dark:!border-navy-700">
+              <th className="border-b border-gray-200 pb-[10px] text-center dark:!border-navy-700">
                 <div className="text-xs font-bold tracking-wide text-gray-600 lg:text-xs">
                   Email
                 </div>
               </th>
-              <th className="border-b border-gray-200 pr-16 pb-[10px] text-center dark:!border-navy-700">
+              <th className="border-b border-gray-200 pb-[10px] text-center dark:!border-navy-700">
                 <div className="text-xs font-bold tracking-wide text-gray-600 lg:text-xs">
                   Specialization
                 </div>
               </th>
-              <th className="border-b border-gray-200 pr-16 pb-[10px] text-center dark:!border-navy-700">
+              <th className="border-b border-gray-200 pb-[10px] text-center dark:!border-navy-700">
                 <div className="text-xs font-bold tracking-wide text-gray-600 lg:text-xs">
                   Status
                 </div>
@@ -131,19 +131,19 @@ const CheckTable = ({ intershipId,name, tableData, action, status }) => {
           <tbody>
             {tableData?.map((row, _id) => (
               <tr key={row.userId}>
-                <td className="text-sm font-bold text-navy-700 dark:text-white" onClick={() => handleUserClick(row.userId)}>
+                <td className="text-sm text-center font-bold text-navy-700 dark:text-white cursor-pointer" onClick={() => handleUserClick(row.userId)}>
                   {row.uname}
                 </td>
-                <td className="pt-[15px] pb-[16px] sm:text-[14px]" onClick={() => handleUserClick(row.userId)}>
+                <td className="pt-[15px] text-center pb-[16px] sm:text-[14px] cursor-pointer" onClick={() => handleUserClick(row.userId)}>
                   {row?.phoneNumber || 'not given'}
                 </td>
-                <td className="pt-[15px] pb-[16px] sm:text-[14px]" onClick={() =>handleUserClick(row.userId)}>
+                <td className="pt-[15px] text-center pb-[16px] sm:text-[14px] cursor-pointer" onClick={() =>handleUserClick(row.userId)}>
                   {row?.email}
                 </td>
-                <td className="pt-[15px] pb-[16px] sm:text-[14px]" onClick={() =>handleUserClick(row.userId)}>
+                <td className="pt-[15px] text-center pb-[16px] sm:text-[14px] cursor-pointer" onClick={() =>handleUserClick(row.userId)}>
                   {row?.specialization || 'not given'}
                 </td>
-                <td className="pt-[15px] pb-[16px] sm:text-[14px]">
+                <td className="pt-[15px] text-center pb-[16px] sm:text-[14px]">
                   <button
                     className="bg-[#4318ff] text-white px-2 py-1 rounded"
                      onClick={() => handleButtonSubmit(action, row.userId)}

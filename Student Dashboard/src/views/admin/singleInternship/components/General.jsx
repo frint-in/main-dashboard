@@ -18,6 +18,8 @@ const General = () => {
     queryKey: ["intership", id], // Include user.uid in the query key
     queryFn: () => findIntershipById(id), // Call fetchEventsById with user.uid
   });
+
+  
   console.log("this is general");
   console.log("data in frontend", internship);
 

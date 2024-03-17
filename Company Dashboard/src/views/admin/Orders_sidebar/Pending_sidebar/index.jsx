@@ -12,14 +12,13 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getUsersWithIntershipId } from "../../../../api/intership";
 
-import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
+import { CircularProgress, CircularProgressLabel } from "@chakra-ui/react";
 
 const Dashboard = () => {
-  const {id} = useParams();
+  const { id } = useParams();
 
   const [PendingData, setPendingData] = useState([]);
   const [ReceivedData, setReceivedData] = useState([]);
-
 
   const {
     isLoading,
@@ -27,75 +26,78 @@ const Dashboard = () => {
     data: intership_users,
     error,
   } = useQuery({
-    queryKey: ["intershipUsers", id], 
-    queryFn: () => getUsersWithIntershipId(id), 
+    queryKey: ["intershipUsers", id],
+    queryFn: () => getUsersWithIntershipId(id),
   });
 
-        console.log('intership_users>>>>>>>>', intership_users);
+  console.log("intership_users>>>>>>>>", intership_users);
 
+  const filteredApplications = (status) => {
+    return intership_users
+      ? intership_users.filter((app) => app.applicationsStatus === status)
+      : [];
+  };
 
-          const filteredApplications = (status) => { 
-            return intership_users ? intership_users.filter(app => app.applicationsStatus === status) : [];
-          }
-  
-          const pendingApplications =    filteredApplications("pending");
-          const approvedApplications =   filteredApplications("approved")  ;
-          
+  const pendingApplications = filteredApplications("pending");
+  const approvedApplications = filteredApplications("approved");
+  const completedApplications = filteredApplications("completed");
 
+  console.log("pendingApplications>>>>>>", pendingApplications);
+  console.log("approvedApplications>>>>>>", approvedApplications);
 
-
-          
-          console.log('pendingApplications>>>>>>', pendingApplications);
-          console.log('approvedApplications>>>>>>',approvedApplications );
-        
-
-
-    
-
-
-          return (
-            <div className="mt-2">
-              {/* table */}
+  return (
+    <div className="mt-2">
+      {/* table */}
+      <div>
+        {/* Display companyName only if it's available */}
+        {isLoading ? (
+          <CircularProgress isIndeterminate color="green.300" />
+        ) : (
+          <>
+            {intership_users.length > 0 && (
               <div>
-                {/* Display companyName only if it's available */}
-                {isLoading ? (
-                  <CircularProgress isIndeterminate color='green.300' />
-                ) : (
-                  <>
-                    {intership_users.length > 0 && (
-                      <div>
-                        {intership_users[0]?.companyName.toUpperCase() || 'Company Name'}
-                      </div>
-                    )}
-                    <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-2">
-                      <div>
-                        {pendingApplications && (
-                          <CheckTable
-                            intershipId={id}
-                            name="Applied Works"
-                            tableData={pendingApplications}
-                            action="Approve"
-                            status="update/pending/topickup"
-                          />
-                        )}
-                      </div>
-                      <div>
-                        {approvedApplications && (
-                          <CheckTable
-                          intershipId={id}
-                            name="Shortlisted"
-                            tableData={approvedApplications}
-                            action="Complete"
-                            status="update/received/todelivery"
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </>
-                )}
+                {intership_users[0]?.companyName.toUpperCase() ||
+                  "Company Name"}
               </div>
+            )}
+            <div className="mt-5 grid grid-cols-1 gap-5">
+              {pendingApplications && (
+                <CheckTable
+                  intershipId={id}
+                  name="Applied Works"
+                  tableData={pendingApplications}
+                  action="Approve"
+                  status="update/pending/topickup"
+                />
+              )}
             </div>
-          );
-        };
+            <div className="mt-5 grid grid-cols-1 gap-5">
+              {approvedApplications && (
+                <CheckTable
+                  intershipId={id}
+                  name="Shortlisted"
+                  tableData={approvedApplications}
+                  action="Hire"
+                  status="update/received/todelivery"
+                />
+              )}
+            </div>
+            <div className="mt-5 grid grid-cols-1 gap-5">
+              {completedApplications && (
+                <CheckTable
+                  intershipId={id}
+                  name="Hired"
+                  tableData={completedApplications}
+                  action="Complete"
+                  // status="update/received/todelivery"
+                />
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default Dashboard;

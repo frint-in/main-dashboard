@@ -31,22 +31,19 @@ const NftCard = ({
           <div className="absolute top-3 left-3 bg-white dark:bg-navy-700 p-2 rounded-full flex items-center gap-2">
             <GiStopwatch color="red" /> {date}
           </div>
-          <img src={logo} alt="" className="absolute top-36 w-auto h-20 p-2" />
           <div className="absolute top-11 left-3 font-bold text-2xl pt-4 text-white">
             {company}
           </div>
-          <div className="absolute top-24 flex flex-wrap justify-between">
-            {/* {tag &&
-              tag.map((tagItem, index) => (
-                <div
-                  key={index}
-                  className="border border-black bg-transparent rounded-lg text-sm m-2 pl-2 pr-2 pt-1 pb-1 text-white"
-                >
-                  {tagItem}
-                </div>
-              ))} */}
-            <div className="border border-black bg-transparent rounded-lg text-sm m-2 pl-2 pr-2 pt-1 pb-1 text-white">
-              {type}
+          <div className="flex items-center justify-center">
+            <img
+              src={logo}
+              alt=""
+              className="absolute top-20 right-2 w-3/6 h-auto p-2"
+            />
+            <div className="absolute top-24 left-3 flex flex-wrap justify-between">
+              <div className="border border-black bg-transparent rounded-lg text-sm m-2 pl-2 pr-2 pt-1 pb-1 text-white">
+                {type}
+              </div>
             </div>
           </div>
           <button
@@ -82,14 +79,12 @@ const NftCard = ({
             </p>
           </div>
           <div className="flex gap-2">
-
-
-          <Link
-            to={link}
-            className="linear rounded-[20px] bg-brand-900 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700 dark:bg-brand-400 dark:hover:bg-brand-300 dark:active:opacity-90"
-          >
-            Details
-          </Link>
+            <Link
+              to={link}
+              className="linear rounded-[20px] bg-brand-900 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700 dark:bg-brand-400 dark:hover:bg-brand-300 dark:active:opacity-90"
+            >
+              Details
+            </Link>
           </div>
         </div>
       </div>

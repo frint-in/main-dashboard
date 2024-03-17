@@ -36,13 +36,13 @@ const StudentProfile = () => {
       <div className="w-ful mt-3 flex h-fit flex-col gap-5 lg:grid lg:grid-cols-12">
         <div className="col-span-4 lg:!mb-0">
           {/* <Banner data={student}/> */}
-          <Banner/>
+          <Banner data={student}/>
         </div>
 
         <div className="z-0 col-span-8 lg:!mb-0">
           {/* <Upload /> */}
           {/* <General data={student}/> */}
-          <General />
+          <General data={student} />
         </div>
 
         {/* <div className="z-0 col-span-3 lg:!mb-0">

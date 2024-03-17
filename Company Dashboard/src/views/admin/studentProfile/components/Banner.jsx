@@ -28,19 +28,19 @@ const Banner = ({data}) => {
       <div className="mt-6 mb-3 flex gap-4 md:!gap-14">
         <div className="flex flex-col items-center justify-center">
           <p className="text-2xl font-bold text-navy-700 dark:text-white">12</p>
-          <p className="text-sm font-normal text-gray-600">Projects</p>
+          <p className="text-sm font-normal text-gray-600">Applied</p>
         </div>
         <div className="flex flex-col items-center justify-center">
           <p className="text-2xl font-bold text-navy-700 dark:text-white">
             3
           </p>
-          <p className="text-sm font-normal text-gray-600">Internships</p>
+          <p className="text-sm font-normal text-gray-600">Ongoing</p>
         </div>
         <div className="flex flex-col items-center justify-center">
           <p className="text-2xl font-bold text-navy-700 dark:text-white">
             4
           </p>
-          <p className="text-sm font-normal text-gray-600">Freelance</p>
+          <p className="text-sm font-normal text-gray-600">Completed</p>
         </div>
       </div>
     </Card>
