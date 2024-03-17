@@ -45,7 +45,7 @@ const Navbar = (props) => {
 
   const logout = async() => {
     try {
-      // await axios.post(`/api/auth/logout`, {}, { withCredentials: true });
+      await axios.post(`/api/auth/logout`, {}, { withCredentials: true });
       // setIsAdminAuthenticated(false);
       setEmail('');
       setPassword('');

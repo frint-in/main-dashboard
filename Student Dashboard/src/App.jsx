@@ -16,6 +16,8 @@ const App = () => {
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
 
+  
+
   const isAuth = useSelector(selectAuthChecked);
 
   console.log("isAuth>>>>>>>>>>>", isAuth);
@@ -24,10 +26,10 @@ const App = () => {
     <Router>
       <Routes>
         {/* <Route path="auth/*" element={<Auth />} /> */}
-        <Route path="/auth" element={ <Auth /> } />
+        {/* <Route path="/auth" element={ <Auth /> } /> */}
         <Route path="/sign-up" element={<Signup />} />
         {/* <Route path='/single-internship/:id' element={<SingleInternship />} /> */}
-        <Route path="admin/*" element={ <Admin /> }/>
+        <Route path="admin/*" element={isAuth ? <Admin /> : <Navigate to="/"/> }/>
         <Route path="/" element={isAuth ? <Navigate to="/admin " replace /> : <Auth replace/>} />
     
       </Routes>
