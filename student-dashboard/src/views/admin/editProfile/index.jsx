@@ -21,7 +21,7 @@ const EditProfile = () => {
 
   const handleUser = async (e) => {
     e.preventDefault();
-    console.log(uname)
+    // console.log(uname)
 
     try {
       const res = await axios.put(
@@ -45,13 +45,13 @@ const EditProfile = () => {
       alert("Profile is saved");
 
       if (res.data) {
-        console.log(res.data);
+        // console.log(res.data);
       } else {
         alert("Opps!! Something gone wrong");
-        console.log("invalid credentials");
+        // console.log("invalid credentials");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -65,7 +65,7 @@ const EditProfile = () => {
     queryFn: () => getStudentByToken(),
   });
 
-  console.log("the logged in user", student);
+  // console.log("the logged in user", student);
 
   // Update the uname state when input changes
   // const handleNameChange = (e) => {

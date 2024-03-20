@@ -40,11 +40,11 @@ const [ReceivedData, setReceivedData] = useState([]);
         }
         
       }else{
-        console.log('ooooopppppsssss')
+        // console.log('ooooopppppsssss')
       }
 
     } catch (error) {
-      console.error("Error fetching data:", error);
+      // console.error("Error fetching data:", error);
     }
 
   };

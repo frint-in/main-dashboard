@@ -60,10 +60,10 @@ const Dashboard = () => {
           setPickupData(filteredData);
         }
       } else {
-        console.log("ooooopppppsssss");
+        // console.log("ooooopppppsssss");
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      // console.error("Error fetching data:", error);
     }
   };
 
@@ -97,7 +97,7 @@ const Dashboard = () => {
     queryFn: () => getUserCompletedApplications(), 
   });
 
-  console.log('the logged in user',student );
+  // console.log('the logged in user',student );
 
 
 

@@ -25,8 +25,8 @@ const CheckTable = ({ name, tableData, action, status }) => {
     queryKey: ["interships"], // Include user.uid in the query key
     queryFn: () => getAllInterships(), // Call fetchEventsById with user.uid
   });
-  console.log("hi2");
-  console.log("data in frontend", internships);
+  // console.log("hi2");
+  // console.log("data in frontend", internships);
 
   return (
     <Card extra={"w-full h-full sm:overflow-auto px-6"}>

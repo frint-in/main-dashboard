@@ -31,7 +31,7 @@ const Navbar = (props) => {
     queryFn: () => getStudentByToken(), 
   });
 
-  console.log('the logged in user',student );
+  // console.log('the logged in user',student );
 
   const navigate = useNavigate()
   const { onOpenSidenav, brandText } = props;
@@ -59,7 +59,7 @@ const Navbar = (props) => {
       navigate('/')
       
     } catch (error) {
-      console.error('Error logging out:', error);
+      // console.error('Error logging out:', error);
     }
 
   }

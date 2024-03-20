@@ -37,14 +37,14 @@
 //               'Content-Type': 'multipart/form-data'
 //           }
 //       });
-//       console.log(response.data);
+//       // console.log(response.data);
 //   } catch (error) {
-//       console.error(error);
+//       // console.error(error);
 //   }
 // };
 
 //   // const submitData = (data) => {
-//   //   console.log("IT WORKED", data);
+//   //   // console.log("IT WORKED", data);
 
 //   //   const formData = new FormData();
 //   //   formData.append("title", data.title);
@@ -286,7 +286,7 @@
 //   });
 
 //   const onSubmit = (data) => {
-//     console.log(data);
+//     // console.log(data);
 //   };
 
 //   return (
@@ -342,7 +342,7 @@
 //   });
 
 //   const submitData = (data) => {
-//     console.log("IT WORKED", data);
+//     // console.log("IT WORKED", data);
 //   };
 
 //   return (
@@ -409,9 +409,9 @@ const PostInternship = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("fromData>>>>>>>>>>", formData);
+    // // console.log("fromData>>>>>>>>>>", formData);
     const { image, ...restFormData } = formData;
-    // console.log("image>>>>>>>>", image);
+    // // console.log("image>>>>>>>>", image);
     const formDataToSend = new FormData();
     formDataToSend.append("image", image);
     // formDataToSend.append("Fuk-U","Rit")
@@ -419,14 +419,14 @@ const PostInternship = () => {
       formDataToSend.append(key, value);
     });
     for (const [key, value] of formDataToSend.entries()) {
-      console.log(key," : " , value);
+      // console.log(key," : " , value);
     }
 
     // Log the JavaScript object
-    // console.log(formDataObject);
+    // // console.log(formDataObject);
    
 
-    // console.log("form data>>>>>>", formDataToSend);
+    // // console.log("form data>>>>>>", formDataToSend);
 
     try {
       const response = await axios.post(
@@ -438,9 +438,9 @@ const PostInternship = () => {
           },
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

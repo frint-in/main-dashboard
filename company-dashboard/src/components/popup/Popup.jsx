@@ -24,15 +24,15 @@ export default function Popup({ setShowModal, order }) {
       if (response.status===200) {
         const names = response.data.map((item) => item.item);
         setOption(names);
-        // console.log(names)
-        // console.log(option)
+        // // console.log(names)
+        // // console.log(option)
       } else {
-        console.log("error")
+        // console.log("error")
       }
       
       
     } catch (error) {
-      console.error("Error fetching options:", error);
+      // console.error("Error fetching options:", error);
     }
   };
 
@@ -63,7 +63,7 @@ export default function Popup({ setShowModal, order }) {
         name: selectedOption,
         quantity: parseInt(itemQuantity),
       };
-      console.log(newItem)
+      // console.log(newItem)
       setAddedItems((prevItems) => [...prevItems, newItem]);
       setSelectedOption("");
       setItemQuantity("");
@@ -99,7 +99,7 @@ export default function Popup({ setShowModal, order }) {
         alert("Order Received");
         setShowModal(false);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        // console.error("Error fetching data:", error);
         alert("data not submitted");
       }
     }

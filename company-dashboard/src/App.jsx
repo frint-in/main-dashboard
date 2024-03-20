@@ -14,12 +14,12 @@ import Auth from "./views/auth/Auth";
 const App = () => {
   const [isAuth, setIsAuth] = useState(null)
 
-  console.log(isAuth);
+  // console.log(isAuth);
 
   useEffect(() => {
     setIsAuth(localStorage.getItem("isAuth"))
   }, [])
-  console.log(localStorage.getItem("isAuth"));
+  // console.log(localStorage.getItem("isAuth"));
   return (
     <Router>
       <Routes>

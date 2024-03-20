@@ -29,10 +29,10 @@ const EditInternship = () => {
         const response = await getIntershipById(id);
         setInternship(response);
 
-  console.log("internship within useEffect>>>>>>>>", internship);
+  // console.log("internship within useEffect>>>>>>>>", internship);
 
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     };
 
@@ -47,7 +47,7 @@ const EditInternship = () => {
     }));
   };
 
-  console.log("internship>>>>>>>>", internship);
+  // console.log("internship>>>>>>>>", internship);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,7 +60,7 @@ const EditInternship = () => {
       );
       alert("Profile is saved");
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       alert("Oops! Something went wrong.");
     }
   };

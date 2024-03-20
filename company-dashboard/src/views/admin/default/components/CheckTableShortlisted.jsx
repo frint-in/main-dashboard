@@ -22,7 +22,7 @@ const CheckTable = ({ intershipId,name, tableData, action, status }) => {
   const queryClient = useQueryClient();
 
   const handleUserClick = (id) => { 
-    console.log('userId', id);
+    // console.log('userId', id);
 
     navigate(`/admin/student details/${id}`)
    }
@@ -32,7 +32,7 @@ const CheckTable = ({ intershipId,name, tableData, action, status }) => {
     mutationFn: approveUserByIntershipId,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['intershipUsers']});
-      console.log("success bro!")
+      // console.log("success bro!")
     }
   });
 
@@ -40,16 +40,16 @@ const CheckTable = ({ intershipId,name, tableData, action, status }) => {
     mutationFn: completeUserByIntershipId,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['intershipUsers']});
-      console.log("success bro!")
+      // console.log("success bro!")
     }
   });
 
 
    const handleButtonSubmit = async (action, userId) => { 
         if (action === 'Approve') {
-          console.log('approved');
+          // console.log('approved');
 
-          console.log(userId);
+          // console.log(userId);
           // updateApprovedStatusMutation.mutate(intershipId, userId)
           const response = await axios.post(`/api/internship/updatetoapprove/${intershipId}`, {
               id: userId
@@ -60,12 +60,12 @@ const CheckTable = ({ intershipId,name, tableData, action, status }) => {
           }
 
           const data = response.data;
-          console.log("data>>>>", data);
+          // console.log("data>>>>", data);
       
         
           return data;
         } else {
-          console.log('completed');
+          // console.log('completed');
           // updateCompletedStatusMutation.mutate(userId)
           const response = await axios.post(`/api/internship/updatetocomplete/${intershipId}`, {
             id: userId
@@ -76,7 +76,7 @@ const CheckTable = ({ intershipId,name, tableData, action, status }) => {
         }
 
         const data = response.data;
-        console.log("data>>>>", data);
+        // console.log("data>>>>", data);
     
       
         return data;

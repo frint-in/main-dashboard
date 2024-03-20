@@ -22,13 +22,13 @@ const SingleInternship = () => {
 
   const current_internship = student?.applications.find( e => e.internship === id)
 
-  console.log("current_internship>>>>>>>>>>>>>>>", current_internship);
+  // console.log("current_internship>>>>>>>>>>>>>>>", current_internship);
 
   const applyInternshipMutation = useMutation({
     mutationFn: applyInternshipByStudentTokenAndInternshipId,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['student']});
-      console.log("success bro!")
+      // console.log("success bro!")
     }
   });
 

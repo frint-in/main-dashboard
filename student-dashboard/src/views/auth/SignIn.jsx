@@ -22,7 +22,7 @@ export default function SignIn({setIsAdminAuthenticated}) {
 
       );
       if (res.data) {
-        console.log(res.data);
+        // console.log(res.data);
         navigate('/admin/default');
         // setIsAdminAuthenticated(true)
         // sessionStorage.setItem('token', res.data.token)
@@ -30,10 +30,10 @@ export default function SignIn({setIsAdminAuthenticated}) {
 
       } else {
         alert('Invalid Credentials')
-        console.log('invalid credentials');
+        // console.log('invalid credentials');
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       
     }
     

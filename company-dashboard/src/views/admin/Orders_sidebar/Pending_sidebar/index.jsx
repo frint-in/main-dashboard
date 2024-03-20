@@ -30,7 +30,7 @@ const Dashboard = () => {
     queryFn: () => getUsersWithIntershipId(id),
   });
 
-  console.log("intership_users>>>>>>>>", intership_users);
+  // console.log("intership_users>>>>>>>>", intership_users);
 
   const filteredApplications = (status) => {
     return intership_users
@@ -42,8 +42,8 @@ const Dashboard = () => {
   const approvedApplications = filteredApplications("approved");
   const completedApplications = filteredApplications("completed");
 
-  console.log("pendingApplications>>>>>>", pendingApplications);
-  console.log("approvedApplications>>>>>>", approvedApplications);
+  // console.log("pendingApplications>>>>>>", pendingApplications);
+  // console.log("approvedApplications>>>>>>", approvedApplications);
 
   return (
     <div className="mt-2">

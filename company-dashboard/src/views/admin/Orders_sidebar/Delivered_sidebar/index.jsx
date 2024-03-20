@@ -39,10 +39,10 @@ const Dashboard = () => {
           setDeliveredData(filteredData);
         }
       } else {
-        console.log("ooopppssss");
+        // console.log("ooopppssss");
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      // console.error("Error fetching data:", error);
     }
   };
 

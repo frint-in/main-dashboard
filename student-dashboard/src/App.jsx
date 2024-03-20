@@ -20,7 +20,7 @@ const App = () => {
 
   const isAuth = useSelector(selectAuthChecked);
 
-  console.log("isAuth>>>>>>>>>>>", isAuth);
+  // console.log("isAuth>>>>>>>>>>>", isAuth);
 
   return (
     <Router>

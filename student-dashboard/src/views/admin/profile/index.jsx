@@ -24,7 +24,7 @@ const ProfileOverview = () => {
     queryFn: () => getStudentByToken(), 
   });
 
-  console.log('the logged in user',student );
+  // console.log('the logged in user',student );
 
 
   return (

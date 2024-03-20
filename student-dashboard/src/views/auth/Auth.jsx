@@ -26,7 +26,7 @@ export default function SignIn({setIsAdminAuthenticated}) {
 
       );
       if (res.data) {
-        console.log(res.data);
+        // console.log(res.data);
       dispatch(setAuthChecked())
       // localStorage.setItem("auth", JSON.stringify(true));
         
@@ -39,10 +39,10 @@ export default function SignIn({setIsAdminAuthenticated}) {
 
       } else {  
         alert('Invalid Credentials')
-        console.log('invalid credentials');
+        // console.log('invalid credentials');
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       
     }
     

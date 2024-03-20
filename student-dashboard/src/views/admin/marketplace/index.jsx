@@ -29,8 +29,8 @@ const Marketplace = () => {
     queryKey: ["interships"], // Include user.uid in the query key
     queryFn: () => getAllInterships(), // Call fetchEventsById with user.uid
   });
-  console.log("hi2");
-  console.log("data in frontend", internships);
+  // console.log("hi2");
+  // console.log("data in frontend", internships);
 
   return (
     <div className="mt-3 grid h-full grid-cols-1">

@@ -38,7 +38,7 @@ const Navbar = (props) => {
       // window.location.reload();
       navigate("/auth/sign-in");
     } catch (error) {
-      console.error("Error logging out:", error);
+      // console.error("Error logging out:", error);
     }
   };
   return (

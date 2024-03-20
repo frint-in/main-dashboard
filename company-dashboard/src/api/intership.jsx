@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // const AXIOS_BASE_URL = import.meta.env.VITE_REACT_API_BASE_ROUTE
 
-// console.log("hello>>>",AXIOS_BASE_URL);
+// // console.log("hello>>>",AXIOS_BASE_URL);
 
 // export async function addInternship() {
 //     const response = await axios.post(`${AXIOS_BASE_URL}/api/internship/addinternship`);
@@ -13,18 +13,18 @@ import axios from 'axios'
 
 export async function getAllApprovedApplicants() {
   try {
-    console.log("hi1");
+    // console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
     const response = await axios.get(`/api/internship/getUsersWithapproved`);
-    console.log("hi1");
+    // console.log("hi1");
 
     const data = response.data;
-    console.log("data>>>>", data);
+    // console.log("data>>>>", data);
 
   
     return data;
   } catch (error) {
-    console.log("error in getting all interships", error);
+    // console.log("error in getting all interships", error);
   }
 
 }
@@ -34,46 +34,46 @@ export async function getAllApprovedApplicants() {
 export async function getAllPendingApplicants() {
   try {
     const response = await axios.get(`/api/internship/getUsersWithpending`);
-    console.log("hi1");
+    // console.log("hi1");
 
     const data = response.data;
-    console.log("data>>>>", data);
+    // console.log("data>>>>", data);
 
   
     return data;
   } catch (error) {
-    console.log("error in getting all interships", error);
+    // console.log("error in getting all interships", error);
   }
 
 }
 
 export async function getIntershipById(id) {
   try {
-    console.log("hi1");
+    // console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
     const response = await axios.get(`/api/internship/find/${id}`);
-    console.log("hi1");
+    // console.log("hi1");
 
     const data = response.data;
-    console.log("data>>>>", data);
+    // console.log("data>>>>", data);
 
   
     return data;
   } catch (error) {
-    console.log("error in getting intership by id", error);
+    // console.log("error in getting intership by id", error);
   }
 
 }
 
 export async function getUsersWithIntershipId(id) {
   try {
-    console.log("hi1");
+    // console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
     const response = await axios.get(`/api/internship/getUsersWithInternship/${id}`);
-    console.log("hi1");
+    // console.log("hi1");
 
     const data = response.data;
-    console.log("data>>>>", data);
+    // console.log("data>>>>", data);
 
     const modifiedDataArray = [];
 
@@ -82,7 +82,7 @@ export async function getUsersWithIntershipId(id) {
         // Filter the applications array based on the internship key
         const filteredApplication = obj.applications.find(app => app.internship === id);
 
-        console.log('filteredApplications>>>>',filteredApplication);
+        // console.log('filteredApplications>>>>',filteredApplication);
         // Create a new object with required fields
         const newObj = {
             uname: obj.uname,
@@ -98,12 +98,12 @@ export async function getUsersWithIntershipId(id) {
     });
 
     // Now modifiedDataArray contains the required data
-    console.log(modifiedDataArray);
+    // console.log(modifiedDataArray);
 
   
     return modifiedDataArray;
   } catch (error) {
-    console.log("error in getting intership by id", error);
+    // console.log("error in getting intership by id", error);
   }
 
 }
@@ -111,38 +111,38 @@ export async function getUsersWithIntershipId(id) {
 
 export async function approveUserByIntershipId(internshipId, userId) {
   try {
-    console.log("hi1");
+    // console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
     const response = await axios.post(`/api/internship/updatetoapprove/${internshipId}`, {
       id: userId
   });
   const data = response.data;
-  console.log("data>>>>", data);
+  // console.log("data>>>>", data);
 
 
   return data;
   } catch (error) {
-    console.log("error in getting intership by id", error);
+    // console.log("error in getting intership by id", error);
   }
 
 }
 
 export async function completeUserByIntershipId(internshipId, userId) {
   try {
-    console.log("hi1");
+    // console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
     const response = await axios.post(`/api/internship/updatetocomplete/${internshipId}`, {
       id: userId
     });
-    console.log("hi1");
+    // console.log("hi1");
 
     const data = response.data;
-    console.log("data>>>>", data);
+    // console.log("data>>>>", data);
 
   
     return data;
   } catch (error) {
-    console.log("error in getting intership by id", error);
+    // console.log("error in getting intership by id", error);
   }
 
 }

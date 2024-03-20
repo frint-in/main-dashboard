@@ -4,7 +4,7 @@ import axios from 'axios'
 // const AXIOS_API_BASE_URL = import.meta.env.VITE_REACT_BASE_ROUTE
 
 
-// console.log("hello>>>",AXIOS_BASE_URL);
+// // console.log("hello>>>",AXIOS_BASE_URL);
 
 export async function getStudentByToken() {
     const response = await axios.get(`/api/user/finduserbytoken`, {withCredentials: true});
@@ -15,18 +15,18 @@ export async function getStudentByToken() {
 
 export async function getAllInterships() {
   try {
-    console.log("hi1");
+    // console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
     const response = await axios.get(`/api/internship/all`);
-    console.log("hi1");
+    // console.log("hi1");
 
     const data = response.data;
-    console.log("data>>>>", data);
+    // console.log("data>>>>", data);
 
   
     return data;
   } catch (error) {
-    console.log("error in getting all interships", error);
+    // console.log("error in getting all interships", error);
   }
 
 }
@@ -40,7 +40,7 @@ export async function getUserPendingApplications() {
   
     return data;
   } catch (error) {
-    console.log("error in getting pending", error);
+    // console.log("error in getting pending", error);
     
   }
 }
@@ -54,7 +54,7 @@ export async function getUserApprovedApplications() {
   
     return data;
   } catch (error) {
-    console.log("error in getting pending", error);
+    // console.log("error in getting pending", error);
     
   }
 }
@@ -69,7 +69,7 @@ export async function getUserCompletedApplications() {
   
     return data;
   } catch (error) {
-    console.log("error in getting pending", error);
+    // console.log("error in getting pending", error);
     
   }
 }

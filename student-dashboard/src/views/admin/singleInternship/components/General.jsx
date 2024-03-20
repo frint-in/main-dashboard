@@ -20,8 +20,8 @@ const General = () => {
   });
 
   
-  console.log("this is general");
-  console.log("data in frontend", internship);
+  // console.log("this is general");
+  // console.log("data in frontend", internship);
 
   return (
     <Card extra={"w-full h-full p-3"}>
