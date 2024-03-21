@@ -430,7 +430,7 @@ const PostInternship = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/internship/addinternship",
+        "https://api.frint.in/api/internship/addinternship",
         formDataToSend,
         { withCredentials: true },{
           headers: {

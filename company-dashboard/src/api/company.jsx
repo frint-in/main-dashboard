@@ -5,7 +5,7 @@ import axios from 'axios'
 // // console.log("hello>>>",AXIOS_BASE_URL);
 
 export async function addInternship() {
-    const response = await axios.post(`/api/internship/addinternship`, {withCredentials: true},);
+    const response = await axios.post(`https://api.frint.in/api/internship/addinternship`, {withCredentials: true},);
     const data = response.data;
 
     return data;
@@ -15,7 +15,7 @@ export async function getAllInterships() {
   try {
     // console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
-    const response = await axios.get(`/api/internship/all`, {withCredentials: true});
+    const response = await axios.get(`https://api.frint.in/api/internship/all`, {withCredentials: true});
     // console.log("hi1");
 
     const data = response.data;

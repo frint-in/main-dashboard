@@ -54,7 +54,7 @@ const EditInternship = () => {
 
     try {
       await axios.put(
-        `/api/internship/${id}`,
+        `https://api.frint.in/api/internship/${id}`,
         internship,
         { withCredentials: true }
       );

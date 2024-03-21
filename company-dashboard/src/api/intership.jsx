@@ -15,7 +15,7 @@ export async function getAllApprovedApplicants() {
   try {
     // console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
-    const response = await axios.get(`/api/internship/getUsersWithapproved`);
+    const response = await axios.get(`https://api.frint.in/api/internship/getUsersWithapproved`);
     // console.log("hi1");
 
     const data = response.data;
@@ -33,7 +33,7 @@ export async function getAllApprovedApplicants() {
 
 export async function getAllPendingApplicants() {
   try {
-    const response = await axios.get(`/api/internship/getUsersWithpending`);
+    const response = await axios.get(`https://api.frint.in/api/internship/getUsersWithpending`);
     // console.log("hi1");
 
     const data = response.data;
@@ -51,7 +51,7 @@ export async function getIntershipById(id) {
   try {
     // console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
-    const response = await axios.get(`/api/internship/find/${id}`);
+    const response = await axios.get(`https://api.frint.in/api/internship/find/${id}`);
     // console.log("hi1");
 
     const data = response.data;
@@ -69,7 +69,7 @@ export async function getUsersWithIntershipId(id) {
   try {
     // console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
-    const response = await axios.get(`/api/internship/getUsersWithInternship/${id}`);
+    const response = await axios.get(`https://api.frint.in/api/internship/getUsersWithInternship/${id}`);
     // console.log("hi1");
 
     const data = response.data;
@@ -113,7 +113,7 @@ export async function approveUserByIntershipId(internshipId, userId) {
   try {
     // console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
-    const response = await axios.post(`/api/internship/updatetoapprove/${internshipId}`, {
+    const response = await axios.post(`https://api.frint.in/api/internship/updatetoapprove/${internshipId}`, {
       id: userId
   });
   const data = response.data;
@@ -131,7 +131,7 @@ export async function completeUserByIntershipId(internshipId, userId) {
   try {
     // console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
-    const response = await axios.post(`/api/internship/updatetocomplete/${internshipId}`, {
+    const response = await axios.post(`https://api.frint.in/api/internship/updatetocomplete/${internshipId}`, {
       id: userId
     });
     // console.log("hi1");
