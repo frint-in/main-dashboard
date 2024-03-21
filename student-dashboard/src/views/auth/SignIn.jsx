@@ -17,7 +17,7 @@ export default function SignIn({setIsAdminAuthenticated}) {
     e.preventDefault();
 
     try {
-      const res = await axios.post('/api/auth/login', { email, password },
+      const res = await axios.post('https://api.frint.in/api/auth/login', { email, password },
       { withCredentials: true }
 
       );

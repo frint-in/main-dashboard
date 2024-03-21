@@ -25,7 +25,7 @@ const EditProfile = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:8000/api/user/updateuser/${student._id}`,
+        `https://api.frint.in/api/user/updateuser/${student._id}`,
         {
           email,
           uname,
