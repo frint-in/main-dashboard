@@ -5,7 +5,7 @@ import axios from 'axios'
 // // console.log("hello>>>",AXIOS_API_BASE_URL);
 
 export async function addInternship() {
-    const response = await axios.post(`/api/internship/addinternship`);
+    const response = await axios.post(`https://api.frint.in/api/internship/addinternship`);
     const data = response.data;
 
     return data;
@@ -15,7 +15,7 @@ export async function getAllInterships() {
   try {
     // console.log("hi1");
     // const response = await axios.get(`${AXIOS_API_BASE_URL}/api/internship/all`);
-    const response = await axios.get(`/api/internship/all`);
+    const response = await axios.get(`https://api.frint.in/api/internship/all`);
     // console.log("hi1");
 
     const data = response.data;
@@ -33,7 +33,7 @@ export async function getAllInterships() {
 export async function findIntershipById(id) {
   try {
     // console.log("hi1");
-    const response = await axios.get(`/api/internship/find/${id}`);
+    const response = await axios.get(`https://api.frint.in/api/internship/find/${id}`);
     // const response = await axios.get(`${import.meta.env.VITE_REACT_API_BASE_ROUTE}/api/internship/all`);
     // console.log("hi1");
 
