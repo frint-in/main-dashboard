@@ -7,7 +7,7 @@ import axios from 'axios'
 // // console.log("hello>>>",AXIOS_BASE_URL);
 
 export async function getStudentByToken() {
-    const response = await axios.get(`https://api.frint.in/api/user/finduserbytoken`, {withCredentials: true});
+    const response = await axios.get(`${import.meta.env.VITE_REACT_API_URL}api/user/finduserbytoken`, {withCredentials: true});
     const data = response.data;
 
     return data;
@@ -17,7 +17,7 @@ export async function getAllInterships() {
   try {
     // console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
-    const response = await axios.get(`https://api.frint.in/api/internship/all`);
+    const response = await axios.get(`${import.meta.env.VITE_REACT_API_URL}api/internship/all`);
     // console.log("hi1");
 
     const data = response.data;
@@ -35,7 +35,7 @@ export async function getAllInterships() {
 export async function getUserPendingApplications() {
 
   try {
-    const response = await axios.get(`https://api.frint.in/api/user/getUserWithPendingStatusForInternship`, {withCredentials: true});
+    const response = await axios.get(`${import.meta.env.VITE_REACT_API_URL}api/user/getUserWithPendingStatusForInternship`, {withCredentials: true});
     const data = response.data;
   
     return data;
@@ -49,7 +49,7 @@ export async function getUserPendingApplications() {
 export async function getUserApprovedApplications() {
 
   try {
-    const response = await axios.get(`https://api.frint.in/api/user/getUserWithApprovedStatusForInternship`, {withCredentials: true});
+    const response = await axios.get(`${import.meta.env.VITE_REACT_API_URL}api/user/getUserWithApprovedStatusForInternship`, {withCredentials: true});
     const data = response.data;
   
     return data;
@@ -64,7 +64,7 @@ export async function getUserApprovedApplications() {
 export async function getUserCompletedApplications() {
 
   try {
-    const response = await axios.get(`https://api.frint.in/api/user/getUserWithCompletedStatusForInternship`, {withCredentials: true});
+    const response = await axios.get(`${import.meta.env.VITE_REACT_API_URL}api/user/getUserWithCompletedStatusForInternship`, {withCredentials: true});
     const data = response.data;
   
     return data;

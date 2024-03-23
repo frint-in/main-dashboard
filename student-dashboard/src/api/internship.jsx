@@ -9,7 +9,7 @@ import axios from 'axios'
 
 export async function applyInternshipByStudentTokenAndInternshipId(id) {
   try {
-    const response = await axios.put(`https://api.frint.in/api/internship/addapplicants/${id}`, {withCredentials: true});
+    const response = await axios.put(`${import.meta.env.VITE_REACT_API_URL}api/internship/addapplicants/${id}`, {withCredentials: true});
 
     const data = response.data;
     // console.log("data>>>>", data);

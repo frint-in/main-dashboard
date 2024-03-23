@@ -25,7 +25,7 @@ const EditProfile = () => {
 
     try {
       const res = await axios.put(
-        `https://api.frint.in/api/user/updateuser/${student._id}`,
+        `${import.meta.env.VITE_REACT_API_URL}api/user/updateuser/${student._id}`,
         {
           email,
           uname,
