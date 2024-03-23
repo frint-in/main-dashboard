@@ -430,7 +430,7 @@ const PostInternship = () => {
 
     try {
       const response = await axios.post(
-        "https://api.frint.in/api/internship/addinternship",
+        `${import.meta.env.VITE_REACT_API_URL}api/internship/addinternship`,
         formDataToSend,
         { withCredentials: true },{
           headers: {

@@ -54,7 +54,7 @@ const EditInternship = () => {
 
     try {
       await axios.put(
-        `https://api.frint.in/api/internship/${id}`,
+        `${import.meta.env.VITE_REACT_API_URL}api/internship/${id}`,
         internship,
         { withCredentials: true }
       );

@@ -10,7 +10,7 @@ const Dashboard = () => {
 
   const DeliveredOrders = async () => {
     try {
-      const response = await Axios.get(`https://api.frint.in/api/delivered/orders`, {
+      const response = await Axios.get(`${import.meta.env.VITE_REACT_API_URL}api/delivered/orders`, {
         withCredentials: true,
       });
       if (response.status === 200) {

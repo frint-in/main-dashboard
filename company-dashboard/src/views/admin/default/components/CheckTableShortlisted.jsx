@@ -51,7 +51,7 @@ const CheckTable = ({ intershipId,name, tableData, action, status }) => {
 
           // console.log(userId);
           // updateApprovedStatusMutation.mutate(intershipId, userId)
-          const response = await axios.post(`https://api.frint.in/api/internship/updatetoapprove/${intershipId}`, {
+          const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/internship/updatetoapprove/${intershipId}`, {
               id: userId
           });
 
@@ -67,7 +67,7 @@ const CheckTable = ({ intershipId,name, tableData, action, status }) => {
         } else {
           // console.log('completed');
           // updateCompletedStatusMutation.mutate(userId)
-          const response = await axios.post(`https://api.frint.in/api/internship/updatetocomplete/${intershipId}`, {
+          const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/internship/updatetocomplete/${intershipId}`, {
             id: userId
         });
 
