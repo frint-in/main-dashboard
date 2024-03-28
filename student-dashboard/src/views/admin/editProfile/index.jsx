@@ -168,7 +168,7 @@ const EditProfile = () => {
               id="phone"
               // value={student?.phone}
               onChange={(e) => setphno(e.target.value)}
-              value={phno}
+              value={phno || student?.phno}
               // onChange={handleNameChange}
               type="tel"
               placeholder="Phone Number"
@@ -185,8 +185,8 @@ const EditProfile = () => {
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
               id="specialisation"
-              // value={student?.specialisation}
-              // onChange={(e) => setSpecialisation(e.target.value)}
+              onChange={(e) => setSpecialisation(e.target.value)}
+              value={specialisation || student?.specialisation}
               type="text"
               placeholder="specialisation"
               required
@@ -203,8 +203,8 @@ const EditProfile = () => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
               id="description"
               type="text"
-              // value={student?.description}
-              // onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) => setDescription(e.target.value)}
+              value={description || student?.description}
               placeholder="Description"
               required
             />
@@ -220,8 +220,8 @@ const EditProfile = () => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
               id="education"
               type="text"
-              // value={student?.education}
-              // onChange={(e) => setEducation(e.target.value)}
+              onChange={(e) => setEducation(e.target.value)}
+              value={education || student?.education}
               placeholder="Current College"
               required
             />
@@ -237,8 +237,8 @@ const EditProfile = () => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
               id="dob"
               type="date"
-              // value={student?.dob}
-              // onChange={(e) => setDob(e.target.value)}
+              onChange={(e) => setDob(e.target.value)}
+              value={dob || student?.dob}
               placeholder="Date of Birth"
               required
             />
@@ -253,8 +253,8 @@ const EditProfile = () => {
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
               id="language"
-              // value={student?.languages}
-              // onChange={(e) => setLanguages(e.target.value)}
+              onChange={(e) => setLanguages(e.target.value)}
+              value={languages || student?.languages}
               type="text"
               placeholder="Languages"
               required
@@ -271,8 +271,8 @@ const EditProfile = () => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
               id="skills"
               type="text"
-              // value={student?.skills}
-              // onChange={(e) => setSkills(e.target.value)}
+              onChange={(e) => setSkills(e.target.value)}
+              value={skills || student?.skills}
               placeholder="Skills"
               required
             />
