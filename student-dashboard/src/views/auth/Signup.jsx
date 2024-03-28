@@ -22,7 +22,7 @@ export default function Signup({ setIsAdminAuthenticated }) {
       );
       if (res.data) {
         // console.log(res.data);
-        navigate("/auth");
+        navigate("/");
         // setIsAdminAuthenticated(true)
         // sessionStorage.setItem('token', res.data.token)
         alert("Sign in successfull");
