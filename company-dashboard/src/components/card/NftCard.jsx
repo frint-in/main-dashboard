@@ -36,12 +36,12 @@ const   NftCard = ({
             {company}
           </div>
           <div className="flex items-center justify-center">
-            <img
+            {/* <img
               src={logo}
               alt=""
               className="absolute top-20 right-2 w-3/6 h-auto p-2"
-            />
-            <div className="absolute top-24 left-3 flex flex-wrap justify-between">
+            /> */}
+            <div className="absolute top-32 left-3 flex flex-wrap justify-between">
               <div className="border border-black bg-transparent rounded-lg text-sm m-2 pl-2 pr-2 pt-1 pb-1 text-white">
                 {type}
               </div>

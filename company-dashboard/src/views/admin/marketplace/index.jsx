@@ -46,7 +46,7 @@ const Marketplace = () => {
   // // console.log("dajs tryouts", dayjs(internships[0].createdAt).format("MM-DD-YYYY"));
 
   return (
-    <div className="mt-3 grid h-full grid-cols-1 gap-5 xl:grid-cols-2">
+    <div className="mt-3 grid h-full grid-cols-1 gap-5">
       <div className="col-span-1 h-fit w-full xl:col-span-1 2xl:col-span-2">
         {/* NFt Banner */}
         <Banner />
