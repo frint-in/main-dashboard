@@ -26,31 +26,28 @@ const PostInternship = () => {
       const response = await axios.post(
         "https://frintai-vu6qon67ia-uc.a.run.app/api/v1/llm/getDescription",
         {
-          name: "3D Designer Position",
-          location: "Anytown, USA",
-          phono: "9365353256",
-          companyName: "Creative Designs Inc.",
-          deadline: "April 30, 2024",
-          stipend: "$2000 per month",
-          type: "Full-time",
-          experience: "2+ years",
-          skills:
-            "Proficiency in 3D modeling software (e.g., Blender, Maya, 3ds Max), Strong understanding of design principles, Ability to create photorealistic renders, Excellent communication skills",
-          position: "3D Designer",
-          mode: "Remote",
+          name: formData.name,
+          location: formData.location,
+          phono: formData.phono,
+          companyName: formData.companyName,
+          deadline: formData.deadline,
+          stipend: formData.stipend,
+          type: formData.type,
+          experience: formData.experience,
+          skills: formData.skills,
+          position: formData.position,
+          mode: formData.mode,
         }
       );
       if (response.data) {
         // setResponse(response.data.description);
-        console.log(response.data.description)
+        console.log(response.data.description);
         setFormData({ ...formData, description: response.data.description });
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
-
-  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
