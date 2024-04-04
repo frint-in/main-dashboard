@@ -34,18 +34,18 @@ const NftCard = ({
           <div className="absolute top-11 left-3 font-bold text-2xl pt-4 text-white">
             {company}
           </div>
-          <div className="flex items-center justify-center">
-            {/* <img
+          {/* <div className="flex items-center justify-center">
+            <img
               src={logo}
               alt=""
               className="absolute top-20 right-2 w-3/6 h-auto p-2"
-            /> */}
+            />
+          </div> */}
             <div className="absolute top-32 left-3 flex flex-wrap justify-between">
               <div className="border border-black bg-transparent rounded-lg text-sm m-2 pl-2 pr-2 pt-1 pb-1 text-white">
                 {type}
               </div>
             </div>
-          </div>
           <button
             onClick={() => setHeart(!heart)}
             className="absolute top-3 right-3 flex items-center justify-center rounded-full bg-white p-2 text-brand-500 hover:cursor-pointer"
