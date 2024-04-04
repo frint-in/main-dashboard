@@ -27,7 +27,7 @@ const General = () => {
     <Card extra={"w-full h-full p-3"}>
       {/* Header */}
       <div className="mt-2 mb-8 w-full">
-        <img src={internship?.imgurl} alt="" className="w-auto h-20 p-2" />
+        <img src={internship?.imgurl} alt="" className="w-1/2 p-2" />
         <h4 className="px-2 text-xl font-bold text-navy-700 dark:text-white">
         {internship?.name || 'Company Name' }
         </h4>
