@@ -23,11 +23,11 @@ const NftCard = ({
     >
       <div className="h-full w-full">
         <div className="relative w-full">
-          <img
+          {/* <img
             src={image}
             className="mb-3 h-full w-full rounded-xl 3xl:h-full 3xl:w-full"
             alt=""
-          />
+          /> */}
           <div className="absolute top-3 left-3 bg-white dark:bg-navy-700 p-2 rounded-full flex items-center gap-2">
             <GiStopwatch color="red" /> {date}
           </div>
