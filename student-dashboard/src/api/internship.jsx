@@ -6,10 +6,14 @@ import axios from 'axios'
 
 // // console.log("hello>>>",AXIOS_BASE_URL);
 
+const instance = axios.create({
+withCredentials: true
+})
+
 
 export async function applyInternshipByStudentTokenAndInternshipId(id) {
   try {
-    const response = await axios.put(`${import.meta.env.VITE_REACT_API_URL}api/internship/addapplicants/${id}`, {withCredentials: true});
+    const response = await instance.put(`${import.meta.env.VITE_REACT_API_URL}api/internship/addapplicants/${id}`, {withCredentials: true});
 
     const data = response.data;
     // console.log("data>>>>", data);
@@ -19,10 +23,3 @@ export async function applyInternshipByStudentTokenAndInternshipId(id) {
     // console.log("error in adding applicants", error);
   }
 }
-
-
-
-
-
-
-  
