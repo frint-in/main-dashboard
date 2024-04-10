@@ -17,9 +17,9 @@ function formatDate(dateString) {
   return new Date(dateString).toLocaleDateString(undefined, options);
 }
 
-const instance = axios.create({
-  id: userId,
-});
+// const instance = axios.create({
+//   id: userId,
+// });
 
 const CheckTable = ({ intershipId, name, tableData, action, status }) => {
   const [showModal, setShowModal] = useState(false);
@@ -51,11 +51,14 @@ const CheckTable = ({ intershipId, name, tableData, action, status }) => {
   });
 
   const handleButtonSubmit = async (action, userId) => {
+    const instance = await axios.create({
+      id: userId,
+    });
     if (action === "Approve") {
       // console.log('approved');
 
       // console.log(userId);
-      // updateApprovedStatusMutation.mutate(intershipId, userId)
+      // updateApprovedStatusMutation.mutate(intershipId, userId);
       const response = await instance.post(
         `${
           import.meta.env.VITE_REACT_API_URL
@@ -75,7 +78,7 @@ const CheckTable = ({ intershipId, name, tableData, action, status }) => {
       return data;
     } else {
       // console.log('completed');
-      // updateCompletedStatusMutation.mutate(userId)
+      // updateCompletedStatusMutation.mutate(userId);
       const response = await instance.post(
         `${
           import.meta.env.VITE_REACT_API_URL
@@ -151,7 +154,7 @@ const CheckTable = ({ intershipId, name, tableData, action, status }) => {
                   className="pt-[15px] text-center pb-[16px] sm:text-[14px] cursor-pointer"
                   onClick={() => handleUserClick(row.userId)}
                 >
-                  {row?.phno || "not given"}
+                  {row?.phone || "not given"}
                 </td>
                 <td
                   className="pt-[15px] text-center pb-[16px] sm:text-[14px] cursor-pointer"
@@ -163,7 +166,7 @@ const CheckTable = ({ intershipId, name, tableData, action, status }) => {
                   className="pt-[15px] text-center pb-[16px] sm:text-[14px] cursor-pointer"
                   onClick={() => handleUserClick(row.userId)}
                 >
-                  {row?.specialisation || "not given"}
+                  {row?.specs || "not given"}
                 </td>
                 <td className="pt-[15px] text-center pb-[16px] sm:text-[14px]">
                   <button
