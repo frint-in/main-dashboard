@@ -1,15 +1,5 @@
 import axios from 'axios'
 
-// const AXIOS_BASE_URL = import.meta.env.VITE_REACT_API_BASE_ROUTE
-
-// // console.log("hello>>>",AXIOS_BASE_URL);
-
-// export async function addInternship() {
-//     const response = await axios.post(`${AXIOS_BASE_URL}/api/internship/addinternship`);
-//     const data = response.data;
-
-//     return data;
-// }
 
 export async function getAllApprovedApplicants() {
   try {
