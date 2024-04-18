@@ -1,156 +1,238 @@
-import React from "react";
-import Card from "../../../components/card";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import InputField from "../../../components/fields/InputField";
 
-const EditProfile = () => {
+export default function EditProfile({ setIsAdminAuthenticated }) {
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [phono, setPhono] = useState("");
+  const [location, setLocation] = useState("");
+  const [description, setDescription] = useState("");
+  const [details, setDetails] = useState([])
+  const [catagories, setCatagories] = useState([])
+  const [website, setWebsite] = useState([])
+
+
+
+  useEffect(()=> {
+    const storedDetails = localStorage.getItem("details");
+    if (storedDetails) {
+      const details = JSON.parse(storedDetails);
+      setDetails(details)
+      console.log(details)
+      setName(details.name);
+      setEmail(details.email);
+      setPhono(details.phono);
+      setLocation(details.location);
+      setDescription(details.description);
+      setWebsite(details.website);
+      setCatagories(details.catagories);
+
+
+
+    }
+      },[])
+
+
+
+
+
+  const handleUser = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("image", image);
+    formData.append("phono", phono);
+    formData.append("location", location);
+    formData.append("description", description);
+    formData.append("catagories", catagories);
+    formData.append("website", website);
+
+
+
+
+
+   
+    
+
+    try {
+      const res = await axios.put(
+        `${import.meta.env.VITE_REACT_API_URL}api/company/updatecompany`,
+        formData,
+        { withCredentials: true, headers: { "Content-Type": "multipart/form-data" } }
+      );
+      if (res.data) {
+        navigate("/auth");
+        alert("Login to update details");
+      } else {
+        alert("Invalid Credentials");
+      }
+    } catch (error) {
+      alert(error.response.data.error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
 
   return (
-    <Card className="grid h-full w-full grid-cols-1 gap-3 rounded-[20px] bg-white bg-clip-border p-3 font-dm shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:shadow-none 2xl:grid-cols-11">
-      <div className="col-span-10 flex h-full w-full flex-col justify-center overflow-hidden rounded-xl bg-white pl-3 pb-4 dark:!bg-navy-800">
-        <h5 className="text-left text-xl font-bold leading-9 text-navy-700 dark:text-white">
-          Edit Profile
-        </h5>
-        <form className="rounded pt-6 pb-8 mb-4 bg-white pl-3 dark:!bg-navy-800 ">
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="logo"
-            >
-              Company Logo
-            </label>
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="name"
-            >
-              Company Name
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="name"
-              type="text"
-              placeholder="Full Name"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="email"
-              type="email"
-              placeholder="Email Address"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="phone"
-            >
-              Phone Number
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="phone"
-              type="tel"
-              placeholder="Phone Number"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="category"
-            >
-              Category
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="category"
-              type="text"
-              placeholder="Category"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="description"
-            >
-              Description
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="description"
-              type="text"
-              placeholder="Description"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="location"
-            >
-              Location
-            </label>
+    <div className="mt-1 mb-1 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-center">
+      {/* Sign in section */}
+      <div className="mt-[10vh] w-full max-w-full flex-col items-center md:pl-4 lg:pl-0 xl:max-w-[420px]">
+        <h4 className="mb-2.5 text-4xl font-bold text-navy-700 dark:text-white">
+          Edit Company Profile
+        </h4>
+        <p className="mb-9 ml-1 text-base text-gray-600">
+          Enter your email, password, and upload an image to sign up!
+        </p>
+
+        <form onSubmit={handleUser}>
+        <InputField
+            // variant="auth"
+            extra="mb-3"
+            label="name*"
+            placeholder="Rohan Verma"
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="location"
-              type="text"
-              placeholder="location"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="website"
-            >
-              Website
+          />
+          <InputField
+            // variant="auth"
+            extra="mb-3"
+            label="Email*"
+            placeholder="mail@simmmple.com"
+            id="email"
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            
+          />
+
+          {/* Password */}
+          {/* <InputField
+            // variant="auth"
+            extra="mb-3"
+            label="Password*"
+            placeholder="********"
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          /> */}
+
+          {/* Image upload */}
+          <div className="mb-3">
+            <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-white">
+              company Logo
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="website"
-              type="text"
-              placeholder="Website link"
-              required
+              id="image"
+              name="image"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              
+              className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
             />
           </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="founded"
+          <InputField
+            // variant="auth"
+            extra="mb-3"
+            label="phono*"
+            placeholder="**********"
+            id="phono"
+            type="number"
+            value={phono}
+            onChange={(e) => setPhono(e.target.value)}
+          />
+          <InputField
+            // variant="auth"
+            extra="mb-3"
+            label="location*"
+            placeholder="Guwahati"
+            id="location"
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            
+          />
+          <InputField
+            // variant="auth"
+            extra="mb-3"
+            label="description*"
+            placeholder="a short description"
+            id="description"
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            
+          />
+          <InputField
+            // variant="auth"
+            extra="mb-3"
+            label="website*"
+            placeholder="a short description"
+            id="website"
+            type="text"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+            
+          />
+          <InputField
+            // variant="auth"
+            extra="mb-3"
+            label="catagories*"
+            placeholder="a short description"
+            id="catagories"
+            type="text"
+            value={catagories}
+            onChange={(e) => setCatagories(e.target.value.split(","))}
+            
+          />
+
+          {/* Checkbox */}
+          {/* <div className="mb-4 flex items-center justify-between px-2">
+            <a
+              className="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
+              href=" "
             >
-              Date of Foundation
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="founded"
-              type="date"
-              placeholder="Founded Date"
-              required
-            />
+              Forgot Password?
+            </a>
+          </div> */}
+          <button
+            className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Signing In..." : "Sign In"}
+          </button>
+          <div className="mt-4">
+            <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">
+              Already registered?
+            </span>
+            <Link
+              to="/auth"
+              className="ml-1 text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
+            >
+              Log in
+            </Link>
           </div>
         </form>
-        <div className="flex items-center justify-between">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-          >
-            Save
-          </button>
-        </div>
       </div>
-    </Card>
+    </div>
   );
-};
-
-export default EditProfile;
+}
