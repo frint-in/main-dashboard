@@ -18,6 +18,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllInterships } from "../../../api/company";
 import dayjs from 'dayjs'
 import { useEffect, useState } from "react";
+import axios from "axios";
 const Marketplace = () => {
   const [internships, setInternships] = useState([])
   const colors = [
@@ -31,10 +32,12 @@ const Marketplace = () => {
 
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getAllInterships();
-      setInternships(data);
-      console.log(data);
+    const fetchData = async () => {      
+      const res = await axios.get(
+      `${import.meta.env.VITE_REACT_API_URL}api/company/mycompany`, 
+     { withCredentials: true, headers: { "Content-Type": "multipart/form-data" } }
+    );
+      setInternships(res.data.internships);
     };
     fetchData()
 
