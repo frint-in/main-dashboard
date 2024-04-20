@@ -90,6 +90,13 @@ const routes = [
     component: <Profile />,
   },
   {
+    name: "Edit Profile",
+    layout: "/admin",
+    path: "editProfile",
+    icon: <FaUserEdit className="h-6 w-6" />,
+    component: <EditProfile />,
+  },
+  {
     // name: "Applicants",
     layout: "/admin",
     // icon: <GrSchedules className="h-6 w-6" />,
@@ -109,13 +116,6 @@ const routes = [
     path: "student details/:id",
     // icon: <CgProfile className="h-6 w-6" />,
     component: <StudentProfile />,
-  },
-  {
-    name: "Edit Profile",
-    layout: "/admin",
-    path: "editProfile",
-    icon: <FaUserEdit className="h-6 w-6" />,
-    component: <EditProfile />,
   },
   // {
   //   name: "Data Tables",

@@ -71,8 +71,8 @@ export default function Signup({ setIsAdminAuthenticated }) {
         <InputField
             // variant="auth"
             extra="mb-3"
-            label="name*"
-            placeholder="Rohan Verma"
+            label="Name*"
+            placeholder="Company Name"
             id="name"
             type="text"
             value={name}
@@ -83,7 +83,7 @@ export default function Signup({ setIsAdminAuthenticated }) {
             // variant="auth"
             extra="mb-3"
             label="Email*"
-            placeholder="mail@simmmple.com"
+            placeholder="text@mail.com"
             id="email"
             type="text"
             value={email}
@@ -122,8 +122,8 @@ export default function Signup({ setIsAdminAuthenticated }) {
           <InputField
             // variant="auth"
             extra="mb-3"
-            label="phono*"
-            placeholder="**********"
+            label="Phone Number*"
+            placeholder="+91-**********"
             id="phono"
             type="number"
             value={phono}
@@ -167,7 +167,7 @@ export default function Signup({ setIsAdminAuthenticated }) {
             type="submit"
             disabled={loading}
           >
-            {loading ? "Signing In..." : "Sign In"}
+            {loading ? "Registering..." : "Register"}
           </button>
           <div className="mt-4">
             <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">
