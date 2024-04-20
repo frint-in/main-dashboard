@@ -18,7 +18,6 @@ const App = () => {
 
 
   const token = localStorage.getItem("token");
-  console.log(token)
   const isAuth = useMemo(() => token, [token]);
 
 

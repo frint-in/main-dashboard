@@ -14,19 +14,23 @@ function formatDate(dateString) {
 const CheckTable = ({ name, tableData, action, status }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
+  const [internships, setInternships] = useState([])
 
 
-  const {
-    isLoading,
-    isError,
-    data: internships,
-    error,
-  } = useQuery({
-    queryKey: ["interships"], // Include user.uid in the query key
-    queryFn: () => getAllInterships(), // Call fetchEventsById with user.uid
-  });
-  // console.log("hi2");
-  // console.log("data in frontend", internships);
+
+  useEffect(() => {
+    const fetchData = async () => {      
+      const res = await axios.get(
+      `${import.meta.env.VITE_REACT_API_URL}api/company/mycompany`, 
+     { withCredentials: true, headers: { "Content-Type": "multipart/form-data" } }
+    );
+      setInternships(res.data.internships);
+    };
+    fetchData()
+
+  },[])
+
+
 
   return (
     <Card extra={"w-full h-full sm:overflow-auto px-6"}>
