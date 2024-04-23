@@ -72,7 +72,7 @@ const PostInternship = () => {
   const handleGenerateAI = async () => {
     try {
       const response = await axios.post(
-        "https://frintai-vu6qon67ia-uc.a.run.app/api/v1/llm/getDescription",
+        "https://frint-ai-ou22wujlaq-el.a.run.app",
         {
           name: name,
           location: location,
