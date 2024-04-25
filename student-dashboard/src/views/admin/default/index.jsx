@@ -19,16 +19,20 @@ import tableDataCheck from "./variables/tableDataCheck.json";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getStudentByToken, getUserApprovedApplications, getUserCompletedApplications, getUserPendingApplications } from "../../../api/student";
 import axios from "axios";
+import Card from "../../../components/card";
+import BannerCard from "../../../components/card/BannerCard";
+import { useNavigate } from "react-router-dom";
 
 
 const Dashboard = () => {
 
+  const navigate = useNavigate()
 
   const [PendingData, setPendingData] = useState([]);
   const [approved, setApproved] = useState([]);
   const [completed, setCompleted] = useState([]);
   const [DeliveredData, setDeliveredData] = useState([]);
-  const [TotalData, setTotalData] = useState([]);
+  const [user, setUser] = useState([]);
   const [details, setDetails] = useState([]);
 
   // const PickupOrders = async () => {
@@ -66,6 +70,9 @@ const Dashboard = () => {
   //     // console.error("Error fetching data:", error);
   //   }
   // };
+
+
+
 
   const myinternships = async()=>{
     try {
@@ -108,6 +115,7 @@ const Dashboard = () => {
     myinternships()
   },[])
 
+  
 
 
   // console.log('the logged in user',student );
@@ -119,6 +127,51 @@ const Dashboard = () => {
     approved?.length,
     completed?.length,
   ];
+
+
+  const seminar = async () => {
+    try {
+        const requiredFields = ['avatar', 'createdAt', 'description', 'dob', 'education', 'email', 'gender', 'languages', 'phno', 'resume', 'role', 'skills', 'specialisation', 'uname', 'updatedAt', '_id'];
+
+        // Check if all required fields are present in the user object
+        const allFieldsPresent = requiredFields.every(field => user.hasOwnProperty(field));
+
+        if (!allFieldsPresent) {
+            alert('Required fields are missing');
+            navigate('/admin/editProfile')
+            return;
+        }
+
+        const res = await axios.put(
+            `${import.meta.env.VITE_REACT_API_URL}api/user/seminar`,
+            null,
+            {
+                withCredentials: true,
+            }
+        );
+        if (res.data) {
+            alert("Registered successfully");
+        } else {
+            alert("Invalid Credentials");
+        }
+    } catch (error) {
+        console.log(error);
+        alert("Error occurred");
+    }
+};
+
+
+
+  useEffect(() => {
+    const storedDetails = localStorage.getItem("details");
+    if (storedDetails) {
+      const details1 = JSON.parse(storedDetails);
+      setUser(details1);
+      console.log(details1)
+    }
+  }, []);
+
+
 
   return (
     <div>
@@ -177,14 +230,17 @@ const Dashboard = () => {
           {/* <TaskCard /> */}
           <PieChartCard pieChartData={pieChartData} />
         </div>
-        {/* <div>
-          <CheckTable
-            name="Rejected Works"
-            tableData={DeliveredData}
-            action={null}
-          />
-        </div> */}
+        <div>
+         
+        </div>
+        
       </div>
+      <button className="h-full w-full" onClick={seminar}>
+      <BannerCard
+       date= {'20-20-2020'}
+       company= {'Summernternship'}
+       type={"This is summer internship fair organised by frint. Click in this Banner to apply"}/>
+       </button>
     </div>
   );
 };

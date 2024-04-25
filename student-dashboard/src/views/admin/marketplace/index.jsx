@@ -29,7 +29,7 @@ const Marketplace = () => {
       const data = internships.data.reverse()
 
       setDetails(data)
-      
+      console.log(data)
     } catch (error) {
       console.log(error)
     }
@@ -99,7 +99,7 @@ const Marketplace = () => {
               stipend={intership.stipend || "not given"}
               image={NFt3}
               date={dayjs(intership.createdAt).format("DD-MM-YYYY")}
-              company={intership.companyName}
+              company={intership.company.name}
               // tag={["Part-time", "Full-time", "internship"]}
               type={intership.type}
               link={`/admin/single internship/${intership._id}`}

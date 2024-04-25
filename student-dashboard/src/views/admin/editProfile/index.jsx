@@ -32,19 +32,19 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
     if (storedDetails) {
       const details = JSON.parse(storedDetails);
       setDetails(details);
-      setUname(details.uname);
-      setEmail(details.email);
-      setPhno(details.phno);
-      setGender(details.gender);
-      setDescription(details.description);
-      setSpecialisation(details.specialisation);
-      setCatagories(details.catagories);
-      setSpecialisation(details.specialisation)
-      setEducation(details.education)
-      setDob(details.dob)
-      setLanguages(details.languages)
-      setSkills(details.skills)
-      setResume(details.Resume)
+      setUname(details.uname || ""); // Set default value to empty string if field is undefined
+      setEmail(details.email || "");
+      setPhno(details.phno || "");
+      setGender(details.gender || "");
+      setDescription(details.description || "");
+      setSpecialisation(details.specialisation || "");
+      setCatagories(details.catagories || []);
+      setSpecialisation(details.specialisation || "")
+      setEducation(details.education || "")
+      setDob(details.dob || "")
+      setLanguages(details.languages || "")
+      setSkills(details.skills || "")
+      // setResume(details.resume || null)
     }
   }, []);
 
@@ -68,7 +68,7 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
     formData.append("resume", resume);
 
 
-
+  
 
 
 
