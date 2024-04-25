@@ -105,11 +105,11 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
         onSubmit={handleUser}
       >
         <h4 className=" my-4 text-4xl font-bold text-navy-700 dark:text-white">
-          Edit Company Profile
+          Edit Profile
         </h4>
-        <p className="mb-9 ml-1 text-base text-gray-600">
+        {/* <p className="mb-9 ml-1 text-base text-gray-600">
           Enter your email, password, and upload an image to sign up!
-        </p>
+        </p> */}
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -165,7 +165,7 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="image"
           >
-            Company Logo
+            Profile Photo
           </label>
           <input
             id="image"
