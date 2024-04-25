@@ -1,41 +1,49 @@
 import { useParams } from "react-router-dom";
 import Card from "../../../../components/card";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // import { getAllInterships } from "../../../../api/student";
 import { findIntershipById } from "../../../../api/user";
+import axios from "axios";
 
-const General = () => {
+const General = ({details}) => {
   const {id} = useParams();
-  const queryClient = useQueryClient();
+  // const [details, setDetails] = useState()
 
-  const {
-    isLoading,
-    isError,
-    data: internship,
-    error,
-  } = useQuery({
-    queryKey: ["intership", id], // Include user.uid in the query key
-    queryFn: () => findIntershipById(id), // Call fetchEventsById with user.uid
-  });
 
+  // const findIntershipById =  async(id)=> {
+  //   console.log(id)
+  //   try {
+  //     const response = await axios.get(
+  //       `${import.meta.env.VITE_REACT_API_URL}api/internship/find/${id}`,
+  //       { withCredentials: true }
+  //     );
   
-  // console.log("this is general");
-  // console.log("data in frontend", internship);
+  //     const data = response.data;
+  //     setDetails(data)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
+  // useEffect(()=>{
+  //   findIntershipById(id)
+  // },[])
+
 
   return (
     <Card extra={"w-full h-full p-3"}>
       {/* Header */}
       <div className="mt-2 mb-8 w-full">
-        <img src={internship?.imgurl} alt="" className="w-1/2 p-2" />
+        <img src={details?.imgurl} alt="" className="w-1/2 p-2" />
         <h4 className="px-2 text-xl font-bold text-navy-700 dark:text-white">
-        {internship?.name || 'Company Name' }
+        {details?.name || 'Company Name' }
         </h4>
         <h5 className="px-2 text-l font-bold text-navy-700 dark:text-white">
-        {internship?.companyName || 'Company Name' }
+        {details?.companyName || 'Company Name' }
         </h5>
         <p className="mt-2 px-2 text-base text-gray-600">
-          {internship?.description}
+          {details?.description}
         </p>
       </div>
       {/* Cards */}
@@ -43,54 +51,54 @@ const General = () => {
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Position</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-          {internship?.position}
+          {details?.position}
           </p>
         </div>
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Location</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            {internship?.location}
+            {details?.location}
           </p>
         </div>
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Mode</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-          {internship?.mode || 'mode'}
+          {details?.mode || 'mode'}
           </p>
         </div>
 
         <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Deadline </p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-          {internship?.deadline || 'deadline'}
+          {details?.deadline || 'deadline'}
           </p>
         </div>
 
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Stipend</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-          {internship?.stipend || 'stipend'}
+          {details?.stipend || 'stipend'}
           </p>
         </div>
 
         <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Type</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-          {internship?.type || 'remote/onsite'}
+          {details?.type || 'remote/onsite'}
           </p>
         </div>
 
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Experience</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-          {internship?.experience || 'experience'}
+          {details?.experience || 'experience'}
           </p>
         </div>
 
         <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Skills</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            {internship?.skills || 'Skills'}
+            {details?.skills || 'Skills'}
           </p>
         </div>
       </div>

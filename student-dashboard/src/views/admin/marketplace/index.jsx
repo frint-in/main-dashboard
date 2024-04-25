@@ -16,21 +16,30 @@ import NftCard from "../../../components/card/NftCard";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllInterships } from "../../../api/student";
 import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Marketplace = () => {
-  const queryClient = useQueryClient();
+  const [details, setDetails] = useState()
+  const all = async()=>{
+    try {
+      const internships = await axios.get(`${import.meta.env.VITE_REACT_API_URL}api/internship/all`,
+    { withCredentials: true }
+      )
+      const data = internships.data.reverse()
 
-  const {
-    isLoading,
-    isError,
-    data: internships,
-    error,
-  } = useQuery({
-    queryKey: ["interships"], // Include user.uid in the query key
-    queryFn: () => getAllInterships(), // Call fetchEventsById with user.uid
-  });
-  // console.log("hi2");
-  // console.log("data in frontend", internships);
+      setDetails(data)
+      
+    } catch (error) {
+      console.log(error)
+    }
+    
+  
+  }
+
+  useEffect(()=>{
+    all()
+  },[])
 
   return (
     <div className="mt-3 grid h-full grid-cols-1">
@@ -81,7 +90,7 @@ const Marketplace = () => {
 
         {/* NFTs trending card */}
         <div className="z-20 grid grid-cols-1 gap-5 lg:grid-cols-3 md:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
-          {internships?.map((intership, index) => (
+          {details?.map((intership, index) => (
             <NftCard
               key={index}
               id={intership._id}

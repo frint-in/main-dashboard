@@ -18,93 +18,106 @@ import tableDataCheck from "./variables/tableDataCheck.json";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getStudentByToken, getUserApprovedApplications, getUserCompletedApplications, getUserPendingApplications } from "../../../api/student";
+import axios from "axios";
 
 
 const Dashboard = () => {
 
+
   const [PendingData, setPendingData] = useState([]);
-  const [PickupData, setPickupData] = useState([]);
-  const [ReceivedData, setReceivedData] = useState([]);
+  const [approved, setApproved] = useState([]);
+  const [completed, setCompleted] = useState([]);
   const [DeliveredData, setDeliveredData] = useState([]);
   const [TotalData, setTotalData] = useState([]);
-  const [Earning, setEarning] = useState([]);
+  const [details, setDetails] = useState([]);
 
-  const PickupOrders = async () => {
+  // const PickupOrders = async () => {
+  //   try {
+      
+  //     if (response.status === 200) {
+  //       const filteredData = response.data.filter(
+  //         (order) => order.servicelocation === url
+  //       );
+  //       if (Date2 === "today") {
+  //         const dataWithDate = filteredData.filter(
+  //           (order) => order.createdat.split("T")[0] === Date
+  //         );
+  //         setPickupData(dataWithDate);
+  //       }
+  //       if (Date2 === "thismonth") {
+  //         const dataWithDate = filteredData.filter(
+  //           (order) => order.createdat.split("T")[0].slice(0, 7) === Date
+  //         );
+  //         setPickupData(dataWithDate);
+  //       }
+  //       if (Date2 === "thisyear") {
+  //         const dataWithDate = filteredData.filter(
+  //           (order) => order.createdat.split("T")[0].slice(0, 4) === Date
+  //         );
+  //         setPickupData(dataWithDate);
+  //       }
+  //       if (Date === "total") {
+  //         setPickupData(filteredData);
+  //       }
+  //     } else {
+  //       // console.log("ooooopppppsssss");
+  //     }
+  //   } catch (error) {
+  //     // console.error("Error fetching data:", error);
+  //   }
+  // };
+
+  const myinternships = async()=>{
     try {
-      // const response = await Axios.get(`/api/pickup/orders`, {
-      //   withCredentials: true,
-      // });
-      if (response.status === 200) {
-        const filteredData = response.data.filter(
-          (order) => order.servicelocation === url
-        );
-        if (Date2 === "today") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0] === Date
-          );
-          setPickupData(dataWithDate);
-        }
-        if (Date2 === "thismonth") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0].slice(0, 7) === Date
-          );
-          setPickupData(dataWithDate);
-        }
-        if (Date2 === "thisyear") {
-          const dataWithDate = filteredData.filter(
-            (order) => order.createdat.split("T")[0].slice(0, 4) === Date
-          );
-          setPickupData(dataWithDate);
-        }
-        if (Date === "total") {
-          setPickupData(filteredData);
-        }
-      } else {
-        // console.log("ooooopppppsssss");
-      }
+      const internships = await axios.get(`${import.meta.env.VITE_REACT_API_URL}api/user/finduserbytoken`,
+    { withCredentials: true }
+      )
+      const data = internships.data
+
+      const pendingApplications = data.applications.filter(
+        (application) => application.status === 'pending'
+      );
+
+      setPendingData(pendingApplications)
+
+      const approvedApplications = data.applications.filter(
+        (application) => application.status === 'approved'
+      );
+
+      setApproved(approvedApplications)
+
+
+      const completedApplications = data.applications.filter(
+        (application) => application.status === 'completed'
+      );
+
+      setCompleted(completedApplications)
+
+
+      setDetails(data)
+      
     } catch (error) {
-      // console.error("Error fetching data:", error);
+      console.log(error)
     }
-  };
+    
+  
+  }
 
 
-  const {
-    data: student,
-  } = useQuery({
-    queryKey: ["student"], 
-    queryFn: () => getStudentByToken(), 
-  });
+  useEffect(()=>{
+    myinternships()
+  },[])
 
 
-  const {
-    data: pending_applications,
-  } = useQuery({
-    queryKey: ["pending"], 
-    queryFn: () => getUserPendingApplications(), 
-  });
-
-  const {
-    data: approved_applications,
-  } = useQuery({
-    queryKey: ["approved"], 
-    queryFn: () => getUserApprovedApplications(), 
-  });
-
-  const {
-    data: completed_applications,
-  } = useQuery({
-    queryKey: ["completed"], 
-    queryFn: () => getUserCompletedApplications(), 
-  });
 
   // console.log('the logged in user',student );
 
 
 
   const pieChartData = [
-    pending_applications?.length,
-    approved_applications?.length,
-    completed_applications?.length,
+    PendingData?.length,
+    approved?.length,
+    completed?.length,
   ];
 
   return (
@@ -113,17 +126,17 @@ const Dashboard = () => {
         <Widget
           icon={<GrSchedules className="h-7 w-7" />}
           title={"Applied"}
-          subtitle={pending_applications?.length}
+          subtitle={PendingData?.length}
         />
         <Widget
           icon={<MdOutlineTask className="h-6 w-6" />}
           title={"Completed"}
-          subtitle={completed_applications?.length}
+          subtitle={completed?.length}
         />
         <Widget
           icon={<MdOutlinePendingActions className="h-7 w-7" />}
           title={"Ongoing"}
-          subtitle={approved_applications?.length}
+          subtitle={approved?.length}
         />
       </div>
 
@@ -136,7 +149,7 @@ const Dashboard = () => {
         <div>
           <CheckTable
             name="Applied Works"
-            tableData={pending_applications}
+            tableData={PendingData}
             action="Pick up"
             status="update/pending/topickup"
           />
@@ -144,7 +157,7 @@ const Dashboard = () => {
         <div>
           <CheckTable
             name="Completed Works"
-            tableData={completed_applications}
+            tableData={completed}
             action="Received"
             status="update/pickup/toreceived"
           />
@@ -152,7 +165,7 @@ const Dashboard = () => {
         <div>
           <CheckTable
             name="Ongoing Works"
-            tableData={approved_applications}
+            tableData={approved}
             action="Delivery"
             status="update/received/todelivery"
           />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Dropdown from "../dropdown/index";
 import { Link, useNavigate } from "react-router-dom";
 // import navbarimage from "assets/img/layout/Navbar.png";
@@ -21,48 +21,43 @@ import { changethismonth, changethisyear, changetoday, changetotal } from "../..
 import { deleteAuthChecked, setAuthChecked } from "../../state/authSlice";
 
 const Navbar = (props) => {
-  const {
-    isLoading,
-    isError,
-    data: student,
-    error,
-  } = useQuery({
-    queryKey: ["student"], 
-    queryFn: () => getStudentByToken(), 
-  });
+
 
   // console.log('the logged in user',student );
 
   const navigate = useNavigate()
   const { onOpenSidenav, brandText } = props;
   const [darkmode, setDarkmode] = React.useState(false);
-  // const Shop = useSelector((state) => state.shop.value);
-  // const Date = useSelector((state) => state.date.value);
+
   const dispatch = useDispatch()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const[details, setDetails] = useState([])
+
+  useEffect(()=> {
+    const storedDetails = localStorage.getItem("details");
+    if (storedDetails) {
+      const details = JSON.parse(storedDetails);
+      setDetails(details)
+    }
+  
+  },[])
 
 
-  const logout = async() => {
+  const logout = async () => {
     try {
       await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/auth/logout`, {}, { withCredentials: true });
       // setIsAdminAuthenticated(false);
-      setEmail('');
-      setPassword('');
-      // dispatch(setAuthChecked())
-      // localStorage.removeItem("auth");
-      dispatch(deleteAuthChecked())
-
-      alert('Logged Out')
-
-      // window.location.reload();
-      navigate('/')
-      
+      setEmail("");
+      setPassword("");
+      alert("Logged Out");
+      localStorage.removeItem('token');
+      localStorage.removeItem("details");
+      navigate("/login");
     } catch (error) {
-      // console.error('Error logging out:', error);
+      // console.error("Error logging out:", error);
     }
-
-  }
+  };
   return (
     <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
       <div className="ml-[6px]">
@@ -81,7 +76,7 @@ const Navbar = (props) => {
             to="#"
             className="font-bold capitalize hover:text-navy-700 dark:hover:text-white"
           >
-            {student?.uname}
+            {details?.uname}
           </Link>
         </p>
       </div>

@@ -59,13 +59,13 @@ const CheckTable = ({ name, tableData, action, status }) => {
             {tableData?.map((row) => (
               <tr key={row.internshipId}>
                 <td className="text-sm font-bold text-navy-700 dark:text-white text-center">
-                  {row.companyName}
+                  {row.internship?.name}
                 </td>
                 <td className="pt-[15px] pb-[16px] sm:text-[14px] text-center">
-                  {row.position}
+                  {row.internship?.position}
                 </td>
                 <td className="pt-[15px] pb-[16px] sm:text-[14px] text-center">
-                  {row.type}
+                  {row.internship?.type}
                 </td>
                 <td className="pt-[15px] pb-[16px] sm:text-[14px] text-center">
                   {row.status}

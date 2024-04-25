@@ -7,7 +7,7 @@ const instance = axios.create({
 export async function applyInternshipByStudentTokenAndInternshipId(id) {
   try {
     const response = await instance.put(
-      `${import.meta.env.VITE_REACT_API_URL}api/internship/addapplicants/${id}`,
+      `${import.meta.env.VITE_REACT_API_URL}api/internship/find/${id}`,
       { withCredentials: true }
     );
 

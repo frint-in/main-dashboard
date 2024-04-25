@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import General from "./components/General";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
@@ -9,46 +9,78 @@ import { getStudentByToken } from "../../../api/student";
 
 const SingleInternship = () => {
   const { id } = useParams();
+  const [details, setDetails] = useState()
+  const[userDetail, setUserdetail] = useState([])
 
-  const queryClient = useQueryClient();
-
-  const { data: student } = useQuery({
-    queryKey: ["student"],
-    queryFn: () => getStudentByToken(),
-  });
-
-  const current_internship = student?.applications.find(
-    (e) => e.internship === id
-  );
-
-  // console.log("current_internship>>>>>>>>>>>>>>>", current_internship);
-
-  const applyInternshipMutation = useMutation({
-    mutationFn: applyInternshipByStudentTokenAndInternshipId,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["student"] });
-      // console.log("success bro!")
-    },
-  });
-
-  // const handleClick = async () => {
-  //   applyInternshipMutation.mutate(id)
-  // };
-
-  const handleClick = async () => {
-    try {
-      await applyInternshipMutation.mutate(id);
-    } catch (error) {
-      alert(error);
-      console.log(error)
+  useEffect(()=> {
+    const storedDetails = localStorage.getItem("details");
+    if (storedDetails) {
+      const details = JSON.parse(storedDetails);
+      setUserdetail(details._id)
     }
-  };
+  
+  },[])
+
+
+
+
+const applyInternshipByStudentTokenAndInternshipId = async(id)=> {
+  try {
+    const response = await axios.put(
+      `${import.meta.env.VITE_REACT_API_URL}api/internship/addapplicants/${id}`, null,
+      { withCredentials: true }
+    );
+
+  } catch (error) {
+console.log(error)  
+}
+}
+
+
+
+
+
+const findIntershipById =  async(id)=> {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_REACT_API_URL}api/internship/find/${id}`,
+      { withCredentials: true }
+    );
+
+    const data = response.data;
+    setDetails(data)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+useEffect(()=>{
+  findIntershipById(id)
+},[])
+
+
+console.log(details)
+
+
+const handleClick = async () => {
+  try {
+    if (details.subuser?.includes(userDetail)) {
+      alert("You have already applied to this internship.");
+    } else {
+      await applyInternshipByStudentTokenAndInternshipId(id);
+      alert("Applied successfully!");
+    }
+  } catch (error) {
+    alert(error);
+    console.log(error);
+  }
+};
 
   return (
     <div>
-      <General />
+      <General details = {details}/>
       <div className="mt-4 flex justify-end">
-        {current_internship === undefined ? (
+       
           <Link
             // to="/admin/internships"
             onClick={handleClick}
@@ -56,14 +88,7 @@ const SingleInternship = () => {
           >
             Apply
           </Link>
-        ) : (
-          <Link
-            // to="/admin/internships"
-            className="linear rounded-[20px] bg-cyan-500 px-4 py-2 text-base font-medium text-black transition duration-200 hover:bg-cyan-400 active:bg-cyan-300 dark:bg-cyan-300 dark:hover:bg-cyan-200 dark:active:opacity-90"
-          >
-            Applied !!!
-          </Link>
-        )}
+
       </div>
     </div>
   );

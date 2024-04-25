@@ -12,18 +12,38 @@ import CheckTable from "../../default/components/CheckTable";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserCompletedApplications} from "../../../../api/student";
+import axios from "axios";
 
 const Dashboard = () => {
 
-const [PickupData, setPickupData] = useState([]);
+const [completed, setCompleted] = useState([]);
 
-const {
-  data: completed_applications,
-} = useQuery({
-  queryKey: ["completed"], 
-  queryFn: () => getUserCompletedApplications(), 
-});
+const myinternships = async()=>{
+  try {
+    const internships = await axios.get(`${import.meta.env.VITE_REACT_API_URL}api/user/finduserbytoken`,
+  { withCredentials: true }
+    )
+    const data = internships.data
 
+
+
+    const completedApplications = data.applications.filter(
+      (application) => application.status === 'completed'
+    );
+
+    setCompleted(completedApplications)
+
+    
+  } catch (error) {
+    console.log(error)
+  }
+  
+
+}
+
+useEffect(()=>{
+  myinternships()
+},[])
 
   
 
@@ -39,7 +59,7 @@ const {
       <div>
           <CheckTable
             name="Completed Works"
-            tableData={completed_applications}
+            tableData={completed}
             action= "Received"
             status = "update/pickup/toreceived"
           />
