@@ -41,7 +41,7 @@ export default function Signup({ setIsAdminAuthenticated }) {
       );
       if (res.data) {
         navigate("/auth");
-        alert("Sign in successful");
+        alert("Sign up successful");
       } else {
         alert("Invalid Credentials");
       }

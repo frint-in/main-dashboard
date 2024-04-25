@@ -28,6 +28,8 @@ const CheckTable = ({ intershipId, name, tableData, action, status }) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
+
+
   const handleUserClick = (id) => {
     // console.log('userId', id);
 
@@ -59,12 +61,15 @@ const CheckTable = ({ intershipId, name, tableData, action, status }) => {
 
       // console.log(userId);
       // updateApprovedStatusMutation.mutate(intershipId, userId);
-      const response = await instance.post(
+      const response = await axios.put(
         `${
           import.meta.env.VITE_REACT_API_URL
         }api/internship/updatetoapprove/${intershipId}`,
         {
           id: userId,
+        }, 
+        {
+          withCredentials: true,
         }
       );
 
@@ -73,18 +78,21 @@ const CheckTable = ({ intershipId, name, tableData, action, status }) => {
       }
 
       const data = response.data;
-      // console.log("data>>>>", data);
+      console.log("data>>>>", data);
 
       return data;
-    } else {
+    } else{
       // console.log('completed');
       // updateCompletedStatusMutation.mutate(userId);
-      const response = await instance.post(
+      const response = await instance.put(
         `${
           import.meta.env.VITE_REACT_API_URL
         }api/internship/updatetocomplete/${intershipId}`,
         {
           id: userId,
+        }, 
+        {
+          withCredentials: true,
         }
       );
 

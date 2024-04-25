@@ -56,7 +56,7 @@ const Dashboard = () => {
           <>
             {intership_users.length > 0 && (
               <div>
-                {intership_users[0]?.companyName.toUpperCase() ||
+                {intership_users[0]?.companyName ||
                   "Company Name"}
               </div>
             )}
@@ -64,7 +64,7 @@ const Dashboard = () => {
               {pendingApplications && (
                 <CheckTable
                   intershipId={id}
-                  name="Applied Works"
+                  name="Applied Students"
                   tableData={pendingApplications}
                   action="Approve"
                   status="update/pending/topickup"
@@ -75,7 +75,7 @@ const Dashboard = () => {
               {approvedApplications && (
                 <CheckTable
                   intershipId={id}
-                  name="Shortlisted"
+                  name="Hired"
                   tableData={approvedApplications}
                   action="Hire"
                   status="update/received/todelivery"
@@ -86,9 +86,9 @@ const Dashboard = () => {
               {completedApplications && (
                 <CheckTable
                   intershipId={id}
-                  name="Hired"
+                  name="Completed"
                   tableData={completedApplications}
-                  action="Complete"
+                  // action="Complete"
                   // status="update/received/todelivery"
                 />
               )}

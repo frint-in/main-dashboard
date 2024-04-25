@@ -85,7 +85,6 @@ const CheckTable = ({ intershipId,name, tableData, action, status }) => {
 
 
 
-
   return (
     <Card extra={"w-full h-full sm:overflow-auto px-6"}>
       <header className="relative flex items-center justify-between pt-4">
