@@ -95,8 +95,11 @@ const Marketplace = () => {
           <NftCard
           key={index}
           id={intership._id}
+          mode={intership.mode}
+          experience={intership.experience}
           title={intership.name}
           logo={intership.imgurl}
+          duration={intership.duration}
           stipend={intership.stipend || 'not given'}
           image={NFt3}
           date={dayjs(intership.createdAt).format("DD-MM-YYYY")}

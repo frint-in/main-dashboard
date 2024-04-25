@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import Card from "../../../components/card";
 import axios from "axios";
-import InputField from "../../../components/fields/InputField";
 
 const PostInternship = () => {
-
-
   const [name, setName] = useState("");
   const [deadline, setDeadline] = useState("");
+  const [duration, setDuration] = useState("");
   const [stipend, setStipend] = useState("");
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -20,7 +18,6 @@ const PostInternship = () => {
   const [position, setPosition] = useState("");
   const [mode, setMode] = useState("");
 
-
   const submitData = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -28,6 +25,7 @@ const PostInternship = () => {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("deadline", deadline);
+    formData.append("duration", duration);
     formData.append("stipend", stipend);
     formData.append("image", image);
     formData.append("phono", phono);
@@ -40,14 +38,16 @@ const PostInternship = () => {
     formData.append("mode", mode);
 
     try {
-      console.log(formData)
+      console.log(formData);
       const res = await axios.post(
         `${import.meta.env.VITE_REACT_API_URL}api/internship/addinternship`,
         formData,
-        { withCredentials: true, headers: { "Content-Type": "multipart/form-data" } }
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "multipart/form-data" },
+        }
       );
       if (res.data) {
-        
         alert("successful");
       } else {
         alert("Invalid Credentials");
@@ -63,21 +63,16 @@ const PostInternship = () => {
     setImage(e.target.files[0]);
   };
 
-
-
-
-
-
-
   const handleGenerateAI = async () => {
     try {
       const response = await axios.post(
-        "https://frint-ai-ou22wujlaq-el.a.run.app",
+        "https://frint-ai-ou22wujlaq-el.a.run.app/api/v1/llm/getDescription",
         {
           name: name,
           location: location,
           phono: phono,
           deadline: deadline,
+          duration: duration,
           stipend: stipend,
           type: type,
           experience: experience,
@@ -95,57 +90,99 @@ const PostInternship = () => {
     }
   };
 
- 
   return (
     <Card className="grid h-full w-full grid-cols-1 gap-3 rounded-[20px] bg-white bg-clip-border p-3 font-dm shadow-3xl shadow-shadow-500 dark:!bg-navy-800 2xl:grid-cols-11">
       <div className="col-span-10 flex h-full w-full flex-col justify-center overflow-hidden rounded-xl bg-white pl-3 pb-4 dark:!bg-navy-800">
-        <h5 className="text-left text-xl font-bold leading-9 text-navy-700 dark:text-white">
-          Internship Page
-        </h5>
         <form
           onSubmit={submitData}
-          className="rounded pt-6 pb-8 mb-4 bg-white pl-3 dark:!bg-navy-800 "
+          className="col-span-10 flex h-full w-full flex-col justify-center overflow-hidden rounded-xl bg-white pl-3 pb-4 dark:!bg-navy-800"
         >
-          <InputField
-            // variant="auth"
-            extra="mb-3"
-            label="name*"
-            placeholder="Rohan Verma"
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-
-            <InputField
-            // variant="auth"
-            extra="mb-3"
-            label="location*"
-            placeholder="guwahati"
-            id="location"
-            type="text"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            required
-          />
-
-          {/* Password */}
-          <InputField
-            // variant="auth"
-            extra="mb-3"
-            label="deadline*"
-            placeholder="01/01/1999"
-            id="deadline"
-            type="text"
-            value={deadline}
-            onChange={(e) => setDeadline(e.target.value)}
-            required
-          />
-
+          <h5 className=" my-4 text-3xl font-bold text-navy-700 dark:text-white">
+            Internship Page
+          </h5>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="title"
+            >
+              Title
+            </label>
+            <input
+              // variant="auth"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              label="title*"
+              placeholder="Eg: Digital Marketing Intern..."
+              id="title"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="location"
+            >
+              Location
+            </label>
+            <input
+              // variant="auth"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              label="location*"
+              placeholder="guwahati"
+              id="location"
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="deadline"
+            >
+              Deadline
+            </label>
+            {/* Password */}
+            <input
+              // variant="auth"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              label="deadline*"
+              placeholder="01/01/1999"
+              id="deadline"
+              type="text"
+              value={deadline}
+              onChange={(e) => setDeadline(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="duration"
+            >
+              Duration
+            </label>
+            <input
+              // variant="auth"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              label="duration*"
+              placeholder="Eg: 6 Months"
+              id="duration"
+              type="text"
+              value={duration}
+              onChange={(e) => setDuration(e.target.value)}
+              required
+            />
+          </div>
           {/* Image upload */}
           <div className="mb-3">
-            <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-white">
+            <label
+              htmlFor="image"
+              className="block text-sm font-medium text-gray-700 dark:text-white"
+            >
               Company Logo*
             </label>
             <input
@@ -158,89 +195,139 @@ const PostInternship = () => {
               className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
             />
           </div>
-          <InputField
-            // variant="auth"
-            extra="mb-3"
-            label="phono"
-            placeholder="**********"
-            id="phono"
-            type="number"
-            value={phono}
-            onChange={(e) => setPhono(e.target.value)}
-            required
-          />
-          <InputField
-            // variant="auth"
-            extra="mb-3"
-            label="type"
-            placeholder=""
-            id="type"
-            type="text"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            required
-          />
-          <InputField
-            // variant="auth"
-            extra="mb-3"
-            label="stipend*"
-            placeholder="1000/month"
-            id="stipend"
-            type="text"
-            value={stipend}
-            onChange={(e) => setStipend(e.target.value)}
-            required
-          />
-          <InputField
-            // variant="auth"
-            extra="mb-3"
-            label="mode*"
-            placeholder="online/offline"
-            id="mode"
-            type="text"
-            value={mode}
-            onChange={(e) => setMode(e.target.value)}
-            required
-          />
-          <InputField
-            // variant="auth"
-            extra="mb-3"
-            label="experience*"
-            placeholder="oexperience required"
-            id="experience"
-            type="text"
-            value={experience}
-            onChange={(e) => setExperience(e.target.value)}
-            required
-          />
-          <InputField
-            // variant="auth"
-            extra="mb-3"
-            label="skills*"
-            placeholder="required skills"
-            id="skills"
-            type="text"
-            value={skills}
-            onChange={(e) => setSkills(e.target.value)}
-            required
-          />
-          <InputField
-            // variant="auth"
-            extra="mb-3"
-            label="position*"
-            placeholder="required position"
-            id="position"
-            type="text"
-            value={position}
-            onChange={(e) => setPosition(e.target.value)}
-            required
-          />
-
-
-
-
-          
-
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="phono"
+            >
+              Phone Number
+            </label>
+            <input
+              // variant="auth"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              label="phono"
+              placeholder="+91-**********"
+              id="phono"
+              type="number"
+              value={phono}
+              onChange={(e) => setPhono(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="type"
+            >
+              Type
+            </label>
+            <input
+              // variant="auth"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              label="type"
+              placeholder=""
+              id="type"
+              type="text"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="stipend"
+            >
+              Stipend
+            </label>
+            <input
+              // variant="auth"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              label="stipend*"
+              placeholder="1000/month"
+              id="stipend"
+              type="text"
+              value={stipend}
+              onChange={(e) => setStipend(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="mode"
+            >
+              Mode
+            </label>
+            <input
+              // variant="auth"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              label="mode*"
+              placeholder="online/offline"
+              id="mode"
+              type="text"
+              value={mode}
+              onChange={(e) => setMode(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="experience"
+            >
+              Experience
+            </label>
+            <input
+              // variant="auth"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              label="experience*"
+              placeholder="oexperience required"
+              id="experience"
+              type="text"
+              value={experience}
+              onChange={(e) => setExperience(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="skills"
+            >
+              Skills
+            </label>
+            <input
+              // variant="auth"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              label="skills*"
+              placeholder="required skills"
+              id="skills"
+              type="text"
+              value={skills}
+              onChange={(e) => setSkills(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="position"
+            >
+              Position
+            </label>
+            <input
+              // variant="auth"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              label="position*"
+              placeholder="required position"
+              id="position"
+              type="text"
+              value={position}
+              onChange={(e) => setPosition(e.target.value)}
+              required
+            />
+          </div>
           <div className="mb-4">
             <div className="flex justify-between">
               <label
