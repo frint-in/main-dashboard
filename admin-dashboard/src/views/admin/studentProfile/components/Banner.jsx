@@ -12,7 +12,7 @@ const Banner = ({data}) => {
         style={{ backgroundImage: `url(${banner})` }}
       >
         <div className="absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700">
-          <img className="h-full w-full rounded-full" src={avatar} alt="" />
+          <img className="h-full w-full rounded-full" src={data?.avatar} alt="" />
         </div>
       </div>
 
@@ -25,7 +25,7 @@ const Banner = ({data}) => {
       </div>
 
       {/* Post followers */}
-      <div className="mt-6 mb-3 flex gap-4 md:!gap-14">
+      {/* <div className="mt-6 mb-3 flex gap-4 md:!gap-14">
         <div className="flex flex-col items-center justify-center">
           <p className="text-2xl font-bold text-navy-700 dark:text-white">12</p>
           <p className="text-sm font-normal text-gray-600">Applied</p>
@@ -42,7 +42,7 @@ const Banner = ({data}) => {
           </p>
           <p className="text-sm font-normal text-gray-600">Completed</p>
         </div>
-      </div>
+      </div> */}
     </Card>
   );
 };
