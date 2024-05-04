@@ -29,9 +29,10 @@ const Marketplace = () => {
       const data = internships.data.reverse()
 
       setDetails(data)
-      console.log(data)
+      // console.log(data)
     } catch (error) {
-      console.log(error)
+      alert(error);
+      // console.log(error)
     }
     
   
@@ -52,7 +53,7 @@ const Marketplace = () => {
           <h4 className="ml-1 text-2xl font-bold text-navy-700 dark:text-white">
             Internships
           </h4>
-          <ul className="mt-4 flex items-center justify-between md:mt-0 md:justify-center md:!gap-5 2xl:!gap-12">
+          {/* <ul className="mt-4 flex items-center justify-between md:mt-0 md:justify-center md:!gap-5 2xl:!gap-12">
             <li>
               <a
                 className="text-base font-medium text-brand-500 hover:text-brand-500 dark:text-white"
@@ -85,20 +86,24 @@ const Marketplace = () => {
                 <a href=" ">Design</a>
               </a>
             </li>
-          </ul>
+          </ul> */}
         </div>
 
         {/* NFTs trending card */}
         <div className="z-20 grid grid-cols-1 gap-5 lg:grid-cols-3 md:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
           {details?.map((intership, index) => (
             <NftCard
-              key={index}
-              id={intership._id}
-              title={intership.name}
-              logo={intership.imgurl}
-              stipend={intership.stipend || "not given"}
-              image={NFt3}
-              date={dayjs(intership.createdAt).format("DD-MM-YYYY")}
+            key={index}
+            id={intership._id}
+            mode={intership.mode}
+            experience={intership.experience}
+            title={intership.name}
+            logo={intership.imgurl}
+            duration={intership.duration}
+            stipend={intership.stipend || 'not disclosed'}
+            image={NFt3}
+            // date={dayjs(intership.createdAt).format("DD-MM-YYYY")}
+            date={intership?.deadline}
               company={intership.company.name}
               // tag={["Part-time", "Full-time", "internship"]}
               type={intership.type}

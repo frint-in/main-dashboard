@@ -38,7 +38,7 @@ const PostInternship = () => {
     formData.append("mode", mode);
 
     try {
-      console.log(formData);
+      // console.log(formData);
       const res = await axios.post(
         `${import.meta.env.VITE_REACT_API_URL}api/internship/addinternship`,
         formData,
@@ -82,8 +82,8 @@ const PostInternship = () => {
         }
       );
       if (response.data) {
-        console.log(response.data.description);
-        setFormData({ ...formData, description: response.data.description });
+        // console.log(response.data.description);
+        setDescription(response.data.description);
       }
     } catch (error) {
       console.error("Error:", error);

@@ -33,7 +33,8 @@ const Dashboard = () => {
 
       
     } catch (error) {
-      console.log(error)
+      alert(error);
+      // console.log(error)
     }
     
   

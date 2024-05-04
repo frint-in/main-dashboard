@@ -22,9 +22,9 @@ const CheckTable = ({ name, tableData, action, status }) => {
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           {name}
         </div>
-        <button className="bg-[#4318ff] text-white px-2 py-1 rounded">
+        {/* <button className="bg-[#4318ff] text-white px-2 py-1 rounded">
           See All
-        </button>
+        </button> */}
       </header>
 
       <div className="mt-8 overflow-x-scroll xl:overflow-x-hidden  max-h-[340px]">

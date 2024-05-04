@@ -23,7 +23,7 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
     if (storedDetails) {
       const details = JSON.parse(storedDetails);
       setDetails(details);
-      console.log(details);
+      // console.log(details);
       setName(details.name);
       setEmail(details.email);
       setPhono(details.phono);

@@ -35,7 +35,8 @@ const myinternships = async()=>{
 
     
   } catch (error) {
-    console.log(error)
+    alert(error);
+    // console.log(error)
   }
   
 

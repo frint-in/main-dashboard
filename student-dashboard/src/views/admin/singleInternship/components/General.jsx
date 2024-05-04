@@ -8,6 +8,10 @@ import axios from "axios";
 
 const General = ({details}) => {
   const {id} = useParams();
+  const paragraphs = details?.description.split('\n\n').map((paragraph, index) => (
+    <div key={index} style={{ whiteSpace: 'pre-line' }}>{paragraph}</div>
+  ));
+  
   // const [details, setDetails] = useState()
 
 
@@ -42,9 +46,10 @@ const General = ({details}) => {
         <h5 className="px-2 text-l font-bold text-navy-700 dark:text-white">
         {details?.companyName || 'Company Name' }
         </h5>
-        <p className="mt-2 px-2 text-base text-gray-600">
-          {details?.description}
-        </p>
+        <div className="mt-2 px-2 text-base text-gray-600">
+          {/* {details?.description} */}
+          {paragraphs}
+        </div>
       </div>
       {/* Cards */}
       <div className="grid md:grid-cols-2 grid-cols-1 gap-4 px-2">

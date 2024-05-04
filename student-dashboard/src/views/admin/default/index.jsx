@@ -151,12 +151,13 @@ const Dashboard = () => {
         );
         if (res.data) {
             alert("Registered successfully");
-        } else {
-            alert("Invalid Credentials");
+            window.location.href = 'https://forms.gle/3YDcH39XQHiFApem7';
+          } else {
+            alert("Already Applied");
         }
     } catch (error) {
-        console.log(error);
-        alert("Error occurred");
+        // console.log(error);
+        alert("Already Applied");
     }
 };
 
@@ -192,7 +193,13 @@ const Dashboard = () => {
           subtitle={approved?.length}
         />
       </div>
-
+      <button className="w-full h-full mt-[1rem]" onClick={seminar}>
+      {/* <BannerCard
+       date= {'20-20-2020'}
+       company= {'Summernternship'}
+       type={"This is summer internship fair organised by frint. Click in this Banner to apply"}/> */}
+       <BannerCard />
+       </button>
       {/* table */}
 
       <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-2">
@@ -232,15 +239,8 @@ const Dashboard = () => {
         </div>
         <div>
          
-        </div>
-        
+        </div>  
       </div>
-      <button className="h-full w-full" onClick={seminar}>
-      <BannerCard
-       date= {'20-20-2020'}
-       company= {'Summernternship'}
-       type={"This is summer internship fair organised by frint. Click in this Banner to apply"}/>
-       </button>
     </div>
   );
 };

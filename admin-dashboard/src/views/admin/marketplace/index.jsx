@@ -53,7 +53,7 @@ const Marketplace = () => {
           <h4 className="ml-1 text-2xl font-bold text-navy-700 dark:text-white">
             Posted Internships
           </h4>
-          <ul className="mt-4 flex items-center justify-between md:mt-0 md:justify-center md:!gap-5 2xl:!gap-12">
+          {/* <ul className="mt-4 flex items-center justify-between md:mt-0 md:justify-center md:!gap-5 2xl:!gap-12">
             <li>
               <a
                 className="text-base font-medium text-brand-500 hover:text-brand-500 dark:text-white"
@@ -86,11 +86,11 @@ const Marketplace = () => {
                 <a href=" ">Design</a>
               </a>
             </li>
-          </ul>
+          </ul> */}
         </div>
 
         {/* NFTs trending card */}
-        <div className="z-20 grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="z-20 grid grid-cols-1 gap-5 lg:grid-cols-3 md:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
         {internships?.map((intership, index) => (
           <NftCard
           key={index}
@@ -100,10 +100,10 @@ const Marketplace = () => {
           title={intership.name}
           logo={intership.imgurl}
           duration={intership.duration}
-          stipend={intership.stipend || 'not given'}
+          stipend={intership.stipend || 'not disclosed'}
           image={NFt3}
-          date={dayjs(intership.createdAt).format("DD-MM-YYYY")}
-          
+          // date={dayjs(intership.createdAt).format("DD-MM-YYYY")}
+          date={intership?.deadline}
           company={intership.company.name}
           // tag={["Part-time", "Full-time", "internship"]}
           type={intership.type}

@@ -28,7 +28,7 @@ const EditInternship = () => {
         const response = await getIntershipById(id);
         setInternship(response);
 
-  // console.log("internship within useEffect>>>>>>>>", internship);
+        // console.log("internship within useEffect>>>>>>>>", internship);
 
       } catch (error) {
         // console.error(error);
@@ -64,6 +64,20 @@ const EditInternship = () => {
     }
   };
 
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_REACT_API_URL}api/internship/deleteinternship/${id}`,
+        internship,
+        { withCredentials: true }
+      );
+      alert("Internship Deleted Successfully");
+    } catch (error) {
+      alert("Oops! Something went wrong.");
+    }
+  }
+
   return (
     <Card className="grid h-full w-full grid-cols-1 gap-3 rounded-[20px] bg-white bg-clip-border p-3 font-dm shadow-3xl shadow-shadow-500 dark:!bg-navy-800 2xl:grid-cols-11">
       <div className="col-span-10 flex h-full w-full flex-col justify-center overflow-hidden rounded-xl bg-white pl-3 pb-4 dark:!bg-navy-800">
@@ -93,7 +107,7 @@ const EditInternship = () => {
           </div>
 
           {/* Add the rest of your form fields here */}
-         
+
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -111,7 +125,7 @@ const EditInternship = () => {
               // onChange={handleInputChange}
               value={internship?.description}
               onChange={handleChange}
-              
+
             />
           </div>
 
@@ -133,7 +147,7 @@ const EditInternship = () => {
               // onChange={handleInputChange}
               value={internship?.location}
               onChange={handleChange}
-              
+
             />
           </div>
 
@@ -155,10 +169,10 @@ const EditInternship = () => {
               // onChange={handleInputChange}
               value={internship?.phono}
               onChange={handleChange}
-              
+
             />
           </div>
-       
+
 
           <div className="mb-4">
             <label
@@ -177,7 +191,7 @@ const EditInternship = () => {
               // onChange={handleInputChange}
               value={internship?.deadline}
               onChange={handleChange}
-              
+
             />
           </div>
 
@@ -199,7 +213,7 @@ const EditInternship = () => {
               // onChange={handleInputChange}
               value={internship?.stipend}
               onChange={handleChange}
-              
+
             />
           </div>
 
@@ -221,7 +235,7 @@ const EditInternship = () => {
               // onChange={handleInputChange}
               value={internship?.type}
               onChange={handleChange}
-              
+
             />
           </div>
 
@@ -242,7 +256,7 @@ const EditInternship = () => {
               // onChange={handleInputChange}
               value={internship?.experience}
               onChange={handleChange}
-              
+
             />
           </div>
 
@@ -303,13 +317,21 @@ const EditInternship = () => {
               onChange={handleChange}
             />
           </div>
-
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:bg-gray-500"
-            type="submit"
-          >
-            Save
-          </button>
+          <div className="flex gap-4">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:bg-gray-500"
+              // type="submit"
+              onClick={handleSubmit}
+            >
+              Save
+            </button>
+            <button
+              className="bg-red-500 hover:red-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:bg-gray-500"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+          </div>
         </form>
       </div>
     </Card>

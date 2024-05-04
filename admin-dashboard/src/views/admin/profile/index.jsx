@@ -15,7 +15,7 @@ const ProfileOverview = () => {
     if (storedDetails) {
       const details = JSON.parse(storedDetails);
       setDetails(details)
-      console.log(details)
+      // console.log(details)
     }
   
   },[])

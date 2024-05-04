@@ -32,7 +32,8 @@ const applyInternshipByStudentTokenAndInternshipId = async(id)=> {
     );
 
   } catch (error) {
-console.log(error)  
+    alert(error);
+// console.log(error)  
 }
 }
 
@@ -50,7 +51,8 @@ const findIntershipById =  async(id)=> {
     const data = response.data;
     setDetails(data)
   } catch (error) {
-    console.log(error)
+    // console.log(error)
+    alert(error);
   }
 }
 
@@ -59,7 +61,7 @@ useEffect(()=>{
 },[])
 
 
-console.log(details)
+// console.log(details)
 
 
 const handleClick = async () => {
@@ -72,7 +74,7 @@ const handleClick = async () => {
     }
   } catch (error) {
     alert(error);
-    console.log(error);
+    // console.log(error);
   }
 };
 

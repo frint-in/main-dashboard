@@ -13,6 +13,9 @@ const NftCard = ({
   date,
   company,
   type,
+  mode,
+  experience,
+  duration,
   location,
   logo,
 }) => {
@@ -22,7 +25,7 @@ const NftCard = ({
       extra={`flex flex-col w-full h-full !p-4 3xl:p-![18px] bg-white ${extra}`}
     >
       <div className="h-full w-full">
-        <div className="relative w-full">
+      <div className="relative w-full">
           <img
             src={image}
             className="mb-3 h-full w-full rounded-xl 3xl:h-full 3xl:w-full"
@@ -34,18 +37,27 @@ const NftCard = ({
           <div className="absolute top-11 left-3 font-bold text-2xl pt-4 text-white">
             {company}
           </div>
-          {/* <div className="flex items-center justify-center">
-            <img
+          <div className="flex items-center justify-center">
+            {/* <img
               src={logo}
               alt=""
               className="absolute top-20 right-2 w-3/6 h-auto p-2"
-            />
-          </div> */}
+            /> */}
             <div className="absolute top-32 left-3 flex flex-wrap justify-between">
               <div className="border border-black bg-transparent rounded-lg text-sm m-2 pl-2 pr-2 pt-1 pb-1 text-white">
                 {type}
               </div>
+              <div className="border border-black bg-transparent rounded-lg text-sm m-2 pl-2 pr-2 pt-1 pb-1 text-white">
+                {mode}
+              </div>
+              <div className="border border-black bg-transparent rounded-lg text-sm m-2 pl-2 pr-2 pt-1 pb-1 text-white">
+                {experience}
+              </div>
+              <div className="border border-black bg-transparent rounded-lg text-sm m-2 pl-2 pr-2 pt-1 pb-1 text-white">
+                {duration}
+              </div>
             </div>
+          </div>
           <button
             onClick={() => setHeart(!heart)}
             className="absolute top-3 right-3 flex items-center justify-center rounded-full bg-white p-2 text-brand-500 hover:cursor-pointer"

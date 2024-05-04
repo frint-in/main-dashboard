@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,7 +15,7 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
   const [gender, setGender] = useState("");
   const [description, setDescription] = useState("");
   const [details, setDetails] = useState([]);
-  const [catagories, setCatagories] = useState([]);
+  // const [catagories, setCatagories] = useState([]);
   const [specialisation, setSpecialisation] = useState('');
   const [education, setEducation] = useState('');
   const [dob, setDob] = useState('');
@@ -33,12 +34,12 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
       const details = JSON.parse(storedDetails);
       setDetails(details);
       setUname(details.uname || ""); // Set default value to empty string if field is undefined
-      setEmail(details.email || "");
+     setEmail(details.email || "");
       setPhno(details.phno || "");
       setGender(details.gender || "");
       setDescription(details.description || "");
       setSpecialisation(details.specialisation || "");
-      setCatagories(details.catagories || []);
+      // setCatagories(details.catagories || []);
       setSpecialisation(details.specialisation || "")
       setEducation(details.education || "")
       setDob(details.dob || "")
@@ -59,7 +60,7 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
     formData.append("phono", phno);
     formData.append("gender", gender);
     formData.append("description", description);
-    formData.append("catagories", catagories);
+    // formData.append("catagories", catagories);
     formData.append("specialisation", specialisation);
     formData.append("education", education);
     formData.append("dob", dob);
@@ -88,7 +89,8 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
         alert("Invalid Credentials");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      alert(error);
     } finally {
       setLoading(false);
     }
@@ -188,7 +190,7 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
             label="phono*"
             placeholder="+91-**********"
             id="phono"
-            type="number"
+            type="text"
             value={phno}
             onChange={(e) => setPhno(e.target.value)}
           />
@@ -247,7 +249,7 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
             onChange={(e) => setSpecialisation(e.target.value)}
           />
         </div>
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="catagories"
@@ -264,7 +266,7 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
             value={catagories}
             onChange={(e) => setCatagories(e.target.value.split(","))}
           />
-        </div>
+        </div> */}
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
