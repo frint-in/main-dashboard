@@ -95,6 +95,7 @@ const Marketplace = () => {
           <NftCard
           key={index}
           id={intership._id}
+          companyName={intership.companyName}
           mode={intership.mode}
           experience={intership.experience}
           title={intership.name}

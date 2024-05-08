@@ -4,6 +4,7 @@ import axios from "axios";
 
 const PostInternship = () => {
   const [name, setName] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [deadline, setDeadline] = useState("");
   const [duration, setDuration] = useState("");
   const [stipend, setStipend] = useState("");
@@ -24,6 +25,7 @@ const PostInternship = () => {
 
     const formData = new FormData();
     formData.append("name", name);
+    formData.append("companyName", companyName);
     formData.append("deadline", deadline);
     formData.append("duration", duration);
     formData.append("stipend", stipend);
@@ -69,6 +71,7 @@ const PostInternship = () => {
         "https://frint-ai-ou22wujlaq-el.a.run.app/api/v1/llm/getDescription",
         {
           name: name,
+          companyName: companyName,
           location: location,
           phono: phono,
           deadline: deadline,
@@ -116,6 +119,25 @@ const PostInternship = () => {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="companyName"
+            >
+              Company Name
+            </label>
+            <input
+              // variant="auth"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              label="companyName"
+              placeholder="Eg: Google"
+              id="companyName"
+              type="text"
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
               required
             />
           </div>

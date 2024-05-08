@@ -10,6 +10,7 @@ const EditInternship = () => {
   const [internship, setInternship] = useState({
     name: "",
     image: null,
+    CompanyName: "",
     description: "",
     location: "",
     phono: "",
@@ -105,7 +106,23 @@ const EditInternship = () => {
               onChange={handleChange}
             />
           </div>
-
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="CompanyName"
+            >
+              Company Name <span style={{ color: "red" }}>*</span>
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              id="name"
+              name="CompanyName"
+              type="text"
+              placeholder="Title"
+              value={internship?.CompanyName}
+              onChange={handleChange}
+            />
+          </div>
           {/* Add the rest of your form fields here */}
 
           <div className="mb-4">

@@ -29,7 +29,7 @@ const Marketplace = () => {
       const data = internships.data.reverse()
 
       setDetails(data)
-      // console.log(data)
+      console.log(data)
     } catch (error) {
       alert(error);
       // console.log(error)
@@ -95,16 +95,17 @@ const Marketplace = () => {
             <NftCard
             key={index}
             id={intership._id}
-            mode={intership.mode}
-            experience={intership.experience}
-            title={intership.name}
-            logo={intership.imgurl}
-            duration={intership.duration}
-            stipend={intership.stipend || 'not disclosed'}
+            mode={intership?.mode}
+            companyName={intership?.companyName}
+            experience={intership?.experience}
+            title={intership?.name}
+            logo={intership?.imgurl}
+            duration={intership?.duration}
+            stipend={intership?.stipend || 'not disclosed'}
             image={NFt3}
             // date={dayjs(intership.createdAt).format("DD-MM-YYYY")}
             date={intership?.deadline}
-              company={intership.company.name}
+              company={intership?.company.name}
               // tag={["Part-time", "Full-time", "internship"]}
               type={intership.type}
               link={`/admin/single internship/${intership._id}`}

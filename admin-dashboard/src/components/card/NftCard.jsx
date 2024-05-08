@@ -7,12 +7,13 @@ import { Link } from "react-router-dom";
 const   NftCard = ({
   title,
   stipend,
+  company,
   image,
   link1,
   link2,
   extra,
   date,
-  company,
+  companyName,
   type,
   mode,
   experience,
@@ -36,7 +37,7 @@ const   NftCard = ({
             <GiStopwatch color="red" /> {date}
           </div>
           <div className="absolute top-11 left-3 font-bold text-2xl pt-4 text-white">
-            {company}
+            {companyName}
           </div>
           <div className="flex items-center justify-center">
             {/* <img
