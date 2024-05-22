@@ -149,6 +149,7 @@ const Dashboard = () => {
                 withCredentials: true,
             }
         );
+        console.log(res.data)
         if (res.data) {
             alert("Registered successfully");
             window.location.href = 'https://forms.gle/3YDcH39XQHiFApem7';
