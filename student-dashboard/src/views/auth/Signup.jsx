@@ -2,6 +2,7 @@ import InputField from "../../components/fields/InputField";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import Oauth from "../../components/OAuth/Oauth";
 
 export default function Signup({ setIsAdminAuthenticated }) {
   const navigate = useNavigate();
@@ -120,7 +121,7 @@ export default function Signup({ setIsAdminAuthenticated }) {
         </div> */}
           <p className="mb-9 ml-1 text-base text-gray-600 text-center">
             Already have an account?{" "}
-            <Link to="/" className="text-brand-500">
+            <Link to="/login" className="text-brand-500">
               {" "}
               Log in{" "}
             </Link>
@@ -131,6 +132,7 @@ export default function Signup({ setIsAdminAuthenticated }) {
           >
             Register
           </button>
+          <Oauth method="signupGoogle" links="/login"/>
         </form>
         {/* <div className="mt-4">
           <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">

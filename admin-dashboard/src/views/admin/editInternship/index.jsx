@@ -30,7 +30,6 @@ const EditInternship = () => {
         setInternship(response);
 
         // console.log("internship within useEffect>>>>>>>>", internship);
-
       } catch (error) {
         // console.error(error);
       }
@@ -54,14 +53,23 @@ const EditInternship = () => {
 
     try {
       await axios.put(
-        `${import.meta.env.VITE_REACT_API_URL}api/internship/updateinternship/${id}`,
+        `${
+          import.meta.env.VITE_REACT_API_URL
+        }api/internship/updateinternship/${id}`,
         internship,
         { withCredentials: true }
       );
       alert("Profile is saved");
     } catch (error) {
-      // console.error(error);
-      alert("Oops! Something went wrong.");
+      if (error.response.status === "401") {
+        localStorage.removeItem("token");
+      }
+      alert(error.response.data.error);
+      if (error.response.status === "401") {
+        navigate("/auth");
+      } else {
+        alert("Access Token Error");
+      }
     }
   };
 
@@ -69,7 +77,9 @@ const EditInternship = () => {
     e.preventDefault();
     try {
       await axios.delete(
-        `${import.meta.env.VITE_REACT_API_URL}api/internship/deleteinternship/${id}`,
+        `${
+          import.meta.env.VITE_REACT_API_URL
+        }api/internship/deleteinternship/${id}`,
         internship,
         { withCredentials: true }
       );
@@ -77,7 +87,7 @@ const EditInternship = () => {
     } catch (error) {
       alert("Oops! Something went wrong.");
     }
-  }
+  };
 
   return (
     <Card className="grid h-full w-full grid-cols-1 gap-3 rounded-[20px] bg-white bg-clip-border p-3 font-dm shadow-3xl shadow-shadow-500 dark:!bg-navy-800 2xl:grid-cols-11">
@@ -142,10 +152,8 @@ const EditInternship = () => {
               // onChange={handleInputChange}
               value={internship?.description}
               onChange={handleChange}
-
             />
           </div>
-
 
           <div className="mb-4">
             <label
@@ -164,10 +172,8 @@ const EditInternship = () => {
               // onChange={handleInputChange}
               value={internship?.location}
               onChange={handleChange}
-
             />
           </div>
-
 
           <div className="mb-4">
             <label
@@ -186,10 +192,8 @@ const EditInternship = () => {
               // onChange={handleInputChange}
               value={internship?.phono}
               onChange={handleChange}
-
             />
           </div>
-
 
           <div className="mb-4">
             <label
@@ -208,10 +212,8 @@ const EditInternship = () => {
               // onChange={handleInputChange}
               value={internship?.deadline}
               onChange={handleChange}
-
             />
           </div>
-
 
           <div className="mb-4">
             <label
@@ -230,10 +232,8 @@ const EditInternship = () => {
               // onChange={handleInputChange}
               value={internship?.stipend}
               onChange={handleChange}
-
             />
           </div>
-
 
           <div className="mb-4">
             <label
@@ -252,7 +252,6 @@ const EditInternship = () => {
               // onChange={handleInputChange}
               value={internship?.type}
               onChange={handleChange}
-
             />
           </div>
 
@@ -273,7 +272,6 @@ const EditInternship = () => {
               // onChange={handleInputChange}
               value={internship?.experience}
               onChange={handleChange}
-
             />
           </div>
 

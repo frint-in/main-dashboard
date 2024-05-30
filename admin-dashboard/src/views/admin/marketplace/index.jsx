@@ -16,11 +16,11 @@ import NftCard from "../../../components/card/NftCard";
 import IntCard from "./components/IntCard";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllInterships } from "../../../api/company";
-import dayjs from 'dayjs'
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import axios from "axios";
 const Marketplace = () => {
-  const [internships, setInternships] = useState([])
+  const [internships, setInternships] = useState([]);
   const colors = [
     "#FFDBB0",
     "#B6FFB0",
@@ -30,18 +30,19 @@ const Marketplace = () => {
     "#FFF7B0",
   ];
 
-
   useEffect(() => {
-    const fetchData = async () => {      
+    const fetchData = async () => {
       const res = await axios.get(
-      `${import.meta.env.VITE_REACT_API_URL}api/company/mycompany`, 
-     { withCredentials: true, headers: { "Content-Type": "multipart/form-data" } }
-    );
+        `${import.meta.env.VITE_REACT_API_URL}api/company/mycompany`,
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
       setInternships(res.data.internships);
     };
-    fetchData()
-
-  },[])
+    fetchData();
+  }, []);
   return (
     <div className="mt-3 grid h-full grid-cols-1 gap-5">
       <div className="col-span-1 h-fit w-full xl:col-span-1 2xl:col-span-2">
@@ -91,30 +92,28 @@ const Marketplace = () => {
 
         {/* NFTs trending card */}
         <div className="z-20 grid grid-cols-1 gap-5 lg:grid-cols-3 md:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
-        {internships?.map((intership, index) => (
-          <NftCard
-          key={index}
-          id={intership._id}
-          companyName={intership.companyName}
-          mode={intership.mode}
-          experience={intership.experience}
-          title={intership.name}
-          logo={intership.imgurl}
-          duration={intership.duration}
-          stipend={intership.stipend || 'not disclosed'}
-          image={NFt3}
-          // date={dayjs(intership.createdAt).format("DD-MM-YYYY")}
-          date={intership?.deadline}
-          company={intership.company.name}
-          // tag={["Part-time", "Full-time", "internship"]}
-          type={intership.type}
-          link1={`/admin/edit internship/${intership._id}`}
-          link2={`/admin/applied shorted/${intership._id}`}
-          location={intership.location}
-        />
-        )) }
-        
-
+          {internships?.map((intership, index) => (
+            <NftCard
+              key={index}
+              id={intership._id}
+              companyName={intership.companyName}
+              mode={intership.mode}
+              experience={intership.experience}
+              title={intership.name}
+              logo={intership.imgurl}
+              duration={intership.duration}
+              stipend={intership.stipend || "not disclosed"}
+              image={NFt3}
+              // date={dayjs(intership.createdAt).format("DD-MM-YYYY")}
+              date={intership?.deadline}
+              company={intership.company.name}
+              // tag={["Part-time", "Full-time", "internship"]}
+              type={intership.type}
+              link1={`/admin/edit internship/${intership._id}`}
+              link2={`/admin/applied shorted/${intership._id}`}
+              location={intership.location}
+            />
+          ))}
         </div>
       </div>
     </div>

@@ -20,27 +20,26 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Marketplace = () => {
-  const [details, setDetails] = useState()
-  const all = async()=>{
+  const [details, setDetails] = useState();
+  const all = async () => {
     try {
-      const internships = await axios.get(`${import.meta.env.VITE_REACT_API_URL}api/internship/all`,
-    { withCredentials: true }
-      )
-      const data = internships.data.reverse()
+      const internships = await axios.get(
+        `${import.meta.env.VITE_REACT_API_URL}api/internship/all`,
+        { withCredentials: true }
+      );
+      const data = internships.data.reverse();
 
-      setDetails(data)
-      console.log(data)
+      setDetails(data);
+      console.log(data);
     } catch (error) {
       alert(error);
       // console.log(error)
     }
-    
-  
-  }
+  };
 
-  useEffect(()=>{
-    all()
-  },[])
+  useEffect(() => {
+    all();
+  }, []);
 
   return (
     <div className="mt-3 grid h-full grid-cols-1">
@@ -93,18 +92,18 @@ const Marketplace = () => {
         <div className="z-20 grid grid-cols-1 gap-5 lg:grid-cols-3 md:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
           {details?.map((intership, index) => (
             <NftCard
-            key={index}
-            id={intership._id}
-            mode={intership?.mode}
-            companyName={intership?.companyName}
-            experience={intership?.experience}
-            title={intership?.name}
-            logo={intership?.imgurl}
-            duration={intership?.duration}
-            stipend={intership?.stipend || 'not disclosed'}
-            image={NFt3}
-            // date={dayjs(intership.createdAt).format("DD-MM-YYYY")}
-            date={intership?.deadline}
+              key={index}
+              id={intership._id}
+              mode={intership?.mode}
+              companyName={intership?.companyName}
+              experience={intership?.experience}
+              title={intership?.name}
+              logo={intership?.imgurl}
+              duration={intership?.duration}
+              stipend={intership?.stipend || "not disclosed"}
+              image={NFt3}
+              // date={dayjs(intership.createdAt).format("DD-MM-YYYY")}
+              date={intership?.deadline}
               company={intership?.company.name}
               // tag={["Part-time", "Full-time", "internship"]}
               type={intership.type}

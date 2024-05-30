@@ -21,7 +21,7 @@ const PostInternship = () => {
   const [mode, setMode] = useState("");
 
   const submitData = async (e) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     e.preventDefault();
     setLoading(true);
 
@@ -57,13 +57,13 @@ const PostInternship = () => {
         alert("Invalid Credentials");
       }
     } catch (error) {
-      if (error.response.status === "401"){
+      if (error.response.status === "401") {
         localStorage.removeItem("token");
       }
       alert(error.response.data.error);
-      if (error.response.status === "401"){
+      if (error.response.status === "401") {
         localStorage.removeItem("token");
-        navigate("/auth")
+        navigate("/auth");
       }
     } finally {
       setLoading(false);

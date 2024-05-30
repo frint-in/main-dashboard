@@ -6,40 +6,33 @@ import Storage from "./components/Storage";
 import Upload from "./components/Upload";
 import TaskCard from "./components/TaskCard";
 
-import { useMutation, useQuery, useQueryClient   } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getStudentByToken } from "../../../api/student";
 import { useEffect, useState } from "react";
 
-
-
 const ProfileOverview = () => {
   const [details, setDetails] = useState([]);
-
-
 
   useEffect(() => {
     const storedDetails = localStorage.getItem("details");
     if (storedDetails) {
       const details = JSON.parse(storedDetails);
       setDetails(details);
-
     }
   }, []);
 
-
   // console.log('the logged in user',student );
-
 
   return (
     <div className="flex w-full flex-col gap-5">
       <div className="w-ful mt-3 flex h-fit flex-col gap-5 lg:grid lg:grid-cols-12">
         <div className="col-span-4 lg:!mb-0">
-          <Banner data={details}/>
+          <Banner data={details} />
         </div>
 
         <div className="z-0 col-span-8 lg:!mb-0">
           {/* <Upload /> */}
-          <General data={details}/>
+          <General data={details} />
         </div>
 
         {/* <div className="z-0 col-span-3 lg:!mb-0">

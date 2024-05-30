@@ -6,17 +6,13 @@ import Storage from "./components/Storage";
 import Upload from "./components/Upload";
 import TaskCard from "./components/TaskCard";
 
-import { useMutation, useQuery, useQueryClient   } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { getUserById } from "../../../api/user";
 // import { getStudentByToken } from "../../../api/student";
 
-
-
 const StudentProfile = () => {
-
-  const {id} = useParams()
-
+  const { id } = useParams();
 
   const {
     isLoading,
@@ -24,19 +20,18 @@ const StudentProfile = () => {
     data: student,
     error,
   } = useQuery({
-    queryKey: ["user", id], 
-    queryFn: () => getUserById(id), 
+    queryKey: ["user", id],
+    queryFn: () => getUserById(id),
   });
 
   // console.log('the logged in user',student );
-
 
   return (
     <div className="flex w-full flex-col gap-5">
       <div className="w-ful mt-3 flex h-fit flex-col gap-5 lg:grid lg:grid-cols-12">
         <div className="col-span-4 lg:!mb-0">
           {/* <Banner data={student}/> */}
-          <Banner data={student}/>
+          <Banner data={student} />
         </div>
 
         <div className="z-0 col-span-8 lg:!mb-0">

@@ -17,16 +17,19 @@ import CheckTable from "../default/components/CheckTable";
 import tableDataCheck from "./variables/tableDataCheck.json";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getStudentByToken, getUserApprovedApplications, getUserCompletedApplications, getUserPendingApplications } from "../../../api/student";
+import {
+  getStudentByToken,
+  getUserApprovedApplications,
+  getUserCompletedApplications,
+  getUserPendingApplications,
+} from "../../../api/student";
 import axios from "axios";
 import Card from "../../../components/card";
 import BannerCard from "../../../components/card/BannerCard";
 import { useNavigate } from "react-router-dom";
 
-
 const Dashboard = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [PendingData, setPendingData] = useState([]);
   const [approved, setApproved] = useState([]);
@@ -37,7 +40,7 @@ const Dashboard = () => {
 
   // const PickupOrders = async () => {
   //   try {
-      
+
   //     if (response.status === 200) {
   //       const filteredData = response.data.filter(
   //         (order) => order.servicelocation === url
@@ -71,56 +74,43 @@ const Dashboard = () => {
   //   }
   // };
 
-
-
-
-  const myinternships = async()=>{
+  const myinternships = async () => {
     try {
-      const internships = await axios.get(`${import.meta.env.VITE_REACT_API_URL}api/user/finduserbytoken`,
-    { withCredentials: true }
-      )
-      const data = internships.data
+      const internships = await axios.get(
+        `${import.meta.env.VITE_REACT_API_URL}api/user/finduserbytoken`,
+        { withCredentials: true }
+      );
+      const data = internships.data;
 
       const pendingApplications = data.applications.filter(
-        (application) => application.status === 'pending'
+        (application) => application.status === "pending"
       );
 
-      setPendingData(pendingApplications)
+      setPendingData(pendingApplications);
 
       const approvedApplications = data.applications.filter(
-        (application) => application.status === 'approved'
+        (application) => application.status === "approved"
       );
 
-      setApproved(approvedApplications)
-
+      setApproved(approvedApplications);
 
       const completedApplications = data.applications.filter(
-        (application) => application.status === 'completed'
+        (application) => application.status === "completed"
       );
 
-      setCompleted(completedApplications)
+      setCompleted(completedApplications);
 
-
-      setDetails(data)
-      
+      setDetails(data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
-  
-  }
+  };
 
-
-  useEffect(()=>{
-    myinternships()
-  },[])
-
-  
-
+  useEffect(() => {
+    myinternships();
+  }, []);
 
   // console.log('the logged in user',student );
-
-
 
   const pieChartData = [
     PendingData?.length,
@@ -128,52 +118,73 @@ const Dashboard = () => {
     completed?.length,
   ];
 
-
   const seminar = async () => {
     try {
-        const requiredFields = ['avatar', 'createdAt', 'description', 'dob', 'education', 'email', 'gender', 'languages', 'phno', 'resume', 'role', 'skills', 'specialisation', 'uname', 'updatedAt', '_id'];
+      const requiredFields = [
+        "avatar",
+        "createdAt",
+        "description",
+        "dob",
+        "education",
+        "email",
+        "gender",
+        "languages",
+        "phno",
+        "resume",
+        "role",
+        "skills",
+        "specialisation",
+        "uname",
+        "updatedAt",
+        "_id",
+      ];
 
-        // Check if all required fields are present in the user object
-        const allFieldsPresent = requiredFields.every(field => user.hasOwnProperty(field));
+      // Check if all required fields are present in the user object
+      const allFieldsPresent = requiredFields.every((field) =>
+        user.hasOwnProperty(field)
+      );
 
-        if (!allFieldsPresent) {
-            alert('Required fields are missing');
-            navigate('/admin/editProfile')
-            return;
+      if (!allFieldsPresent) {
+        alert("Required fields are missing");
+        navigate("/admin/editProfile");
+        return;
+      }
+
+      const res = await axios.put(
+        `${import.meta.env.VITE_REACT_API_URL}api/user/seminar`,
+        null,
+        {
+          withCredentials: true,
         }
-
-        const res = await axios.put(
-            `${import.meta.env.VITE_REACT_API_URL}api/user/seminar`,
-            null,
-            {
-                withCredentials: true,
-            }
-        );
-        console.log(res.data)
-        if (res.data) {
-            alert("Registered successfully");
-            window.location.href = 'https://forms.gle/3YDcH39XQHiFApem7';
-          } else {
-            alert("Already Applied");
-        }
-    } catch (error) {
-        // console.log(error);
+      );
+      console.log(res.data);
+      if (res.data) {
+        alert("Registered successfully");
+        window.location.href = "https://forms.gle/3YDcH39XQHiFApem7";
+      } else {
         alert("Already Applied");
+      }
+    } catch (error) {
+      if (error.response.status === "401") {
+        localStorage.removeItem("token");
+      }
+      alert(error.response.data.error);
+      if (error.response.status === "401") {
+        navigate("/login");
+      } else {
+        alert("Access Token Error");
+      }
     }
-};
-
-
+  };
 
   useEffect(() => {
     const storedDetails = localStorage.getItem("details");
     if (storedDetails) {
       const details1 = JSON.parse(storedDetails);
       setUser(details1);
-      console.log(details1)
+      console.log(details1);
     }
   }, []);
-
-
 
   return (
     <div>
@@ -195,12 +206,12 @@ const Dashboard = () => {
         />
       </div>
       <button className="w-full h-full mt-[1rem]" onClick={seminar}>
-      {/* <BannerCard
+        {/* <BannerCard
        date= {'20-20-2020'}
        company= {'Summernternship'}
        type={"This is summer internship fair organised by frint. Click in this Banner to apply"}/> */}
-       <BannerCard />
-       </button>
+        <BannerCard />
+      </button>
       {/* table */}
 
       <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-2">
@@ -238,9 +249,7 @@ const Dashboard = () => {
           {/* <TaskCard /> */}
           <PieChartCard pieChartData={pieChartData} />
         </div>
-        <div>
-         
-        </div>  
+        <div></div>
       </div>
     </div>
   );

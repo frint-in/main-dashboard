@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,17 +15,12 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
   const [description, setDescription] = useState("");
   const [details, setDetails] = useState([]);
   // const [catagories, setCatagories] = useState([]);
-  const [specialisation, setSpecialisation] = useState('');
-  const [education, setEducation] = useState('');
-  const [dob, setDob] = useState('');
-  const [languages, setLanguages] = useState('');
-  const [skills, setSkills] = useState('');
+  const [specialisation, setSpecialisation] = useState("");
+  const [education, setEducation] = useState("");
+  const [dob, setDob] = useState("");
+  const [languages, setLanguages] = useState("");
+  const [skills, setSkills] = useState("");
   const [resume, setResume] = useState(null);
-
-
-
-
-
 
   useEffect(() => {
     const storedDetails = localStorage.getItem("details");
@@ -34,17 +28,17 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
       const details = JSON.parse(storedDetails);
       setDetails(details);
       setUname(details.uname || ""); // Set default value to empty string if field is undefined
-     setEmail(details.email || "");
+      setEmail(details.email || "");
       setPhno(details.phno || "");
       setGender(details.gender || "");
       setDescription(details.description || "");
       setSpecialisation(details.specialisation || "");
       // setCatagories(details.catagories || []);
-      setSpecialisation(details.specialisation || "")
-      setEducation(details.education || "")
-      setDob(details.dob || "")
-      setLanguages(details.languages || "")
-      setSkills(details.skills || "")
+      setSpecialisation(details.specialisation || "");
+      setEducation(details.education || "");
+      setDob(details.dob || "");
+      setLanguages(details.languages || "");
+      setSkills(details.skills || "");
       // setResume(details.resume || null)
     }
   }, []);
@@ -68,11 +62,6 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
     formData.append("skills", skills);
     formData.append("resume", resume);
 
-
-  
-
-
-
     try {
       const res = await axios.put(
         `${import.meta.env.VITE_REACT_API_URL}api/user/updateuser`,
@@ -83,14 +72,18 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
         }
       );
       if (res.data) {
-        navigate("/login");
-        alert("Login to update details");
-      } else {
-        alert("Invalid Credentials");
+        alert("Profile Updated")
       }
     } catch (error) {
-      // console.log(error);
-      alert(error);
+      if (error.response.status === "401") {
+        localStorage.removeItem("token");
+      }
+      alert(error.response.data.error);
+      if (error.response.status === "401") {
+        navigate("/login");
+      } else {
+        alert("Access Token Error");
+      }
     } finally {
       setLoading(false);
     }
@@ -293,14 +286,14 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
             Date of Birth
           </label>
           <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="dob"
-              name="dob"
-              type="date"
-              onChange={(e) => setDob(e.target.value)}
-              value={dob}
-              placeholder="Date of Birth"
-            />
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+            id="dob"
+            name="dob"
+            type="date"
+            onChange={(e) => setDob(e.target.value)}
+            value={dob}
+            placeholder="Date of Birth"
+          />
         </div>
         <div className="mb-4">
           <label
@@ -310,14 +303,14 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
             Languages
           </label>
           <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="languages"
-              name="languages"
-              type="text"
-              onChange={(e) => setLanguages(e.target.value)}
-              value={languages}
-              placeholder="languages"
-            />
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+            id="languages"
+            name="languages"
+            type="text"
+            onChange={(e) => setLanguages(e.target.value)}
+            value={languages}
+            placeholder="languages"
+          />
         </div>
         <div className="mb-4">
           <label
@@ -327,16 +320,16 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
             Skills
           </label>
           <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="skills"
-              name="skills"
-              type="text"
-              onChange={(e) => setSkills(e.target.value)}
-              value={skills}
-              placeholder="skills"
-            />
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+            id="skills"
+            name="skills"
+            type="text"
+            onChange={(e) => setSkills(e.target.value)}
+            value={skills}
+            placeholder="skills"
+          />
         </div>
-        
+
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -345,18 +338,15 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
             Resume
           </label>
           <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-              id="resume"
-              name="resume"
-              type="file"
-              onChange={(e) => setResume(e.target.value)}
-              value={resume}
-              accept=".pdf"
-            />
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+            id="resume"
+            name="resume"
+            type="file"
+            onChange={(e) => setResume(e.target.value)}
+            value={resume}
+            accept=".pdf"
+          />
         </div>
-        
-
-        
 
         {/* Checkbox */}
         {/* <div className="mb-4 flex items-center justify-between px-2">

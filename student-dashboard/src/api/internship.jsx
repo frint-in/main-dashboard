@@ -16,6 +16,14 @@ export async function applyInternshipByStudentTokenAndInternshipId(id) {
 
     return data;
   } catch (error) {
-    // console.log("error in adding applicants", error);
+    if (error.response.status === "401") {
+      localStorage.removeItem("token");
+    }
+    alert(error.response.data.error);
+    if (error.response.status === "401") {
+      navigate("/auth");
+    } else {
+      alert("Access Token Error");
+    }
   }
 }

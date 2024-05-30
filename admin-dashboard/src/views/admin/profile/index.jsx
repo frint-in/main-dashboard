@@ -8,41 +8,37 @@ import TaskCard from "./components/TaskCard";
 import { useEffect, useState } from "react";
 
 const ProfileOverview = () => {
-  const[details, setDetails] = useState([])
+  const [details, setDetails] = useState([]);
 
-  useEffect(()=> {
+  useEffect(() => {
     const storedDetails = localStorage.getItem("details");
     if (storedDetails) {
       const details = JSON.parse(storedDetails);
-      setDetails(details)
+      setDetails(details);
       // console.log(details)
     }
-  
-  },[])
+  }, []);
 
-
-
-  
   return (
     <div className="flex w-full flex-col gap-5">
       <div className="w-ful mt-3 flex h-fit flex-col gap-5 lg:grid lg:grid-cols-12">
         <div className="col-span-4 lg:!mb-0">
-          <Banner 
-          name={details.name}
-          internship= {details.internships?.length}
-          image= {details.imgurl}
+          <Banner
+            name={details.name}
+            internship={details.internships?.length}
+            image={details.imgurl}
           />
         </div>
 
         <div className="z-0 col-span-8 lg:!mb-0">
           {/* <Upload /> */}
-          <General 
-          description = {details.description}
-          catagory= {details.catagories}
-          website= {details.website}
-          location = {details.location}
-          email= {details.email}
-          phono= {details.phono}
+          <General
+            description={details.description}
+            catagory={details.catagories}
+            website={details.website}
+            location={details.location}
+            email={details.email}
+            phono={details.phono}
           />
         </div>
         {/* <div className="col-span-5 lg:!mb-0">

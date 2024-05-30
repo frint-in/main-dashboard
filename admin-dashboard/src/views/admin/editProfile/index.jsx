@@ -58,13 +58,18 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
         }
       );
       if (res.data) {
-        navigate("/auth");
-        alert("Login to update details");
-      } else {
-        alert("Invalid Credentials");
+        alert("Profile Updated")
       }
     } catch (error) {
+      if (error.response.status === "401") {
+        localStorage.removeItem("token");
+      }
       alert(error.response.data.error);
+      if (error.response.status === "401") {
+        navigate("/auth");
+      } else {
+        alert("Access Token Error");
+      }
     } finally {
       setLoading(false);
     }

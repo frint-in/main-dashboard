@@ -20,11 +20,13 @@ import Banner1 from "../marketplace/components/Banner";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllInterships } from "../../../api/company";
-import { getAllApprovedApplicants, getAllPendingApplicants } from "../../../api/intership";
+import {
+  getAllApprovedApplicants,
+  getAllPendingApplicants,
+} from "../../../api/intership";
 import axios from "axios";
 
 const Dashboard = () => {
-
   const [posted, setPosted] = useState([]);
   const [PickupData, setPickupData] = useState([]);
   const [ReceivedData, setReceivedData] = useState([]);
@@ -40,46 +42,37 @@ const Dashboard = () => {
     error,
   } = useQuery({
     queryKey: ["interships"],
-    queryFn: () => getAllInterships(), 
+    queryFn: () => getAllInterships(),
   });
 
-
-  const {
-    data: approved_applicants,
-  } = useQuery({
-    queryKey: ["approvedApplicants"], 
-    queryFn: () => getAllApprovedApplicants(), 
+  const { data: approved_applicants } = useQuery({
+    queryKey: ["approvedApplicants"],
+    queryFn: () => getAllApprovedApplicants(),
   });
 
-
-  const {
-    data: pending_applicants,
-  } = useQuery({
-    queryKey: ["pendingApplicants"], 
-    queryFn: () => getAllPendingApplicants(), 
+  const { data: pending_applicants } = useQuery({
+    queryKey: ["pendingApplicants"],
+    queryFn: () => getAllPendingApplicants(),
   });
 
-  const {
-    data: completed_applicants,
-  } = useQuery({
-    queryKey: ["completedApplicants"], 
-    queryFn: () => getAllPendingApplicants(), 
+  const { data: completed_applicants } = useQuery({
+    queryKey: ["completedApplicants"],
+    queryFn: () => getAllPendingApplicants(),
   });
-
 
   useEffect(() => {
-    const fetchData = async () => {      
+    const fetchData = async () => {
       const res = await axios.get(
-      `${import.meta.env.VITE_REACT_API_URL}api/company/mycompany`, 
-     { withCredentials: true, headers: { "Content-Type": "multipart/form-data" } }
-    );
+        `${import.meta.env.VITE_REACT_API_URL}api/company/mycompany`,
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
       setPosted(res.data.internships);
     };
-    fetchData()
-
-  },[])
-
-
+    fetchData();
+  }, []);
 
   const pieChartData = [
     pending_applicants?.length,
@@ -93,7 +86,7 @@ const Dashboard = () => {
   //     const details = JSON.parse(storedDetails);
   //     setDetails(details)
   //   }
-  
+
   // },[])
   return (
     <div>
@@ -101,7 +94,11 @@ const Dashboard = () => {
         <Widget
           icon={<GrSchedules className="h-7 w-7" />}
           title={"Registered Applicants"}
-          subtitle={pending_applicants?.length + approved_applicants?.length + completed_applicants?.length}
+          subtitle={
+            pending_applicants?.length +
+            approved_applicants?.length +
+            completed_applicants?.length
+          }
         />
         <Widget
           icon={<MdOutlineTask className="h-6 w-6" />}
@@ -138,8 +135,7 @@ const Dashboard = () => {
           />
         </div> */}
         <div>
-          <CheckTablePostedWorks/>
-          
+          <CheckTablePostedWorks />
         </div>
         <div>
           <CheckTableShortlisted
