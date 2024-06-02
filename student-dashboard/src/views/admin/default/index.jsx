@@ -27,6 +27,7 @@ import axios from "axios";
 import Card from "../../../components/card";
 import BannerCard from "../../../components/card/BannerCard";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../../utils/axiosIntance";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ const Dashboard = () => {
 
   const myinternships = async () => {
     try {
-      const internships = await axios.get(
+      const internships = await axiosInstance.get(
         `${import.meta.env.VITE_REACT_API_URL}api/user/finduserbytoken`,
         { withCredentials: true }
       );
@@ -150,7 +151,7 @@ const Dashboard = () => {
         return;
       }
 
-      const res = await axios.put(
+      const res = await axiosInstance.put(
         `${import.meta.env.VITE_REACT_API_URL}api/user/seminar`,
         null,
         {

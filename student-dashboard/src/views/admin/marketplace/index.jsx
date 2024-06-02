@@ -18,12 +18,13 @@ import { getAllInterships } from "../../../api/student";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import axiosInstance from "../../../utils/axiosIntance";
 
 const Marketplace = () => {
   const [details, setDetails] = useState();
   const all = async () => {
     try {
-      const internships = await axios.get(
+      const internships = await axiosInstance.get(
         `${import.meta.env.VITE_REACT_API_URL}api/internship/all`,
         { withCredentials: true }
       );

@@ -6,6 +6,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useColumnOrder } from "react-table";
 import { applyInternshipByStudentTokenAndInternshipId } from "../../../api/internship";
 import { getStudentByToken } from "../../../api/student";
+import axiosInstance from "../../../utils/axiosIntance";
 
 const SingleInternship = () => {
   const { id } = useParams();
@@ -22,7 +23,7 @@ const SingleInternship = () => {
 
   const applyInternshipByStudentTokenAndInternshipId = async (id) => {
     try {
-      const response = await axios.put(
+      const response = await axiosInstance.put(
         `${
           import.meta.env.VITE_REACT_API_URL
         }api/internship/addapplicants/${id}`,
@@ -37,7 +38,7 @@ const SingleInternship = () => {
 
   const findIntershipById = async (id) => {
     try {
-      const response = await axios.get(
+      const response = await axiosInstance.get(
         `${import.meta.env.VITE_REACT_API_URL}api/internship/find/${id}`,
         { withCredentials: true }
       );
