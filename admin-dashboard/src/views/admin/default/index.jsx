@@ -7,7 +7,7 @@ import { MdBarChart } from "react-icons/md";
 import { PiPackageLight } from "react-icons/pi";
 import { BiCheckDouble } from "react-icons/bi";
 import { GrDeliver } from "react-icons/gr";
-import Axios from "axios";
+// import axiosInstance from "../../../utils/axiosIntance";
 import { useState, useEffect } from "react";
 
 import { columnsDataCheck } from "./variables/columnsData";
@@ -24,7 +24,7 @@ import {
   getAllApprovedApplicants,
   getAllPendingApplicants,
 } from "../../../api/intership";
-import axios from "axios";
+import axiosInstance from "../../../utils/axiosIntance";
 
 const Dashboard = () => {
   const [posted, setPosted] = useState([]);
@@ -62,7 +62,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(
+      const res = await axiosInstance.get(
         `${import.meta.env.VITE_REACT_API_URL}api/company/mycompany`,
         {
           withCredentials: true,

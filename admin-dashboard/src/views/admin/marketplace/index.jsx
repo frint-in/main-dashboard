@@ -18,7 +18,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllInterships } from "../../../api/company";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../../utils/axiosIntance";
+
 const Marketplace = () => {
   const [internships, setInternships] = useState([]);
   const colors = [
@@ -32,7 +33,7 @@ const Marketplace = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(
+      const res = await axiosInstance.get(
         `${import.meta.env.VITE_REACT_API_URL}api/company/mycompany`,
         {
           withCredentials: true,

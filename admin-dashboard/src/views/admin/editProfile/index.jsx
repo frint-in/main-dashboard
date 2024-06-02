@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Card from "../../../components/card";
+import axiosInstance from "../../../utils/axiosIntance";
 // import input from "../../../components/fields/input";
 
 export default function EditProfile({ setIsAdminAuthenticated }) {
@@ -49,7 +50,7 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
     formData.append("website", website);
 
     try {
-      const res = await axios.put(
+      const res = await axiosInstancence.put(
         `${import.meta.env.VITE_REACT_API_URL}api/company/updatecompany`,
         formData,
         {

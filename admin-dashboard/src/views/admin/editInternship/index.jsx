@@ -3,6 +3,7 @@ import Card from "../../../components/card";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { getIntershipById } from "../../../api/intership";
+import axiosInstance from "../../../utils/axiosIntance";
 
 const EditInternship = () => {
   const { id } = useParams();
@@ -52,7 +53,7 @@ const EditInternship = () => {
     e.preventDefault();
 
     try {
-      await axios.put(
+      await axiosInstanceance.put(
         `${
           import.meta.env.VITE_REACT_API_URL
         }api/internship/updateinternship/${id}`,
@@ -76,7 +77,7 @@ const EditInternship = () => {
   const handleDelete = async (e) => {
     e.preventDefault();
     try {
-      await axios.delete(
+      await axiosInstance.delete(
         `${
           import.meta.env.VITE_REACT_API_URL
         }api/internship/deleteinternship/${id}`,

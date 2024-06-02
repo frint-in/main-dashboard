@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Card from "../../../components/card";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../../utils/axiosIntance";
 
 const PostInternship = () => {
   const [name, setName] = useState("");
@@ -43,7 +44,7 @@ const PostInternship = () => {
 
     try {
       // console.log(formData);
-      const res = await axios.post(
+      const res = await axiosInstance.post(
         `${import.meta.env.VITE_REACT_API_URL}api/internship/addinternship`,
         formData,
         {
@@ -76,7 +77,7 @@ const PostInternship = () => {
 
   const handleGenerateAI = async () => {
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         "https://frint-ai-ou22wujlaq-el.a.run.app/api/v1/llm/getDescription",
         {
           name: name,
