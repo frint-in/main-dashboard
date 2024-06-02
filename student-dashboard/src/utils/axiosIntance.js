@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL, // Set your API base URL
+    baseURL: import.meta.env.VITE_REACT_API_URL, // Set your API base URL
     withCredentials: true, // Allow sending cookies with requests
 });
 

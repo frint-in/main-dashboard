@@ -10,6 +10,7 @@ import CheckTable from "../../default/components/CheckTable";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserPendingApplications } from "../../../../api/student";
 import axios from "axios";
+import axiosInstance from "../../../../utils/axiosIntance";
 const Dashboard = () => {
   // const url = useSelector((state) => state.shop.value2);
   // const Date = useSelector((state) => state.date.value);
@@ -18,7 +19,7 @@ const Dashboard = () => {
 
   const myinternships = async()=>{
     try {
-      const internships = await axios.get(`${import.meta.env.VITE_REACT_API_URL}api/user/finduserbytoken`,
+      const internships = await axiosInstance.get(`${import.meta.env.VITE_REACT_API_URL}api/user/finduserbytoken`,
     { withCredentials: true }
       )
       const data = internships.data

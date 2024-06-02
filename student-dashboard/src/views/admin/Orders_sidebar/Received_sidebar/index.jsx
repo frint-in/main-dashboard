@@ -10,7 +10,7 @@ import CheckTable from "../../default/components/CheckTable";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getStudentByToken, getUserApprovedApplications, getUserCompletedApplications, getUserPendingApplications } from "../../../../api/student";
 import axios from 'axios';
-
+import axiosInstance from "../../../../utils/axiosIntance";
 
 const Dashboard = () => {
 
@@ -18,7 +18,7 @@ const [approved, setApproved] = useState([]);
 
 const myinternships = async()=>{
   try {
-    const internships = await axios.get(`${import.meta.env.VITE_REACT_API_URL}api/user/finduserbytoken`,
+    const internships = await axiosInstance.get(`${import.meta.env.VITE_REACT_API_URL}api/user/finduserbytoken`,
   { withCredentials: true }
     )
     const data = internships.data
@@ -33,7 +33,7 @@ const myinternships = async()=>{
     
   } catch (error) {
     alert(error);
-    // console.log(error)
+    console.log(error)
   }
   
 
