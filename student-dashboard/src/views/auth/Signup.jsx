@@ -132,7 +132,7 @@ export default function Signup({ setIsAdminAuthenticated }) {
           >
             Register
           </button>
-          <Oauth method="signupGoogle" links="/login"/>
+          {/* <Oauth method="signupGoogle" links="/login"/> */}
         </form>
         {/* <div className="mt-4">
           <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">

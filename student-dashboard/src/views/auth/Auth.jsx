@@ -94,7 +94,7 @@ export default function SignIn({setIsAdminAuthenticated}) {
          >
           {loading ? "Signing In..." : "Sign In"}
         </button>
-        <Oauth method="signinGoogle" links="/admin"/>
+        {/* <Oauth method="signinGoogle" links="/admin"/> */}
         <div className="mt-4">
           <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">
             Not registered yet?
