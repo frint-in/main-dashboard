@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 
 const ProfileOverview = () => {
   const [details, setDetails] = useState([]);
+  const [posted, setPosted] = useState([]);
+
 
   useEffect(() => {
     const storedDetails = localStorage.getItem("details");
@@ -19,13 +21,27 @@ const ProfileOverview = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axiosInstance.get(
+        `${import.meta.env.VITE_REACT_API_URL}api/company/mycompany`,
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      setPosted(res.data.internships);
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="flex w-full flex-col gap-5">
       <div className="w-ful mt-3 flex h-fit flex-col gap-5 lg:grid lg:grid-cols-12">
         <div className="col-span-4 lg:!mb-0">
           <Banner
             name={details.name}
-            internship={details.internships?.length}
+            internship={posted?.length}
             image={details.imgurl}
           />
         </div>

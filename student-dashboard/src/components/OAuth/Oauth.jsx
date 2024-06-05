@@ -16,9 +16,9 @@ const Oauth = (props) => {
     provider.setCustomParameters({ prompt: "select_account" });
     try {
       const resultFromGoogle = await signInWithPopup(auth, provider);
-      console.log(resultFromGoogle);
+      // console.log(resultFromGoogle);
       // const res = await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/auth/signupGoogle`, 
-      const res = await axios.post(`http://localhost:8000/api/auth/${props.method}`,
+      const res = await axios.post(`${import.meta.env.VITE_REACT_API_URL}/api/auth/${props.method}`,
         {
           email: resultFromGoogle.user.email,
           avatar: resultFromGoogle.user.photoURL,
@@ -38,7 +38,7 @@ const Oauth = (props) => {
       }
 
     } catch (error) {
-      console.log(error.response.status)
+      // console.log(error.response.status)
       if (error.response.status === 409){
         alert("Account already exists")
       }
