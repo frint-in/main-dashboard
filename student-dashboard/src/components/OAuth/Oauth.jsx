@@ -18,7 +18,8 @@ const Oauth = (props) => {
       const resultFromGoogle = await signInWithPopup(auth, provider);
       console.log(resultFromGoogle);
       // const res = await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/auth/signupGoogle`, 
-      const res = await axios.post(`http://localhost:8000/api/auth/${props.method}`,
+      const res = await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/auth/${props.method}`,
+      // const res = await axios.post(`https://api.frint.in/api/auth/${props.method}`,
         {
           email: resultFromGoogle.user.email,
           avatar: resultFromGoogle.user.photoURL,
@@ -30,8 +31,8 @@ const Oauth = (props) => {
       if (res.data) {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem("details", JSON.stringify(res.data.others));
-        navigate(`${props.links}`);
         alert('Sign in successfull')
+        navigate(`${props.links}`);
 
       } else {
         alert('Invalid Credentials')

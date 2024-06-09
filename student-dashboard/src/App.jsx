@@ -13,10 +13,24 @@ import { setAuthChecked, selectAuthChecked } from "./state/authSlice";
 
 
 const App = () => {
-  const token = localStorage.getItem("token");
-  const isAuth = useMemo(() => token, [token]);
+  // const token = localStorage.getItem("token");
+  // const isAuth = useMemo(() => token, [token]);
 
 
+
+  const [isAuth, setIsAuth] = useState(!!localStorage.getItem("token"));
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setIsAuth(!!localStorage.getItem("token"));
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+                                                                                                                                          
   // console.log("isAuth>>>>>>>>>>>", isAuth);
 
   return (
@@ -25,7 +39,7 @@ const App = () => {
       <Route path="/login" element={<Auth />} />
         <Route path="/sign-up" element={<Signup />} />
         {/* <Route path='/single-internship/:id' element={<SingleInternship />} /> */}
-        <Route path="admin/*" element={<Admin />}/>
+        <Route path="/admin/*" element={<Admin />}/>
         <Route path="/" element={
             isAuth ? <Navigate to="/admin" replace /> : <Navigate to="/login" replace />
           } />
