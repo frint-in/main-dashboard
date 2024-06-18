@@ -20,9 +20,10 @@ const PostInternship = () => {
   const [skills, setSkills] = useState("");
   const [position, setPosition] = useState("");
   const [mode, setMode] = useState("");
+  
+  const navigate = useNavigate();
 
   const submitData = async (e) => {
-    const navigate = useNavigate();
     e.preventDefault();
     setLoading(true);
 
