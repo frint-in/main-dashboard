@@ -47,6 +47,10 @@ const EditInternship = () => {
     }));
   };
 
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
+
   // console.log("internship>>>>>>>>", internship);
 
   const handleSubmit = async (e) => {
@@ -101,7 +105,15 @@ const EditInternship = () => {
             >
               Image <span style={{ color: "red" }}>*</span>
             </label>
-            {/* Input for image */}
+            <input
+              id="image"
+              name="image"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              required
+              className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+            />
           </div>
 
           <div className="mb-4">
