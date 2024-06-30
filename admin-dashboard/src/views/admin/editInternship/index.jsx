@@ -524,19 +524,115 @@ const EditInternship = () => {
     }));
   };
 
+  //1
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+
+  //   const formData = new FormData();
+  //   for (const key in internshipData) {
+  //     if (key === 'image') {
+  //       formData.append('image', internshipData.image); // Append the file directly
+  //     } else {
+  //       formData.append(key, internshipData[key]);
+  //     }
+  //   }
+
+  //   try {
+  //     const res = await axiosInstance.put(
+  //       `${import.meta.env.VITE_REACT_API_URL}api/internship/updateinternship/${id}`,
+  //       formData,
+  //       {
+  //         withCredentials: true,
+  //         headers: { "Content-Type": "multipart/form-data" },
+  //       }
+  //     );
+  //     if (res.data) {
+  //       alert("Successful");
+  //     } else {
+  //       alert("Invalid Credentials");
+  //     }
+  //   } catch (error) {
+  //     if (error.response?.status === 401) {
+  //       localStorage.removeItem("token");
+  //       navigate("/auth");
+  //     } else {
+  //       alert("Access Token Error");
+  //     }
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+
+  //2 
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  
+  //   const formData = new FormData();
+  //   for (const key in internshipData) {
+  //     if (key === 'image') {
+  //       formData.append('image', internshipData.image); // Append the file directly
+  //     } else if (key === 'subuser' && Array.isArray(internshipData[key])) {
+  //       internshipData[key].forEach((item, index) => {
+  //         formData.append(`subuser[${index}]`, item);
+  //       });
+  //     } else {
+  //       formData.append(key, internshipData[key]);
+  //     }
+  //   }
+  
+  //   try {
+  //     const res = await axiosInstance.put(
+  //       `${import.meta.env.VITE_REACT_API_URL}api/internship/updateinternship/${id}`,
+  //       formData,
+  //       {
+  //         withCredentials: true,
+  //         headers: { "Content-Type": "multipart/form-data" },
+  //       }
+  //     );
+  //     if (res.data) {
+  //       alert("Successful");
+  //     } else {
+  //       alert("Invalid Credentials");
+  //     }
+  //   } catch (error) {
+  //     if (error.response?.status === 401) {
+  //       localStorage.removeItem("token");
+  //       navigate("/auth");
+  //     } else {
+  //       alert("Access Token Error");
+  //     }
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+
+  //3
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     const formData = new FormData();
-    for (const key in internshipData) {
-      if (key === 'image') {
-        formData.append('image', internshipData.image); // Append the file directly
-      } else {
-        formData.append(key, internshipData[key]);
-      }
+    const fields = [
+      'name', 'companyName', 'deadline', 'duration', 'stipend', 'phono', 
+      'location', 'description', 'type', 'experience', 'skills', 
+      'position', 'mode'
+    ];
+  
+    fields.forEach((field) => {
+      formData.append(field, internshipData[field]);
+    });
+  
+    if (internshipData.image) {
+      formData.append('image', internshipData.image);
     }
-
+  
     try {
       const res = await axiosInstance.put(
         `${import.meta.env.VITE_REACT_API_URL}api/internship/updateinternship/${id}`,
@@ -551,6 +647,12 @@ const EditInternship = () => {
       } else {
         alert("Invalid Credentials");
       }
+
+      for (let pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+      }
+
+      
     } catch (error) {
       if (error.response?.status === 401) {
         localStorage.removeItem("token");
@@ -562,15 +664,19 @@ const EditInternship = () => {
       setLoading(false);
     }
   };
-
+  
   const handleDelete = async (e) => {
     e.preventDefault();
     try {
-      await axiosInstance.delete(
+
+      const response = await axiosInstance.delete(
         `${import.meta.env.VITE_REACT_API_URL}api/internship/deleteinternship/${id}`,
         { withCredentials: true }
       );
-      alert("Internship Deleted Successfully");
+      if(response.status == 200){
+        alert("Internship Deleted Successfully");
+        navigate('/admin/internships')
+      }
     } catch (error) {
       alert("Oops! Something went wrong.");
     }
