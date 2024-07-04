@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom'; 
 
 import { setAuthChecked, selectAuthChecked } from "./state/authSlice";
+import VerifyEmailPage from "./views/verifyemail/page";
 
 
 const App = () => {
@@ -38,6 +39,7 @@ const App = () => {
       <Routes>
       <Route path="/login" element={<Auth />} />
         <Route path="/sign-up" element={<Signup />} />
+        <Route path="/verifyemail" element={<VerifyEmailPage />} />
         {/* <Route path='/single-internship/:id' element={<SingleInternship />} /> */}
         <Route path="/admin/*" element={<Admin />}/>
         <Route path="/" element={
