@@ -2,7 +2,7 @@ import React from "react";
 import avatar from "../../../../assets/img/avatars/avatar11.png";
 import banner from "../../../../assets/img/profile/banner.png";
 import Card from "../../../../components/card";
-
+import { FaFileDownload } from "react-icons/fa";
 const Banner = ({data}) => {
   return (
     <Card extra={"items-center w-full h-full p-[16px] bg-cover"}>
@@ -22,6 +22,21 @@ const Banner = ({data}) => {
           {data?.uname}
         </h4>
         <p className="text-base font-normal text-gray-600">{data?.specialisation}</p>
+      </div>
+
+      <div className="mt-16 flex  items-center">
+        <h4 className="text-basefont-normal text-gray-600 dark:text-white mx-2">
+          Resume
+        </h4>
+        {data.resume ? (<button onClick={() => {
+              window.location.href = data.resume;
+        }}>
+        <FaFileDownload />
+        </button>): (
+        <p className="text-sm font-normal text-gray-600">resume not uploaded yet</p>
+          
+        )}
+        
       </div>
 
       {/* Post followers */}

@@ -1,66 +1,37 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Card from "../../../components/card";
-// import input from "../../../components/fields/input";
 
 export default function EditProfile({ setIsAdminAuthenticated }) {
   const navigate = useNavigate();
-  const [uname, setUname] = useState("");
-  const [email, setEmail] = useState("");
+  const { register, handleSubmit, setValue, formState: { isSubmitting } } = useForm();
   const [image, setImage] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [phno, setPhno] = useState("");
-  const [gender, setGender] = useState("");
-  const [description, setDescription] = useState("");
-  const [details, setDetails] = useState([]);
-  // const [catagories, setCatagories] = useState([]);
-  const [specialisation, setSpecialisation] = useState("");
-  const [education, setEducation] = useState("");
-  const [dob, setDob] = useState("");
-  const [languages, setLanguages] = useState("");
-  const [skills, setSkills] = useState("");
   const [resume, setResume] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const storedDetails = localStorage.getItem("details");
     if (storedDetails) {
       const details = JSON.parse(storedDetails);
-      setDetails(details);
-      setUname(details.uname || ""); // Set default value to empty string if field is undefined
-      setEmail(details.email || "");
-      setPhno(details.phno || "");
-      setGender(details.gender || "");
-      setDescription(details.description || "");
-      setSpecialisation(details.specialisation || "");
-      // setCatagories(details.catagories || []);
-      setSpecialisation(details.specialisation || "");
-      setEducation(details.education || "");
-      setDob(details.dob || "");
-      setLanguages(details.languages || "");
-      setSkills(details.skills || "");
-      // setResume(details.resume || null)
+      for (const key in details) {
+        setValue(key, details[key]);
+      }
     }
-  }, []);
+  }, [setValue]);
 
-  const handleUser = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     setLoading(true);
-
     const formData = new FormData();
-    formData.append("name", uname);
-    formData.append("email", email);
-    formData.append("image", image);
-    formData.append("phono", phno);
-    formData.append("gender", gender);
-    formData.append("description", description);
-    // formData.append("catagories", catagories);
-    formData.append("specialisation", specialisation);
-    formData.append("education", education);
-    formData.append("dob", dob);
-    formData.append("languages", languages);
-    formData.append("skills", skills);
-    formData.append("resume", resume);
+
+    for (const key in data) {
+      if (key !== "image" && key !== "resume") {
+        formData.append(key, data[key]);
+      }
+    }
+    if (image) formData.append("profileImg", image);
+    if (resume) formData.append("resume", resume);
 
     try {
       const res = await axios.put(
@@ -72,14 +43,15 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
         }
       );
       if (res.data) {
-        alert("Profile Updated")
+        alert("Profile Updated");
+        localStorage.setItem('details', JSON.stringify(res.data))
+
       }
+
+
     } catch (error) {
-      if (error.response.status === "401") {
+      if (error.response.status === 401) {
         localStorage.removeItem("token");
-      }
-      alert(error.response.data.error);
-      if (error.response.status === "401") {
         navigate("/login");
       } else {
         alert("Access Token Error");
@@ -93,75 +65,41 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
     setImage(e.target.files[0]);
   };
 
+  const handleResumeChange = (e) => {
+    setResume(e.target.files[0]);
+  };
+
   return (
     <Card className="grid h-full w-full my-4 grid-cols-1 gap-3 rounded-[20px] bg-white bg-clip-border p-3 font-dm shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:shadow-none 2xl:grid-cols-11">
       <form
         className="col-span-10 flex h-full w-full flex-col justify-center overflow-hidden rounded-xl bg-white pl-3 pb-4 dark:!bg-navy-800"
-        onSubmit={handleUser}
+        onSubmit={handleSubmit(onSubmit)}
       >
-        <h4 className=" my-4 text-4xl font-bold text-navy-700 dark:text-white">
+        <h4 className="my-4 text-4xl font-bold text-navy-700 dark:text-white">
           Edit Profile
         </h4>
-        {/* <p className="mb-9 ml-1 text-base text-gray-600">
-          Enter your email, password, and upload an image to sign up!
-        </p> */}
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="name"
-          >
-            Name
-          </label>
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="uname">Name</label>
           <input
-            // variant="auth"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-            label="name*"
             placeholder="Company Name"
-            id="name"
+            id="uname"
             type="text"
-            value={uname}
-            onChange={(e) => setUname(e.target.value)}
+            {...register("uname")}
           />
         </div>
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="email"
-          >
-            Email
-          </label>
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Email</label>
           <input
-            // variant="auth"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-            label="Email*"
             placeholder="text@mail.com"
             id="email"
             type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            {...register("email")}
           />
         </div>
-        {/* Password */}
-        {/* <input
-            // variant="auth"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-            label="Password*"
-            placeholder="********"
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          /> */}
-
-        {/* Image upload */}
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="image"
-          >
-            Profile Photo
-          </label>
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">Profile Photo</label>
           <input
             id="image"
             name="image"
@@ -171,210 +109,104 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
           />
         </div>
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="phono"
-          >
-            Phone Number
-          </label>
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phno">Phone Number</label>
           <input
-            // variant="auth"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-            label="phono*"
             placeholder="+91-**********"
-            id="phono"
+            id="phno"
             type="text"
-            value={phno}
-            onChange={(e) => setPhno(e.target.value)}
+            {...register("phno")}
           />
         </div>
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="location"
-          >
-            Gender
-          </label>
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="gender">Gender</label>
           <input
-            // variant="auth"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-            label="Gender*"
             placeholder=""
             id="gender"
             type="text"
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
+            {...register("gender")}
           />
         </div>
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="description"
-          >
-            Description
-          </label>
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">Description</label>
           <input
-            // variant="auth"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-            label="description*"
             placeholder="a short description"
             id="description"
             type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            {...register("description")}
           />
         </div>
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="website"
-          >
-            Specialisation
-          </label>
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="specialisation">Specialisation</label>
           <input
-            // variant="auth"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-            label="specialisation*"
             placeholder=""
             id="specialisation"
             type="text"
-            value={specialisation}
-            onChange={(e) => setSpecialisation(e.target.value)}
+            {...register("specialisation")}
           />
         </div>
-        {/* <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="catagories"
-          >
-            Categories
-          </label>
-          <input
-            // variant="auth"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-            label="catagories*"
-            placeholder="Category"
-            id="catagories"
-            type="text"
-            value={catagories}
-            onChange={(e) => setCatagories(e.target.value.split(","))}
-          />
-        </div> */}
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="catagories"
-          >
-            Education
-          </label>
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="education">Education</label>
           <input
-            // variant="auth"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-            label="education*"
             placeholder="education"
             id="education"
             type="text"
-            value={education}
-            onChange={(e) => setEducation(e.target.value)}
+            {...register("education")}
           />
         </div>
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="catagories"
-          >
-            Date of Birth
-          </label>
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="dob">Date of Birth</label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
             id="dob"
             name="dob"
             type="date"
-            onChange={(e) => setDob(e.target.value)}
-            value={dob}
-            placeholder="Date of Birth"
+            {...register("dob")}
           />
         </div>
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="catagories"
-          >
-            Languages
-          </label>
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="languages">Languages</label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-            id="languages"
-            name="languages"
-            type="text"
-            onChange={(e) => setLanguages(e.target.value)}
-            value={languages}
             placeholder="languages"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="catagories"
-          >
-            Skills
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-            id="skills"
-            name="skills"
+            id="languages"
             type="text"
-            onChange={(e) => setSkills(e.target.value)}
-            value={skills}
-            placeholder="skills"
+            {...register("languages")}
           />
         </div>
-
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="catagories"
-          >
-            Resume
-          </label>
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="skills">Skills</label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+            placeholder="skills"
+            id="skills"
+            type="text"
+            {...register("skills")}
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="resume">Resume</label>
+          <input
             id="resume"
             name="resume"
             type="file"
-            onChange={(e) => setResume(e.target.value)}
-            value={resume}
-            accept=".pdf"
+            accept=".pdf,.doc,.docx"
+            onChange={handleResumeChange}
           />
         </div>
-
-        {/* Checkbox */}
-        {/* <div className="mb-4 flex items-center justify-between px-2">
-            <a
-              className="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
-              href=" "
-            >
-              Forgot Password?
-            </a>
-          </div> */}
-        <button
-          className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
-          type="submit"
-          disabled={loading}
-        >
-          {loading ? "Saving..." : "Save"}
-        </button>
-        {/* <div className="mt-4">
-          <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">
-            Already registered?
-          </span>
-          <Link
-            to="/auth"
-            className="ml-1 text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
+        <div className="flex items-center justify-between">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+            disabled={isSubmitting}
           >
-            Log in
-          </Link>
-        </div> */}
+            Update Profile
+          </button>
+        </div>
       </form>
     </Card>
   );
