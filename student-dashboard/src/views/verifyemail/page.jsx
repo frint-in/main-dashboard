@@ -16,13 +16,13 @@ export default function VerifyEmailPage() {
         try {
 
             // const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/user/verifyemail`, { token });
-            const response = await axios.post(`http://localhost:8000/api/user/verifyemail`, { token });
+            const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/user/verifyemail`, { token });
 
 
             if (response) {
                 setVerified(true);
             }
-        } catch (error:any) {
+        } catch (error) {
             setError(true);
             // console.log(error.response.data);
             console.log("error in verifyUserEmail>>>>>>>>>>>",error);
