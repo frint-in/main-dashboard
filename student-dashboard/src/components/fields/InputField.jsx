@@ -2,7 +2,7 @@
 import React from "react";
 
 function InputField(props) {
-  const { label, id, extra, type, placeholder, variant, state, disabled, value, onChange } =
+  const { label, id, extra, type, placeholder, variant, state, disabled, value, onChange, error } =
     props;
 
   return (
@@ -32,6 +32,7 @@ function InputField(props) {
             : "border-gray-200 dark:!border-white/10 dark:text-white"
         }`}
       />
+      <span style={{color: "red"}}>{error}</span>
     </div>
   );
 }
