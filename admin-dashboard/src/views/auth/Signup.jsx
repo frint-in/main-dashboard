@@ -2,6 +2,7 @@ import InputField from "../../components/fields/InputField";
 import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Oauth from "../../components/OAuth/Oauth";
 
 export default function Signup({ setIsAdminAuthenticated }) {
   const navigate = useNavigate();
@@ -208,6 +209,7 @@ export default function Signup({ setIsAdminAuthenticated }) {
           >
             {loading ? "Registering..." : "Register"}
           </button>
+          <Oauth method="signinGoogle" links="/admin"/>
           <div className="mt-4">
             <span className="text-sm font-medium text-navy-700 dark:text-gray-600">
               Already registered?
