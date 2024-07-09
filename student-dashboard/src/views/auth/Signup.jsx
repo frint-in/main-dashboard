@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import Oauth from "../../components/OAuth/Oauth";
-
+import { Toaster, toast } from 'sonner'
 export default function Signup({ setIsAdminAuthenticated }) {
   const navigate = useNavigate();
 
@@ -97,15 +97,19 @@ export default function Signup({ setIsAdminAuthenticated }) {
         { withCredentials: true }
       );
 
+      const message = res.data.message;
+
       if (res.data) {
         navigate("/login");
-        alert("Sign up successful");
+        toast.success(message ||"Sign up successful");
       } else {
-        alert("Invalid credentials");
+        toast.error( message || "Invalid credentials");
       }
     } catch (error) {
+      const statusCode = error.response.status;
+        const message = error.response.data.message;
       console.error(error);
-      alert("An error occurred. Please try again.");
+      toast.error(message || "An error occurred. Please try again.");
     }
   };
 

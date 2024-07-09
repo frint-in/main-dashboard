@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Signup from "./Signup";
 import Oauth from "../../components/OAuth/Oauth";
-
+import { Toaster, toast } from 'sonner'
 
 export default function SignIn({setIsAdminAuthenticated}) {
 
@@ -29,13 +29,32 @@ export default function SignIn({setIsAdminAuthenticated}) {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem("details", JSON.stringify(res.data.others));
         navigate('/admin');
-        alert('Sign in successfull')
+        toast.success('Sign in successfull')
 
       } else {
-        alert('Invalid Credentials')
+        toast.error('Invalid Credentials')
       }
     } catch (error) {
-      alert(error.response.data)
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        const statusCode = error.response.status;
+        const message = error.response.data.message;
+    
+        if (statusCode === 401) {
+          toast.warning(message || 'Unauthorized access');
+        } else if (statusCode === 409) {
+          toast.error(message || ' Incorrect email or password');
+        } else {
+          toast.error(message || 'An error occurred');
+        }
+      } else if (error.request) {
+        // The request was made but no response was received
+        toast.error('No response received from the server');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        toast.error('Error in setting up the request');
+      }
       
     } finally {
       setLoading(false);
