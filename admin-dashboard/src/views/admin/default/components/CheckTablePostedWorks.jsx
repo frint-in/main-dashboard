@@ -73,7 +73,7 @@ const CheckTable = ({ name, tableData, action, status }) => {
             {internships?.map((row, _id) => (
               <tr key={row._id}>
                 <td className="text-sm font-bold text-navy-700 dark:text-white ">
-                  {row.name}
+                  {row.companyName}
                 </td>
                 <td className="pt-[15px] pb-[16px] sm:text-[14px]">
                   {formatDate(row.deadline)}
