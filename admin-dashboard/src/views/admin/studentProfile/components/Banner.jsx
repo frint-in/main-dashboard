@@ -2,7 +2,7 @@ import React from "react";
 import avatar from "../../../../assets/img/avatars/avatar11.png";
 import banner from "../../../../assets/img/profile/banner.png";
 import Card from "../../../../components/card";
-
+import { FaFileDownload } from "react-icons/fa";
 const Banner = ({data}) => {
   return (
     <Card extra={"items-center w-full h-full p-[16px] bg-cover"}>
@@ -24,23 +24,38 @@ const Banner = ({data}) => {
         <p className="text-base font-normal text-gray-600">{data?.specialisation}</p>
       </div>
 
+      <div className="mt-16 flex  items-center">
+        <h4 className="text-basefont-normal text-gray-600 dark:text-white mx-2">
+          Resume
+        </h4>
+        {data.resume ? (<button onClick={() => {
+              window.location.href = data.resume;
+        }}>
+        <FaFileDownload />
+        </button>): (
+        <p className="text-sm font-normal text-gray-600">❌</p>
+          
+        )}
+        
+      </div>
+
       {/* Post followers */}
       {/* <div className="mt-6 mb-3 flex gap-4 md:!gap-14">
         <div className="flex flex-col items-center justify-center">
           <p className="text-2xl font-bold text-navy-700 dark:text-white">12</p>
-          <p className="text-sm font-normal text-gray-600">Applied</p>
+          <p className="text-sm font-normal text-gray-600">Projects</p>
         </div>
         <div className="flex flex-col items-center justify-center">
           <p className="text-2xl font-bold text-navy-700 dark:text-white">
             3
           </p>
-          <p className="text-sm font-normal text-gray-600">Ongoing</p>
+          <p className="text-sm font-normal text-gray-600">Internships</p>
         </div>
         <div className="flex flex-col items-center justify-center">
           <p className="text-2xl font-bold text-navy-700 dark:text-white">
             4
           </p>
-          <p className="text-sm font-normal text-gray-600">Completed</p>
+          <p className="text-sm font-normal text-gray-600">Freelance</p>
         </div>
       </div> */}
     </Card>
