@@ -33,7 +33,7 @@ const Banner = ({data}) => {
         }}>
         <FaFileDownload />
         </button>): (
-        <p className="text-sm font-normal text-gray-600">resume not uploaded yet</p>
+        <p className="text-sm font-normal text-gray-600">❌</p>
           
         )}
         

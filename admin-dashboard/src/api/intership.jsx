@@ -55,6 +55,7 @@ export async function getUsersWithIntershipId(id) {
     const response = await axios.get(
       `${
         import.meta.env.VITE_REACT_API_URL
+        //internship ka id is sent to the backend 
       }api/internship/getUsersWithInternship/${id}`
     );
     // console.log("hi1");
@@ -81,6 +82,7 @@ export async function getUsersWithIntershipId(id) {
         specs: obj.specialisation,
         applicationsStatus: filteredApplication.status,
         companyName: filteredApplication.name,
+        resume: obj.resume,
       };
 
       // Push the new object into the separate array

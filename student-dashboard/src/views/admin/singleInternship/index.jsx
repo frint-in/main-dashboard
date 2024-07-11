@@ -7,6 +7,8 @@ import { useColumnOrder } from "react-table";
 import { applyInternshipByStudentTokenAndInternshipId } from "../../../api/internship";
 import { getStudentByToken } from "../../../api/student";
 import axiosInstance from "../../../utils/axiosIntance";
+import { toast } from "sonner";
+import { handleApiError, handleApiResponse } from "../../../utils/apiResponseHandler";
 
 const SingleInternship = () => {
   const { id } = useParams();
@@ -30,9 +32,12 @@ const SingleInternship = () => {
         null,
         { withCredentials: true }
       );
+      const statusCode = response.data.status;
+      const message = response.data.message;
+
+      handleApiResponse(response);
     } catch (error) {
-      alert(error);
-      // console.log(error)
+      handleApiError(error);
     }
   };
 
@@ -59,12 +64,12 @@ const SingleInternship = () => {
 
   const handleClick = async () => {
     try {
-      if (details.subuser?.includes(userDetail)) {
-        alert("You have already applied to this internship.");
-      } else {
+      // if (details.subuser?.includes(userDetail)) {
+      //   toast.info("You have already applied to this internship.");
+      // } else {
         await applyInternshipByStudentTokenAndInternshipId(id);
-        alert("Applied successfully!");
-      }
+        // alert("Applied successfully!");
+      // }
     } catch (error) {
       if (error.response.status === "401") {
         localStorage.removeItem("token");
