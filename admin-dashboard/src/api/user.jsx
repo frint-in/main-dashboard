@@ -37,12 +37,14 @@ export async function getUserById(id) {
     // console.log("hi1");
 
     const data = response.data;
-    // console.log("data>>>>", data);
+    console.log("data in getUserbyId in company dashboard>>>>", data);
 
   
     return data;
   } catch (error) {
-    // console.log("error in getting all interships", error);
+    console.log("error in getting all interships", error);
+
+    return error
   }
 
 }
