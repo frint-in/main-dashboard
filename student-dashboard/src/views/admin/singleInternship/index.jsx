@@ -32,8 +32,6 @@ const SingleInternship = () => {
         null,
         { withCredentials: true }
       );
-      const statusCode = response.data.status;
-      const message = response.data.message;
 
       handleApiResponse(response);
     } catch (error) {
