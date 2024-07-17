@@ -3,6 +3,11 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Oauth from "../../components/OAuth/Oauth";
+import { Button } from "@/components/ui/button";
+
+
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { googleLogout } from "@react-oauth/google";
 
 export default function Signup({ setIsAdminAuthenticated }) {
   const navigate = useNavigate();
@@ -15,6 +20,42 @@ export default function Signup({ setIsAdminAuthenticated }) {
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [errors, setErrors] = useState({});
+
+
+    const login = useGoogleLogin({
+    onSuccess: async (codeResponse) => {
+      console.log(codeResponse);
+      try {
+        const res = await axios.post(
+          `${import.meta.env.VITE_REACT_API_URL}api/auth/google-create-token`,
+          { code: codeResponse.code,
+            scope: codeResponse.scope
+           },
+          { withCredentials: true }
+        );
+
+        const message = res.data.message;
+        if (res.data) {
+          // navigate("/login");
+          toast.success(message || "Sign up successful");
+        } else {
+          toast.error(message || "Invalid credentials");
+        }
+      } catch (error) {
+        const statusCode = error.response.status;
+        const message = error.response.data.message;
+        console.error(error);
+        toast.error(message || "An error occurred. Please try again.");
+      }
+    },
+    onError: () => {
+      console.log("Login Failed");
+    },
+    flow: "auth-code",
+    scope:
+      "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar",
+  });
+
 
   const validateFields = () => {
     const validationErrors = {};
@@ -222,6 +263,21 @@ export default function Signup({ setIsAdminAuthenticated }) {
             </Link>
           </div>
         </form>
+        <Button
+            className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
+            type="button"
+            onClick={() => login()}
+          >
+            Sign in with Google 🚀
+          </Button>
+          <Button
+          className="p-5 text-cyan-700 bg-white"
+          onClick={async () => {
+            googleLogout();
+          }}
+        >
+          Logout
+        </Button>
       </div>
     </div>
   );

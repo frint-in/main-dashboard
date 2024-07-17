@@ -3,7 +3,10 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import Oauth from "../../components/OAuth/Oauth";
-import { Toaster, toast } from 'sonner'
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { googleLogout } from "@react-oauth/google";
+import { Toaster, toast } from "sonner";
+import { Button } from "@/components/ui/button";
 export default function Signup({ setIsAdminAuthenticated }) {
   const navigate = useNavigate();
 
@@ -12,6 +15,40 @@ export default function Signup({ setIsAdminAuthenticated }) {
   const [phno, setPhno] = useState("");
   const [uname, setUname] = useState("");
   const [errors, setErrors] = useState({});
+
+  const login = useGoogleLogin({
+    onSuccess: async (codeResponse) => {
+      console.log(codeResponse);
+      try {
+        const res = await axios.post(
+          `${import.meta.env.VITE_REACT_API_URL}api/auth/google-create-token`,
+          { code: codeResponse.code,
+            scope: codeResponse.scope
+           },
+          { withCredentials: true }
+        );
+
+        const message = res.data.message;
+        if (res.data) {
+          // navigate("/login");
+          toast.success(message || "Sign up successful");
+        } else {
+          toast.error(message || "Invalid credentials");
+        }
+      } catch (error) {
+        const statusCode = error.response.status;
+        const message = error.response.data.message;
+        console.error(error);
+        toast.error(message || "An error occurred. Please try again.");
+      }
+    },
+    onError: () => {
+      console.log("Login Failed");
+    },
+    flow: "auth-code",
+    scope:
+      "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar",
+  });
 
   // Handlers for input changes with validation
   const handleUnameChange = (e) => {
@@ -26,9 +63,15 @@ export default function Signup({ setIsAdminAuthenticated }) {
   const handlePhnoChange = (e) => {
     setPhno(e.target.value);
     if (!e.target.value.trim()) {
-      setErrors((prevErrors) => ({ ...prevErrors, phno: "Phone number is required" }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phno: "Phone number is required",
+      }));
     } else if (!/^\d{10}$/.test(e.target.value)) {
-      setErrors((prevErrors) => ({ ...prevErrors, phno: "Phone number must be 10 digits" }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phno: "Phone number must be 10 digits",
+      }));
     } else {
       setErrors((prevErrors) => ({ ...prevErrors, phno: undefined }));
     }
@@ -37,9 +80,15 @@ export default function Signup({ setIsAdminAuthenticated }) {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
     if (!e.target.value.trim()) {
-      setErrors((prevErrors) => ({ ...prevErrors, email: "Email is required" }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Email is required",
+      }));
     } else if (!/\S+@\S+\.\S+/.test(e.target.value)) {
-      setErrors((prevErrors) => ({ ...prevErrors, email: "Email is not valid" }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Email is not valid",
+      }));
     } else {
       setErrors((prevErrors) => ({ ...prevErrors, email: undefined }));
     }
@@ -48,15 +97,30 @@ export default function Signup({ setIsAdminAuthenticated }) {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
     if (!e.target.value.trim()) {
-      setErrors((prevErrors) => ({ ...prevErrors, password: "Password is required" }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Password is required",
+      }));
     } else if (e.target.value.length < 6) {
-      setErrors((prevErrors) => ({ ...prevErrors, password: "Password must be at least 6 characters" }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Password must be at least 6 characters",
+      }));
     } else if (!/[A-Z]/.test(e.target.value)) {
-      setErrors((prevErrors) => ({ ...prevErrors, password: "Password must contain at least one uppercase letter" }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Password must contain at least one uppercase letter",
+      }));
     } else if (!/[0-9]/.test(e.target.value)) {
-      setErrors((prevErrors) => ({ ...prevErrors, password: "Password must contain at least one number" }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Password must contain at least one number",
+      }));
     } else if (!/[^A-Za-z0-9]/.test(e.target.value)) {
-      setErrors((prevErrors) => ({ ...prevErrors, password: "Password must contain at least one special character" }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Password must contain at least one special character",
+      }));
     } else {
       setErrors((prevErrors) => ({ ...prevErrors, password: undefined }));
     }
@@ -76,12 +140,19 @@ export default function Signup({ setIsAdminAuthenticated }) {
       validationErrors.phno = "Phone number must be 10 digits";
     }
     if (!email.trim()) validationErrors.email = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(email)) validationErrors.email = "Email is not valid";
+    else if (!/\S+@\S+\.\S+/.test(email))
+      validationErrors.email = "Email is not valid";
     if (!password.trim()) validationErrors.password = "Password is required";
-    else if (password.length < 6) validationErrors.password = "Password must be at least 6 characters";
-    else if (!/[A-Z]/.test(password)) validationErrors.password = "Password must contain at least one uppercase letter";
-    else if (!/[0-9]/.test(password)) validationErrors.password = "Password must contain at least one number";
-    else if (!/[^A-Za-z0-9]/.test(password)) validationErrors.password = "Password must contain at least one special character";
+    else if (password.length < 6)
+      validationErrors.password = "Password must be at least 6 characters";
+    else if (!/[A-Z]/.test(password))
+      validationErrors.password =
+        "Password must contain at least one uppercase letter";
+    else if (!/[0-9]/.test(password))
+      validationErrors.password = "Password must contain at least one number";
+    else if (!/[^A-Za-z0-9]/.test(password))
+      validationErrors.password =
+        "Password must contain at least one special character";
 
     // If there are validation errors, set them and stop the form submission
     setErrors(validationErrors);
@@ -101,13 +172,13 @@ export default function Signup({ setIsAdminAuthenticated }) {
 
       if (res.data) {
         navigate("/login");
-        toast.success(message ||"Sign up successful");
+        toast.success(message || "Sign up successful");
       } else {
-        toast.error( message || "Invalid credentials");
+        toast.error(message || "Invalid credentials");
       }
     } catch (error) {
       const statusCode = error.response.status;
-        const message = error.response.data.message;
+      const message = error.response.data.message;
       console.error(error);
       toast.error(message || "An error occurred. Please try again.");
     }
@@ -173,8 +244,35 @@ export default function Signup({ setIsAdminAuthenticated }) {
           >
             Register
           </button>
-          <Oauth method="signinGoogle" links="/admin"/>
+          {/* <Oauth method="signinGoogle" links="/admin"/> */}
+          {/* <GoogleLogin
+            type="standard"
+            shape="circle"
+            onSuccess={(credentialResponse) => {
+              console.log(credentialResponse);
+            }}
+            onError={() => {
+              console.log("Login Failed");
+            }}
+          /> */}
+          <button
+            className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
+            type="button"
+            onClick={() => login()}
+          >
+            Sign in with Google 🚀
+          </button>
         </form>
+
+        <button
+          className="p-5 text-cyan-700 bg-white"
+          onClick={async () => {
+            googleLogout();
+          }}
+        >
+          Logout
+        </button>
+        <Button className='bg-gray-800 text-white hover:bg-white hover:text-gray-800'>Hello from shadcn</Button>
       </div>
     </div>
   );
