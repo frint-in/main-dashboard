@@ -117,6 +117,14 @@ const routes = [
     // icon: <CgProfile className="h-6 w-6" />,
     component: <StudentProfile />,
   },
+
+  {
+    // name: "Profile",
+    layout: "/admin",
+    path: "schedule meet/:id",
+    // icon: <CgProfile className="h-6 w-6" />,
+    component: <StudentProfile />,
+  },
   // {
   //   name: "Data Tables",
   //   layout: "/admin",
