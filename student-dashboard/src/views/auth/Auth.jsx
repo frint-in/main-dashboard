@@ -3,8 +3,9 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Signup from "./Signup";
-import Oauth from "../../components/OAuth/Oauth";
+
 import { Toaster, toast } from 'sonner'
+import Oauth from "@/components/OAuth/Oauth";
 
 export default function SignIn({setIsAdminAuthenticated}) {
 
@@ -113,7 +114,8 @@ export default function SignIn({setIsAdminAuthenticated}) {
          >
           {loading ? "Signing In..." : "Sign In"}
         </button>
-        <Oauth method="signinGoogle" links="/admin"/>
+        {/* <Oauth method="signinGoogle" links="/admin"/> */}
+        <Oauth/>
         <div className="mt-4">
           <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">
             Not registered yet?

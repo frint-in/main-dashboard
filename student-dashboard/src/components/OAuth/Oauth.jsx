@@ -1,58 +1,57 @@
-import React from 'react'
-import { GrGoogle } from 'react-icons/gr'
-import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth"
-import { app } from "../../firebase"
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { GrGoogle } from "react-icons/gr";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { Button } from "@/components/ui/button";
+import axios from "axios";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
+const Oauth = () => {
+  const navigate = useNavigate()
 
-const auth = getAuth();
+  const login = useGoogleLogin({
+    onSuccess: async (codeResponse) => {
+      console.log(codeResponse);
+      try {
+        const res = await axios.post(
+          `${import.meta.env.VITE_REACT_API_URL}api/auth/signingoogle`,
+          { code: codeResponse.code, scope: codeResponse.scope },
+          { withCredentials: true }
+        );
 
-const Oauth = (props) => {
-  const navigate = useNavigate();
-
-  const handleClickGoogle = async () => {
-    const provider = new GoogleAuthProvider();
-    provider.setCustomParameters({ prompt: "select_account" });
-    try {
-      const resultFromGoogle = await signInWithPopup(auth, provider);
-      // console.log(resultFromGoogle);
-      // const res = await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/auth/signupGoogle`, 
-      const res = await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/auth/${props.method}`,
-      // const res = await axios.post(`https://api.frint.in/api/auth/${props.method}`,
-        {
-          email: resultFromGoogle.user.email,
-          avatar: resultFromGoogle.user.photoURL,
-          uname: resultFromGoogle.user.displayName,
-          phno: resultFromGoogle.user.phoneNumber ? resultFromGoogle.user.phoneNumber : "",
-        },
-        { withCredentials: true }
-      );
-      if (res.data) {
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem("details", JSON.stringify(res.data.others));
-        alert('Sign in successfull')
-        navigate(`${props.links}`);
-
-      } else {
-        alert('Invalid Credentials')
+        const message = res.data.message;
+        if (res.data) {
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("details", JSON.stringify(res.data.user));
+          navigate("/admin/default");
+          toast.success(message || "Sign up successful");
+        } else {
+          toast.error(message || "Invalid credentials");
+        }
+      } catch (error) {
+        const statusCode = error.response.status;
+        const message = error.response.data.message;
+        console.error(error);
+        toast.error(message || "An error occurred. Please try again.");
       }
-
-    } catch (error) {
-      // console.log(error.response.status)
-      if (error.response.status === 409){
-        alert("Account already exists")
-      }
-      console.error(error);
-    }
-  }
+    },
+    onError: () => {
+      console.log("Login Failed");
+    },
+    flow: "auth-code",
+    scope:
+      "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar",
+  });
 
   return (
-    <button type="button" className="mt-2 flex items-center justify-center gap-2 w-full text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2" onClick={handleClickGoogle}>
-      <GrGoogle className='w-6 h-6' />
-      Continue with Google
-    </button>
-  )
-}
+    <Button
+      className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
+      type="button"
+      onClick={() => login()}
+    >
+      <GrGoogle className="mx-2" /> Sign In With Google
+    </Button>
+  );
+};
 
-export default Oauth
+export default Oauth;

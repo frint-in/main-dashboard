@@ -22,12 +22,12 @@ export default function Signup({ setIsAdminAuthenticated }) {
   const [errors, setErrors] = useState({});
 
 
-    const login = useGoogleLogin({
+  const login = useGoogleLogin({
     onSuccess: async (codeResponse) => {
       console.log(codeResponse);
       try {
         const res = await axios.post(
-          `${import.meta.env.VITE_REACT_API_URL}api/auth/google-create-token`,
+          `${import.meta.env.VITE_REACT_API_URL}api/auth/signingoogle`,
           { code: codeResponse.code,
             scope: codeResponse.scope
            },
@@ -270,6 +270,7 @@ export default function Signup({ setIsAdminAuthenticated }) {
           >
             Sign in with Google 🚀
           </Button>
+          <Oauth/>
           <Button
           className="p-5 text-cyan-700 bg-white"
           onClick={async () => {

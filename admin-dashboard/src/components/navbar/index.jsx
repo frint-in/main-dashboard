@@ -47,9 +47,11 @@ const Navbar = (props) => {
       setEmail("");
       setPassword("");
       alert("Logged Out");
+      // if(details.)
+
       localStorage.removeItem('token');
       localStorage.removeItem("details");
-      navigate("/auth");
+      navigate("/login");
     } catch (error) {
       // console.error("Error logging out:", error);
     }

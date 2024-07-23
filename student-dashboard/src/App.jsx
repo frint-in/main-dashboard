@@ -32,7 +32,7 @@ const App = () => {
     };
   }, []);
                                                                                                                                           
-  // console.log("isAuth>>>>>>>>>>>", isAuth);
+  console.log("isAuth>>>>>>>>>>>", isAuth);
 
   return (
     <Router>
