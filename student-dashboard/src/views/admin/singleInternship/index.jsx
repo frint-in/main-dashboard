@@ -9,20 +9,24 @@ import { getStudentByToken } from "../../../api/student";
 import axiosInstance from "../../../utils/axiosIntance";
 import { toast } from "sonner";
 import { handleApiError, handleApiResponse } from "../../../utils/apiResponseHandler";
+import { useSelector } from "react-redux";
+import { selectUserDetails } from "@/state/userSlice";
 
 const SingleInternship = () => {
   const { id } = useParams();
   const [details, setDetails] = useState();
   const [userDetail, setUserdetail] = useState([]);
 
-  useEffect(() => {
-    const storedDetails = localStorage.getItem("details");
-    if (storedDetails) {
-      const details = JSON.parse(storedDetails);
-      setUserdetail(details._id);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedDetails = localStorage.getItem("details");
+  //   if (storedDetails) {
+  //     const details = JSON.parse(storedDetails);
+  //     setUserdetail(details._id);
+  //   }
+  // }, []);
 
+  const userDetails = useSelector(selectUserDetails);
+  
   const applyInternshipByStudentTokenAndInternshipId = async (id) => {
     try {
       const response = await axiosInstance.put(
@@ -83,7 +87,7 @@ const SingleInternship = () => {
 
   return (
     <div>
-      <General details={details} />
+      <General details={userDetails} />
       <div className="mt-4 flex justify-end">
         <Link
           // to="/admin/internships"

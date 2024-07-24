@@ -9,6 +9,8 @@ import TaskCard from "./components/TaskCard";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getStudentByToken } from "../../../api/student";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectUserDetails } from "@/state/userSlice";
 
 const ProfileOverview = () => {
   const [details, setDetails] = useState([]);
@@ -20,19 +22,20 @@ const ProfileOverview = () => {
       setDetails(details);
     }
   }, []);
-
+  
+  const userDetails = useSelector(selectUserDetails);
   // console.log('the logged in user',student );
 
   return (
     <div className="flex w-full flex-col gap-5">
       <div className="w-ful mt-3 flex h-fit flex-col gap-5 lg:grid lg:grid-cols-12">
         <div className="col-span-4 lg:!mb-0">
-          <Banner data={details} />
+          <Banner data={userDetails} />
         </div>
 
         <div className="z-0 col-span-8 lg:!mb-0">
           {/* <Upload /> */}
-          <General data={details} />
+          <General data={userDetails} />
         </div>
 
         {/* <div className="z-0 col-span-3 lg:!mb-0">

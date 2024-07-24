@@ -28,6 +28,7 @@ import Card from "../../../components/card";
 import BannerCard from "../../../components/card/BannerCard";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../utils/axiosIntance";
+import { selectUserDetails } from "@/state/userSlice";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -106,7 +107,7 @@ const Dashboard = () => {
 
       // Check if all required fields are present in the user object
       const allFieldsPresent = requiredFields.every((field) =>
-        user.hasOwnProperty(field)
+        userDetails.hasOwnProperty(field)
       );
 
       if (!allFieldsPresent) {
@@ -150,7 +151,10 @@ const Dashboard = () => {
       console.log(details1);
     }
   }, []);
+  
+  const userDetails = useSelector(selectUserDetails);
 
+  console.log('userDetails', userDetails );
   return (
     <div>
       <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3">

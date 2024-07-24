@@ -3,30 +3,36 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Card from "../../../components/card";
+import { selectUserDetails, setUserDetails } from "@/state/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { handleApiError, handleApiResponse } from "../../../utils/apiResponseHandler";
+import axiosInstance from "@/utils/axiosIntance";
 
 export default function EditProfile({ setIsAdminAuthenticated }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const { register, handleSubmit, setValue, formState: { isSubmitting } } = useForm();
   const [image, setImage] = useState(null);
   const [resume, setResume] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const storedDetails = localStorage.getItem("details");
-    if (storedDetails) {
-      const details = JSON.parse(storedDetails);
-      for (const key in details) {
-        setValue(key, details[key]);
+    // const storedDetails = localStorage.getItem("details");
+    if (userDetails) {
+      // const details = JSON.parse(storedDetails);
+      for (const key in userDetails) {
+        setValue(key, userDetails[key]);
       }
     }
   }, [setValue]);
-
+  
+  const userDetails = useSelector(selectUserDetails);
   const onSubmit = async (data) => {
     setLoading(true);
     const formData = new FormData();
 
     for (const key in data) {
-      if (key !== "image" && key !== "resume") {
+      if (key !== "image" && key !== "resume" && data[key] !== "") {
         formData.append(key, data[key]);
       }
     }
@@ -34,7 +40,7 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
     if (resume) formData.append("resume", resume);
 
     try {
-      const res = await axios.put(
+      const res = await axiosInstance.put(
         `${import.meta.env.VITE_REACT_API_URL}api/user/updateuser`,
         formData,
         {
@@ -43,19 +49,20 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
         }
       );
       if (res.data) {
-        alert("Profile Updated");
-        localStorage.setItem('details', JSON.stringify(res.data))
+        handleApiResponse(res);
+        dispatch(setUserDetails(res.data.user));
 
       }
 
 
     } catch (error) {
-      if (error.response.status === 401) {
-        localStorage.removeItem("token");
-        navigate("/login");
-      } else {
-        alert("Access Token Error");
-      }
+      // if (error.response.status === 401) {
+      //   localStorage.removeItem("token");
+      //   navigate("/login");
+      // } else {
+      //   alert("Access Token Error");
+      // }
+      handleApiError(error);
     } finally {
       setLoading(false);
     }

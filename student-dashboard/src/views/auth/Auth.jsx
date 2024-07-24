@@ -8,6 +8,7 @@ import Oauth from "../../components/OAuth/Oauth";
 import { Toaster, toast } from 'sonner'
 import { useDispatch } from "react-redux";
 import { setAuthChecked } from "@/state/authSlice";
+import { setUserDetails } from "@/state/userSlice";
 
 export default function SignIn({setIsAdminAuthenticated}) {
   const dispatch = useDispatch();
@@ -30,9 +31,10 @@ export default function SignIn({setIsAdminAuthenticated}) {
 
       );
       if (res.data) {
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem("details", JSON.stringify(res.data.others));
+        // localStorage.setItem('token', res.data.token);
+        // localStorage.setItem("details", JSON.stringify(res.data.others));
         dispatch(setAuthChecked())
+        dispatch(setUserDetails(res.data.others));
 
         // navigate('/admin');
         navigate('/admin', { replace: true })

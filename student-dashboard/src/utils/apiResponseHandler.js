@@ -8,6 +8,7 @@ const handleApiResponse = (response) => {
   switch (statusCode) {
     case 200: // Standard response for successful HTTP requests
       toast.success(message || 'Operation was successful');
+      break;
     case 201: // Indicates that a resource has been successfully created
       toast.success(message || 'Operation was successful');
       break;

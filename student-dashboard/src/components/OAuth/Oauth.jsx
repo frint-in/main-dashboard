@@ -9,6 +9,7 @@ import { Toaster, toast } from 'sonner';
 import axios from 'axios'; // Import axios for HTTP requests
 
 import { useGoogleLogin } from "@react-oauth/google";
+import { setUserDetails } from '@/state/userSlice';
 
 const Oauth = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const Oauth = () => {
         const message = res.data.message;
         if (res.data) {
           dispatch(setAuthChecked());
+          dispatch(setUserDetails(res.data.user));
           toast.success(message || "Sign up successful");
         } else {
           toast.error(message || "Invalid credentials");

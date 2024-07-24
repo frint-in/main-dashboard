@@ -19,6 +19,7 @@ import { getStudentByToken } from "../../api/student";
 import avatar from "../../assets/img/avatars/avatar4.png";
 import { changethismonth, changethisyear, changetoday, changetotal } from "../../feature/Date/DateSlice";
 import { deleteAuthChecked, setAuthChecked } from "../../state/authSlice";
+import { clearUserDetails, selectUserDetails } from "@/state/userSlice";
 
 const Navbar = (props) => {
 
@@ -40,9 +41,10 @@ const Navbar = (props) => {
       const details = JSON.parse(storedDetails);
       setDetails(details)
     }
-  
+    
   },[])
-
+  
+  const userDetails = useSelector(selectUserDetails);
 
   const logout = async () => {
     
@@ -55,6 +57,7 @@ const Navbar = (props) => {
       localStorage.removeItem('token');
       localStorage.removeItem("details");
       dispatch(deleteAuthChecked())
+      dispatch(clearUserDetails())
 
       // navigate("/login");
     } catch (error) {
