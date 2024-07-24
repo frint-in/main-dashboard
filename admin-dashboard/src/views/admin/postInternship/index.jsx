@@ -64,7 +64,7 @@ const PostInternship = () => {
       alert(error.response.data.error);
       if (error.response.status === "401") {
         localStorage.removeItem("token");
-        navigate("/auth");
+        navigate("/login");
       }
     }
   };

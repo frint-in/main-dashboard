@@ -3,10 +3,13 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Signup from "./Signup";
-
+import { useDispatch } from "react-redux";
+import { Toaster, toast } from 'sonner'
+import { setAuthChecked } from "@/state/authSlice";
+import Oauth from "@/components/OAuth/Oauth";
 
 export default function SignIn({setIsAdminAuthenticated}) {
-
+  const dispatch = useDispatch();
   const navigate = useNavigate()
 
   const [email, setEmail] = useState('');
@@ -25,16 +28,17 @@ export default function SignIn({setIsAdminAuthenticated}) {
 
       );
       if (res.data) {
-        localStorage.setItem('token', res.data.token);
+        // localStorage.setItem('token', res.data.token);
         localStorage.setItem("details", JSON.stringify(res.data.others));
-        navigate('/admin/default');
-        alert('Sign in successfull')
+        dispatch(setAuthChecked())
+        // navigate('/admin/default');
+        toast.success('Sign in successfull')
 
       } else {
-        alert('Invalid Credentials')
+        toast.error('Invalid Credentials')
       }
     } catch (error) {
-      alert(error.response.data.error)
+      toast.error(error.response.data.error)
       
     } finally {
       setLoading(false);
@@ -94,11 +98,12 @@ export default function SignIn({setIsAdminAuthenticated}) {
           {loading ? "Signing In..." : "Sign In"}
         </button>
         {/* <Oauth method="signinGoogle" links="/admin"/> */}
+        <Oauth/>
         <div className="mt-4">
           <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">
             Not registered yet?
           </span>
-          <Link to='/signup'
+          <Link to='/sign-up'
             className="ml-1 text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
           >
             Create an account

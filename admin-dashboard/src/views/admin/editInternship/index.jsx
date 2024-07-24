@@ -3,8 +3,11 @@ import Card from "../../../components/card";
 import { useParams, useNavigate } from "react-router-dom";
 import { getIntershipById } from "../../../api/intership";
 import axiosInstance from "../../../utils/axiosIntance";
+import { deleteAuthChecked } from "@/state/authSlice";
+import { useDispatch } from "react-redux";
 
 const EditInternship = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
   const [internshipData, setInternshipData] = useState({
@@ -95,8 +98,7 @@ const EditInternship = () => {
       
     } catch (error) {
       if (error.response?.status === 401) {
-        localStorage.removeItem("token");
-        navigate("/auth");
+        dispatch(deleteAuthChecked())
       } else {
         alert("Access Token Error");
       }

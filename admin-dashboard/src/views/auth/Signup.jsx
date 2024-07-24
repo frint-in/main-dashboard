@@ -3,13 +3,19 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Oauth from "../../components/OAuth/Oauth";
+
+//1
 import { Button } from "@/components/ui/button";
+import { useDispatch } from "react-redux";
+import { setAuthChecked } from "@/state/authSlice";
+import { Toaster, toast } from 'sonner'
 
 
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import { googleLogout } from "@react-oauth/google";
 
 export default function Signup({ setIsAdminAuthenticated }) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,40 +27,41 @@ export default function Signup({ setIsAdminAuthenticated }) {
   const [description, setDescription] = useState("");
   const [errors, setErrors] = useState({});
 
+//2
+  //   const login = useGoogleLogin({
+  //   onSuccess: async (codeResponse) => {
+  //     console.log(codeResponse);
+  //     try {
+  //       const res = await axios.post(
+  //         `${import.meta.env.VITE_REACT_API_URL}api/auth/google-create-token`,
+  //         { code: codeResponse.code,
+  //           scope: codeResponse.scope
+  //          },
+  //         { withCredentials: true }
+  //       );
 
-    const login = useGoogleLogin({
-    onSuccess: async (codeResponse) => {
-      console.log(codeResponse);
-      try {
-        const res = await axios.post(
-          `${import.meta.env.VITE_REACT_API_URL}api/auth/google-create-token`,
-          { code: codeResponse.code,
-            scope: codeResponse.scope
-           },
-          { withCredentials: true }
-        );
-
-        const message = res.data.message;
-        if (res.data) {
-          // navigate("/login");
-          toast.success(message || "Sign up successful");
-        } else {
-          toast.error(message || "Invalid credentials");
-        }
-      } catch (error) {
-        const statusCode = error.response.status;
-        const message = error.response.data.message;
-        console.error(error);
-        toast.error(message || "An error occurred. Please try again.");
-      }
-    },
-    onError: () => {
-      console.log("Login Failed");
-    },
-    flow: "auth-code",
-    scope:
-      "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar",
-  });
+  //       const message = res.data.message;
+  //       if (res.data) {
+  //         dispatch(setAuthChecked())
+  //         // navigate("/login");
+  //         toast.success(message || "Sign up successful");
+  //       } else {
+  //         toast.error(message || "Invalid credentials");
+  //       }
+  //     } catch (error) {
+  //       const statusCode = error.response.status;
+  //       const message = error.response.data.message;
+  //       console.error(error);
+  //       toast.error(message || "An error occurred. Please try again.");
+  //     }
+  //   },
+  //   onError: () => {
+  //     console.log("Login Failed");
+  //   },
+  //   flow: "auth-code",
+  //   scope:
+  //     "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar",
+  // });
 
 
   const validateFields = () => {
@@ -127,7 +134,7 @@ export default function Signup({ setIsAdminAuthenticated }) {
           { withCredentials: true, headers: { "Content-Type": "multipart/form-data" } }
         );
         if (res.data) {
-          navigate("/auth");
+          navigate("/login");
           alert("Sign up successful");
         } else {
           alert("Invalid Credentials");
@@ -251,25 +258,27 @@ export default function Signup({ setIsAdminAuthenticated }) {
             {loading ? "Registering..." : "Register"}
           </button>
           {/* <Oauth method="signinGoogle" links="/admin"/> */}
+        </form>
+        <Oauth/>
           <div className="mt-4">
             <span className="text-sm font-medium text-navy-700 dark:text-gray-600">
               Already registered?
             </span>
             <Link
-              to="/auth"
+              to="/login"
               className="ml-1 text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
             >
               Log in
             </Link>
           </div>
-        </form>
-        <Button
+        
+        {/* <Button
             className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
             type="button"
             onClick={() => login()}
           >
             Sign in with Google 🚀
-          </Button>
+          </Button> */}
           <Button
           className="p-5 text-cyan-700 bg-white"
           onClick={async () => {

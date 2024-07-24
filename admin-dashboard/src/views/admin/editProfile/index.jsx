@@ -3,9 +3,12 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Card from "../../../components/card";
 import axiosInstance from "../../../utils/axiosIntance";
+import { useDispatch } from "react-redux";
+import { deleteAuthChecked } from "@/state/authSlice";
 // import input from "../../../components/fields/input";
 
 export default function EditProfile({ setIsAdminAuthenticated }) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -63,11 +66,11 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
       }
     } catch (error) {
       if (error.response.status === "401") {
-        localStorage.removeItem("token");
+        dispatch(deleteAuthChecked())
       }
       alert(error.response.data.error);
       if (error.response.status === "401") {
-        navigate("/auth");
+        dispatch(deleteAuthChecked())
       } else {
         alert("Access Token Error");
       }

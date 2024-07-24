@@ -11,27 +11,42 @@ import PendingDashboard from "./views/admin/Orders_sidebar/Pending_sidebar";
 import Profile from "./views/admin/profile";
 import Auth from "./views/auth/Auth";
 import Signup from "./views/auth/Signup";
+import { selectAuthChecked } from "./state/authSlice";
+import { useSelector } from "react-redux";
 
 const App = () => {
 
   // console.log(isAuth);
 
 
-  const token = localStorage.getItem("token");
-  const isAuth = useMemo(() => token, [token]);
+  // const token = localStorage.getItem("token");
+  // const isAuth = useMemo(() => token, [token]);
+
+  const isLoggedIn = useSelector(selectAuthChecked); 
+ 
+  console.log('App render, isLoggedIn:', isLoggedIn); 
 
 
   return (
     <Router>
       <Routes>
-      <Route path="/auth" element={<Auth />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/admin/*" element={<Admin />} />
-        <Route
-          path="/"
-          element={
-            isAuth ? <Navigate to="/admin" replace /> : <Navigate to="/auth" replace />
-          }
+      <Route path="/login" element={!isLoggedIn ? <Auth /> : <Navigate to="/admin" replace />} /> 
+        <Route path="/sign-up" element={!isLoggedIn ? <Signup /> : <Navigate to="/admin" replace />} /> 
+        {/* <Route path="/verifyemail" element={<VerifyEmailPage />} />  */}
+        <Route 
+          path="/" 
+          element={isLoggedIn ? <Navigate to="/admin" replace /> : <Navigate to="/login" replace />} 
+        /> 
+        <Route 
+  path="/admin/*" 
+  element={ 
+    isLoggedIn ? ( 
+      <Admin /> 
+    ) : ( 
+      // <DelayedRedirect to="/login" delay={5000} /> 
+      <Navigate to="/login" replace /> 
+    ) 
+  } 
         />
       </Routes>
     </Router>

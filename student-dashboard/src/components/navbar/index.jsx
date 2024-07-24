@@ -45,6 +45,7 @@ const Navbar = (props) => {
 
 
   const logout = async () => {
+    
     try {
       await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/auth/logout`, {}, { withCredentials: true });
       // setIsAdminAuthenticated(false);
@@ -53,7 +54,9 @@ const Navbar = (props) => {
       alert("Logged Out");
       localStorage.removeItem('token');
       localStorage.removeItem("details");
-      navigate("/login");
+      dispatch(deleteAuthChecked())
+
+      // navigate("/login");
     } catch (error) {
       // console.error("Error logging out:", error);
     }

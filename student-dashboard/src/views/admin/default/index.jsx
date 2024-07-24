@@ -39,42 +39,6 @@ const Dashboard = () => {
   const [user, setUser] = useState([]);
   const [details, setDetails] = useState([]);
 
-  // const PickupOrders = async () => {
-  //   try {
-
-  //     if (response.status === 200) {
-  //       const filteredData = response.data.filter(
-  //         (order) => order.servicelocation === url
-  //       );
-  //       if (Date2 === "today") {
-  //         const dataWithDate = filteredData.filter(
-  //           (order) => order.createdat.split("T")[0] === Date
-  //         );
-  //         setPickupData(dataWithDate);
-  //       }
-  //       if (Date2 === "thismonth") {
-  //         const dataWithDate = filteredData.filter(
-  //           (order) => order.createdat.split("T")[0].slice(0, 7) === Date
-  //         );
-  //         setPickupData(dataWithDate);
-  //       }
-  //       if (Date2 === "thisyear") {
-  //         const dataWithDate = filteredData.filter(
-  //           (order) => order.createdat.split("T")[0].slice(0, 4) === Date
-  //         );
-  //         setPickupData(dataWithDate);
-  //       }
-  //       if (Date === "total") {
-  //         setPickupData(filteredData);
-  //       }
-  //     } else {
-  //       // console.log("ooooopppppsssss");
-  //     }
-  //   } catch (error) {
-  //     // console.error("Error fetching data:", error);
-  //   }
-  // };
-
   const myinternships = async () => {
     try {
       const internships = await axiosInstance.get(

@@ -1,3 +1,4 @@
+//signin (on submit I am making the isLoggedIn true)
 import InputField from "../../components/fields/InputField";
 import { useState } from "react";
 import axios from "axios";
@@ -5,8 +6,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Signup from "./Signup";
 import Oauth from "../../components/OAuth/Oauth";
 import { Toaster, toast } from 'sonner'
+import { useDispatch } from "react-redux";
+import { setAuthChecked } from "@/state/authSlice";
 
 export default function SignIn({setIsAdminAuthenticated}) {
+  const dispatch = useDispatch();
 
   const navigate = useNavigate()
 
@@ -28,7 +32,10 @@ export default function SignIn({setIsAdminAuthenticated}) {
       if (res.data) {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem("details", JSON.stringify(res.data.others));
-        navigate('/admin');
+        dispatch(setAuthChecked())
+
+        // navigate('/admin');
+        navigate('/admin', { replace: true })
         toast.success('Sign in successfull')
 
       } else {
@@ -113,7 +120,8 @@ export default function SignIn({setIsAdminAuthenticated}) {
          >
           {loading ? "Signing In..." : "Sign In"}
         </button>
-        <Oauth method="signinGoogle" links="/admin"/>
+        {/* <Oauth method="signinGoogle" links="/admin"/> */}
+        <Oauth/>
         <div className="mt-4">
           <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">
             Not registered yet?

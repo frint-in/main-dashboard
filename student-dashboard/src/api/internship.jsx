@@ -1,10 +1,12 @@
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 const instance = axios.create({
   withCredentials: true,
 });
 
 export async function applyInternshipByStudentTokenAndInternshipId(id) {
+  const dispatch = useDispatch();
   try {
     const response = await instance.put(
       `${import.meta.env.VITE_REACT_API_URL}api/internship/find/${id}`,
@@ -21,7 +23,9 @@ export async function applyInternshipByStudentTokenAndInternshipId(id) {
     }
     alert(error.response.data.error);
     if (error.response.status === "401") {
-      navigate("/auth");
+      // navigate("/auth");
+      dispatch(deleteAuthChecked())
+      
     } else {
       alert("Access Token Error");
     }

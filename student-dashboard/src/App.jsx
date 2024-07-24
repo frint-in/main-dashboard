@@ -13,39 +13,43 @@ import { setAuthChecked, selectAuthChecked } from "./state/authSlice";
 import VerifyEmailPage from "./views/verifyemail/page";
 
 
+
 const App = () => {
-  // const token = localStorage.getItem("token");
-  // const isAuth = useMemo(() => token, [token]);
 
 
+  const isLoggedIn = useSelector(selectAuthChecked);
 
-  const [isAuth, setIsAuth] = useState(!!localStorage.getItem("token"));
+  console.log('App render, isLoggedIn:', isLoggedIn);
 
   useEffect(() => {
-    const handleStorageChange = () => {
-      setIsAuth(!!localStorage.getItem("token"));
-    };
+    console.log('App useEffect, isLoggedIn:', isLoggedIn);
+  }, [isLoggedIn]);
 
-    window.addEventListener('storage', handleStorageChange);
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
-                                                                                                                                          
-  // console.log("isAuth>>>>>>>>>>>", isAuth);
+
+  
+
 
   return (
     <Router>
       <Routes>
-      <Route path="/login" element={<Auth />} />
-        <Route path="/sign-up" element={<Signup />} />
+        <Route path="/login" element={!isLoggedIn ? <Auth /> : <Navigate to="/admin" replace />} />
+        <Route path="/sign-up" element={!isLoggedIn ? <Signup /> : <Navigate to="/admin" replace />} />
         <Route path="/verifyemail" element={<VerifyEmailPage />} />
-        {/* <Route path='/single-internship/:id' element={<SingleInternship />} /> */}
-        <Route path="/admin/*" element={<Admin />}/>
-        <Route path="/" element={
-            isAuth ? <Navigate to="/admin" replace /> : <Navigate to="/login" replace />
-          } />
-    
+        <Route
+          path="/"
+          element={isLoggedIn ? <Navigate to="/admin" replace /> : <Navigate to="/login" replace />}
+        />
+        <Route
+  path="/admin/*"
+  element={
+    isLoggedIn ? (
+      <Admin />
+    ) : (
+      // <DelayedRedirect to="/login" delay={5000} />
+      <Navigate to="/login" replace />
+    )
+  }
+/>
       </Routes>
     </Router>
   );

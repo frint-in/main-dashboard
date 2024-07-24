@@ -7,8 +7,13 @@ import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import { googleLogout } from "@react-oauth/google";
 import { Toaster, toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { useDispatch } from "react-redux";
+import { setAuthChecked } from "@/state/authSlice";
+
+
 export default function Signup({ setIsAdminAuthenticated }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,6 +35,7 @@ export default function Signup({ setIsAdminAuthenticated }) {
 
         const message = res.data.message;
         if (res.data) {
+          dispatch(setAuthChecked())
           // navigate("/login");
           toast.success(message || "Sign up successful");
         } else {
@@ -255,15 +261,16 @@ export default function Signup({ setIsAdminAuthenticated }) {
               console.log("Login Failed");
             }}
           /> */}
-          <button
+          {/* <button
             className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
             type="button"
             onClick={() => login()}
           >
             Sign in with Google 🚀
-          </button>
-        </form>
+          </button> */}
 
+        </form>
+            <Oauth/>
         <button
           className="p-5 text-cyan-700 bg-white"
           onClick={async () => {
@@ -272,7 +279,6 @@ export default function Signup({ setIsAdminAuthenticated }) {
         >
           Logout
         </button>
-        <Button className='bg-gray-800 text-white hover:bg-white hover:text-gray-800'>Hello from shadcn</Button>
       </div>
     </div>
   );

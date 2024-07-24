@@ -17,13 +17,12 @@ import {
   changetoday,
   changetotal,
 } from "../../feature/Date/DateSlice";
+import { deleteAuthChecked } from "@/state/authSlice";
 
 const Navbar = (props) => {
   const navigate = useNavigate();
   const { onOpenSidenav, brandText } = props;
   const [darkmode, setDarkmode] = React.useState(false);
-  const Shop = useSelector((state) => state.shop.value1);
-  const Date = useSelector((state) => state.date.value);
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -47,9 +46,10 @@ const Navbar = (props) => {
       setEmail("");
       setPassword("");
       alert("Logged Out");
-      localStorage.removeItem('token');
+      // localStorage.removeItem('token');
       localStorage.removeItem("details");
-      navigate("/auth");
+      dispatch(deleteAuthChecked())
+      // navigate("/auth");
     } catch (error) {
       // console.error("Error logging out:", error);
     }
