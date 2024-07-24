@@ -15,7 +15,7 @@ import { selectUserDetails } from "@/state/userSlice";
 const SingleInternship = () => {
   const { id } = useParams();
   const [details, setDetails] = useState();
-  const [userDetail, setUserdetail] = useState([]);
+
 
   // useEffect(() => {
   //   const storedDetails = localStorage.getItem("details");
@@ -26,6 +26,8 @@ const SingleInternship = () => {
   // }, []);
 
   const userDetails = useSelector(selectUserDetails);
+
+  const userId = userDetails._id
   
   const applyInternshipByStudentTokenAndInternshipId = async (id) => {
     try {
@@ -52,6 +54,8 @@ const SingleInternship = () => {
 
       const data = response.data;
       setDetails(data);
+
+      console.log(data);
     } catch (error) {
       // console.log(error)
       alert(error);
@@ -87,15 +91,27 @@ const SingleInternship = () => {
 
   return (
     <div>
-      <General details={userDetails} />
+      <General details={details} />
       <div className="mt-4 flex justify-end">
-        <Link
+        {!details?.subuser?.includes(userId) ? (<Link
           // to="/admin/internships"
           onClick={handleClick}
           className="linear rounded-[20px] bg-brand-900 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700 dark:bg-brand-400 dark:hover:bg-brand-300 dark:active:opacity-90"
         >
           Apply
-        </Link>
+        </Link>) : (<button
+          onClick={handleClick}
+          className={`linear rounded-[20px] px-4 py-2 text-base font-medium text-white transition duration-200 ${
+            details?.subuser?.includes(userId)
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-brand-900 hover:bg-brand-800 active:bg-brand-700 dark:bg-brand-400 dark:hover:bg-brand-300 dark:active:opacity-90"
+          }`}
+          disabled={details?.subuser?.includes(userId)}
+        >
+          Applied
+        </button>)}
+        
+        
       </div>
     </div>
   );

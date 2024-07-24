@@ -20,6 +20,7 @@ import avatar from "../../assets/img/avatars/avatar4.png";
 import { changethismonth, changethisyear, changetoday, changetotal } from "../../feature/Date/DateSlice";
 import { deleteAuthChecked, setAuthChecked } from "../../state/authSlice";
 import { clearUserDetails, selectUserDetails } from "@/state/userSlice";
+import { handleApiError, handleApiResponse } from "@/utils/apiResponseHandler";
 
 const Navbar = (props) => {
 
@@ -49,19 +50,24 @@ const Navbar = (props) => {
   const logout = async () => {
     
     try {
-      await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/auth/logout`, {}, { withCredentials: true });
+      const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/auth/logout`, {}, { withCredentials: true });
       // setIsAdminAuthenticated(false);
+      handleApiResponse(response);
+      
       setEmail("");
       setPassword("");
-      alert("Logged Out");
-      localStorage.removeItem('token');
-      localStorage.removeItem("details");
+      // alert("Logged Out");
+      // localStorage.removeItem('token');
+      // localStorage.removeItem("details");
       dispatch(deleteAuthChecked())
       dispatch(clearUserDetails())
+
+      
 
       // navigate("/login");
     } catch (error) {
       // console.error("Error logging out:", error);
+      handleApiError(error);
     }
   };
   return (

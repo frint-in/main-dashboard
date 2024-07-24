@@ -53,30 +53,40 @@ const CheckTable = ({ name, tableData, action, status }) => {
               </th>
             </tr>
           </thead>
-          <tbody>
           
-
-            {tableData?.map((row) => (
+          {tableData.length ? (
+            tableData?.map((row) => (
+              <tbody className="flex-1 justify-evenly">
               <tr key={row.internshipId}>
-                <td className="text-sm font-bold text-navy-700 dark:text-white text-center">
+                <td className="text-sm text-center font-bold text-navy-700 dark:text-white cursor-default mx-2 p-3">
                   {row.internship?.companyName}
                 </td>
-                <td className="pt-[15px] pb-[16px] sm:text-[14px] text-center">
+                <td className="pt-[15px] text-center pb-[16px] sm:text-[14px] cursor-default mx-2 p-3">
                   {row.internship?.position}
                 </td>
-                <td className="pt-[15px] pb-[16px] sm:text-[14px] text-center">
+                <td className="pt-[15px] text-center pb-[16px] sm:text-[14px] cursor-default mx-2 p-3">
                   {row.internship?.type}
                 </td>
-                <td className="pt-[15px] pb-[16px] sm:text-[14px] text-center">
+                <td className="pt-[15px] text-center pb-[16px] sm:text-[14px] cursor-default mx-2 p-3">
                   {row.status}
                 </td>
               </tr>
-            ))}
+              </tbody>
+            ))
+          ) : (
+            <tbody className=" ">
+            <tr className="flex-1     ">
+              <td
+                colSpan={10}
+                className="p-10 text-md font-medium text-center   "
+              >
+                💻 No data present
+              </td>
+            </tr>
           </tbody>
+        )}
+          {/* </tbody> */}
         </table>
-        {showModal ? (
-          <Popup setShowModal={setShowModal} order={selectedOrderId} />
-        ) : null}
       </div>
     </Card>
   );
