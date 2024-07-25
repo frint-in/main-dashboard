@@ -83,6 +83,7 @@ export async function getUsersWithIntershipId(id) {
         applicationsStatus: filteredApplication.status,
         companyName: filteredApplication.name,
         resume: obj.resume,
+        isGoogleUser: obj.isGoogleUser
       };
 
       // Push the new object into the separate array

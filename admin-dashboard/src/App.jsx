@@ -13,6 +13,7 @@ import Auth from "./views/auth/Auth";
 import Signup from "./views/auth/Signup";
 import { selectAuthChecked } from "./state/authSlice";
 import { useSelector } from "react-redux";
+import Meeting from "./components/create-meeting/Meeting";
 
 const App = () => {
 
@@ -31,6 +32,7 @@ const App = () => {
     <Router>
       <Routes>
       <Route path="/login" element={!isLoggedIn ? <Auth /> : <Navigate to="/admin" replace />} /> 
+      <Route path="/create-meeting/:id" element={<Meeting />} />
         <Route path="/sign-up" element={!isLoggedIn ? <Signup /> : <Navigate to="/admin" replace />} /> 
         {/* <Route path="/verifyemail" element={<VerifyEmailPage />} />  */}
         <Route 

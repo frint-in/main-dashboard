@@ -1,4 +1,4 @@
-import { DateTimePickerV2 } from "@/components/date-time-picker";
+import { DateTimePickerV2 } from "@/components/Date-time-picker";
 import React from "react";
 import { useParams } from "react-router-dom";
 

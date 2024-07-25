@@ -8,11 +8,13 @@ import Popup from "../../../../components/popup/Popup";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AiFillProfile } from "react-icons/ai";
+import { SiGooglemeet } from "react-icons/si";
 import { SiGoogledocs } from "react-icons/si";
 import {
   approveUserByIntershipId,
   completeUserByIntershipId,
 } from "../../../../api/intership";
+import { toast } from "sonner";
 
 function formatDate(dateString) {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -36,6 +38,18 @@ const CheckTable = ({ intershipId, name, tableData, action, status }) => {
 
     navigate(`/admin/student details/${id}`);
   };
+
+
+  const handleMeetUser = (id, isGoogleUser) => {
+
+    if (isGoogleUser) {
+      navigate(`/admin/schedule meet/${id}`)
+    }else {
+      toast.info('the user did not link their google account')
+    }
+
+  }
+
 
   const updateApprovedStatusMutation = useMutation({
     mutationFn: approveUserByIntershipId,
@@ -108,6 +122,7 @@ const CheckTable = ({ intershipId, name, tableData, action, status }) => {
     }
   };
 
+
   return (
     <Card extra={"w-full h-full sm:overflow-auto px-6"}>
       <header className="relative flex items-center justify-between pt-4">
@@ -158,6 +173,11 @@ const CheckTable = ({ intershipId, name, tableData, action, status }) => {
                   Status
                 </div>
               </th>
+              <th className="border-b border-gray-200 pb-[10px] text-center dark:!border-navy-700  ">
+                <div className="text-xs font-bold tracking-wide text-gray-600 lg:text-xs mx-7">
+                  Meeting
+                </div>
+              </th>
             </tr>
           </thead>
           {tableData.length ? (
@@ -201,6 +221,12 @@ const CheckTable = ({ intershipId, name, tableData, action, status }) => {
                     >
                       {action}
                     </button>
+                  </td>
+                  <td
+                    className="pt-[15px] text-center pb-[16px] sm:text-[14px] mx-2 p-3 flex justify-center"
+                    onClick={() => handleMeetUser(row.userId, row.isGoogleUser)}
+                  >
+                    <SiGooglemeet className="w-20 h-7 cursor-pointer text-[#4318ff] " />
                   </td>
                 </tr>
               </tbody>

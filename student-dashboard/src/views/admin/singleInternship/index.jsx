@@ -9,10 +9,13 @@ import { getStudentByToken } from "../../../api/student";
 import axiosInstance from "../../../utils/axiosIntance";
 import { toast } from "sonner";
 import { handleApiError, handleApiResponse } from "../../../utils/apiResponseHandler";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUserDetails } from "@/state/userSlice";
+import { deleteAuthChecked } from "@/state/authSlice";
 
 const SingleInternship = () => {
+  const dispatch = useDispatch();
+
   const { id } = useParams();
   const [details, setDetails] = useState();
 
@@ -27,9 +30,15 @@ const SingleInternship = () => {
 
   const userDetails = useSelector(selectUserDetails);
 
-  const userId = userDetails._id
+  const userId = userDetails._id;
+
+  console.log("userId", userId);
+  id
+  console.log("id from params", id);
   
-  const applyInternshipByStudentTokenAndInternshipId = async (id) => {
+
+  
+  const applyInternshipByStudentTokenAndInternshipId = async () => {
     try {
       const response = await axiosInstance.put(
         `${
@@ -64,27 +73,24 @@ const SingleInternship = () => {
 
   useEffect(() => {
     findIntershipById(id);
-  }, []);
+  }, [id]);
 
   // console.log(details)
 
   const handleClick = async () => {
     try {
-      // if (details.subuser?.includes(userDetail)) {
-      //   toast.info("You have already applied to this internship.");
-      // } else {
-        await applyInternshipByStudentTokenAndInternshipId(id);
-        // alert("Applied successfully!");
-      // }
-    } catch (error) {
-      if (error.response.status === "401") {
-        localStorage.removeItem("token");
-      }
-      alert(error.response.data.error);
-      if (error.response.status === "401") {
-        navigate("/login");
+      if (!details.subuser?.includes(userId)) {
+        await applyInternshipByStudentTokenAndInternshipId();
       } else {
-        alert("Access Token Error");
+        toast.info("You have already applied to this internship.");
+      }
+    } catch (error) {
+      console.error(error);
+      if (error.response && error.response.status === 401) {
+        localStorage.removeItem("token");
+        // Redirect to login or handle unauthorized access
+      } else {
+        alert("An unexpected error occurred. Please try again later.");
       }
     }
   };

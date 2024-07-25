@@ -37,6 +37,7 @@ import EditProfile from "./views/admin/editProfile";
 import PostInternship from "./views/admin/postInternship";
 import StudentProfile from "./views/admin/studentProfile";
 import EditInternship from "./views/admin/editInternship";
+import Meeting from "./components/create-meeting/Meeting";
 
 const routes = [
   {
@@ -123,7 +124,7 @@ const routes = [
     layout: "/admin",
     path: "schedule meet/:id",
     // icon: <CgProfile className="h-6 w-6" />,
-    component: <StudentProfile />,
+    component: <Meeting />,
   },
   // {
   //   name: "Data Tables",
