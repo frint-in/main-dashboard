@@ -49,6 +49,9 @@ const SingleInternship = () => {
       );
 
       handleApiResponse(response);
+
+      window.location.reload();
+
     } catch (error) {
       handleApiError(error);
     }

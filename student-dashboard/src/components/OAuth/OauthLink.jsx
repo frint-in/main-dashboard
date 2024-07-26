@@ -3,10 +3,12 @@ import { selectUserDetails, setUserDetails } from '@/state/userSlice';
 import { handleApiError, handleApiResponse } from '@/utils/apiResponseHandler';
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const OauthLink = ({ user }) => {
   const userDetails = useSelector(selectUserDetails)
+
+  const dispatch = useDispatch()
 
 
   const login = useGoogleLogin({

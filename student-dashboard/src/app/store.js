@@ -1,31 +1,29 @@
-import { configureStore } from '@reduxjs/toolkit'
-import Shopreducer from '../feature/Shop/ShopSlice'
-import datereducer from '../feature/Date/DateSlice'
-import popupreducer from '../feature/popup/PopupSlice'
-// import { authSlice } from "../features/authSlice";
-import userReducer from '../state/userSlice'; // Import userSlice
 
-import authReducer from '../state/authSlice'
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'
+import storage from 'redux-persist/lib/storage';
+import authReducer from '../state/authSlice';
+import userReducer from '../state/userSlice';
 
-const persistConfig = {
-  key: 'root',
+const authPersistConfig = {
+  key: 'auth',
   storage,
-  // whitelist: ['auth'] // only auth will be persisted
-}
- 
+};
+
+const userPersistConfig = {
+  key: 'user',
+  storage,
+};
+
+const rootReducer = combineReducers({
+  auth: persistReducer(authPersistConfig, authReducer),
+  user: persistReducer(userPersistConfig, userReducer),
+});
+
+export const store = configureStore({
+  reducer: rootReducer,
+});
+
+export const persistor = persistStore(store);
 
 
-const persistedReducer = persistReducer(persistConfig, authReducer)
-const persistedUserReducer = persistReducer(persistConfig, userReducer);
-
-export const store =  configureStore({
-  reducer: {
-    auth: persistedReducer,
-    user: persistedUserReducer, // Include user slice in the store
-  },
-})
-
-
-export const persistor = persistStore(store)
