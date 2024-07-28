@@ -28,6 +28,10 @@ const formSchema = z.object({
 });
 
 const Meeting = () => {
+
+  const companyDetails = localStorage.getItem("details")
+
+
   const {id} = useParams()
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -47,8 +51,8 @@ const Meeting = () => {
       const response = await axios.post(
         `${
           import.meta.env.VITE_REACT_API_URL
-        }api/user/create-meeting`,
-        {...data, id},
+        }api/company/create-meeting`,
+        {...data, userId:id},
         { withCredentials: true }
       );
 
