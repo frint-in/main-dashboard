@@ -21,7 +21,7 @@ const CheckTable = ({ name, tableData, action, status }) => {
   useEffect(() => {
     const fetchData = async () => {      
       const res = await axios.get(
-      `${import.meta.env.VITE_REACT_API_URL}api/company/mycompany`, 
+      `${import.meta.env.VITE_REACT_API_URL}api/company/getAllInternship`, 
      { withCredentials: true, headers: { "Content-Type": "multipart/form-data" } }
     );
       setInternships(res.data.internships);

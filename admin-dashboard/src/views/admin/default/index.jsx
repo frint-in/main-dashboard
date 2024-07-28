@@ -22,6 +22,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllInterships } from "../../../api/company";
 import {
   getAllApprovedApplicants,
+  getAllCompletedApplicants,
   getAllPendingApplicants,
 } from "../../../api/intership";
 import axiosInstance from "../../../utils/axiosIntance";
@@ -57,13 +58,13 @@ const Dashboard = () => {
 
   const { data: completed_applicants } = useQuery({
     queryKey: ["completedApplicants"],
-    queryFn: () => getAllPendingApplicants(),
+    queryFn: () => getAllCompletedApplicants(),
   });
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await axiosInstance.get(
-        `${import.meta.env.VITE_REACT_API_URL}api/company/mycompany`,
+        `${import.meta.env.VITE_REACT_API_URL}api/company/getAllInternship`,
         {
           withCredentials: true,
           headers: { "Content-Type": "multipart/form-data" },
@@ -73,6 +74,8 @@ const Dashboard = () => {
     };
     fetchData();
   }, []);
+
+  console.log('posted>>>>>>>>', posted);
 
   const pieChartData = [
     pending_applicants?.length,

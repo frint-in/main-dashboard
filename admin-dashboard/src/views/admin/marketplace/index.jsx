@@ -34,7 +34,7 @@ const Marketplace = () => {
   useEffect(() => {
     const fetchData = async () => {
       const res = await axiosInstance.get(
-        `${import.meta.env.VITE_REACT_API_URL}api/company/mycompany`,
+        `${import.meta.env.VITE_REACT_API_URL}api/company/getAllInternship`,
         {
           withCredentials: true,
           headers: { "Content-Type": "multipart/form-data" },

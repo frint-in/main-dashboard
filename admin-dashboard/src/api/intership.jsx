@@ -5,7 +5,31 @@ export async function getAllApprovedApplicants() {
     // console.log("hi1");
     // const response = await axios.get(`${AXIOS_BASE_URL}/api/internship/all`);
     const response = await axios.get(
-      `${import.meta.env.VITE_REACT_API_URL}api/internship/getUsersWithapproved`
+      `${import.meta.env.VITE_REACT_API_URL}api/company/getUsersWithapproved`,
+      {
+        withCredentials: true,
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+    // console.log("hi1");
+
+    const data = response.data;
+    console.log("data>>>>", data);
+
+    return data;
+  } catch (error) {
+    // console.log("error in getting all interships", error);
+  }
+}
+
+export async function getAllPendingApplicants() {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_REACT_API_URL}api/company/getUsersWithpending`,
+      {
+        withCredentials: true,
+        headers: { "Content-Type": "multipart/form-data" },
+      }
     );
     // console.log("hi1");
 
@@ -18,10 +42,14 @@ export async function getAllApprovedApplicants() {
   }
 }
 
-export async function getAllPendingApplicants() {
+export async function getAllCompletedApplicants() {
   try {
     const response = await axios.get(
-      `${import.meta.env.VITE_REACT_API_URL}api/internship/getUsersWithpending`
+      `${import.meta.env.VITE_REACT_API_URL}api/internship/getUsersWithcompleted`,
+      {
+        withCredentials: true,
+        headers: { "Content-Type": "multipart/form-data" },
+      }
     );
     // console.log("hi1");
 
