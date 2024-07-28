@@ -1,17 +1,21 @@
 import { handleApiError, handleApiResponse } from '@/utils/apiResponseHandler';
-import { useGoogleLogin } from 'react-google-login';
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from 'axios';
+
 
 const OauthLink = ({ user }) => {
-  const { signIn } = useGoogleLogin({
-    clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+  const signIn = useGoogleLogin({
     onSuccess: async (response) => {
       const { code } = response;
 
       try {
-        const response = await axios.post('/api/linkGoogleAccount', {
-            code,
-            userId: user._id
-          });
+        const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/auth/linkGoogleAccountCompany`, 
+            {
+              code,
+            },{
+              withCredentials: true,
+            }
+          );
 
           handleApiResponse(response)
 
@@ -25,10 +29,11 @@ const OauthLink = ({ user }) => {
           handleApiError(err)
         }
     },
-    onFailure: (error) => console.error('Google login failed:', error),
-    responseType: 'code',
-    accessType: 'offline',
-    prompt: 'consent',
+    onError: (err) => {
+      console.log("Login Failed in oauth link admin", err);
+    },
+    flow: "auth-code",
+    scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar",
   });
 
   return (

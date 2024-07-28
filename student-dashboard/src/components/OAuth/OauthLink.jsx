@@ -20,7 +20,6 @@ const OauthLink = ({ user }) => {
           { 
             code: codeResponse.code,
             scope: codeResponse.scope,
-            userId: userDetails._id
           },
           { withCredentials: true }
         );

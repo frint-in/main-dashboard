@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Card from "../../../components/card";
-import axiosInstance from "../../../utils/axiosIntance";
 import { useDispatch } from "react-redux";
 import { deleteAuthChecked } from "@/state/authSlice";
+import axiosInstance from '@/utils/axiosIntance'
+import OauthLink from "@/components/OAuth/OauthLink";
 // import input from "../../../components/fields/input";
 
 export default function EditProfile({ setIsAdminAuthenticated }) {
@@ -53,7 +54,7 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
     formData.append("website", website);
 
     try {
-      const res = await axiosInstancence.put(
+      const res = await axiosInstance.put(
         `${import.meta.env.VITE_REACT_API_URL}api/company/updatecompany`,
         formData,
         {
@@ -279,6 +280,7 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
           </Link>
         </div> */}
       </form>
+      <OauthLink/>
     </Card>
   );
 }
