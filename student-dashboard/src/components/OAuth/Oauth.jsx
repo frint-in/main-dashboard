@@ -53,7 +53,7 @@ const Oauth = () => {
       console.log("Login Failed");
     },
     flow: "auth-code",
-    scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar",
+    scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/meetings.space.created",
   });
 
   return (

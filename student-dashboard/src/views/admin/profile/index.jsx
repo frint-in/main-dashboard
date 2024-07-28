@@ -13,16 +13,6 @@ import { useSelector } from "react-redux";
 import { selectUserDetails } from "@/state/userSlice";
 
 const ProfileOverview = () => {
-  const [details, setDetails] = useState([]);
-
-  useEffect(() => {
-    const storedDetails = localStorage.getItem("details");
-    if (storedDetails) {
-      const details = JSON.parse(storedDetails);
-      setDetails(details);
-    }
-  }, []);
-  
   const userDetails = useSelector(selectUserDetails);
   // console.log('the logged in user',student );
 
