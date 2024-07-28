@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Card from "../../../components/card";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteAuthChecked } from "@/state/authSlice";
 import axiosInstance from '@/utils/axiosIntance'
 import OauthLink from "@/components/OAuth/OauthLink";
+import { selectCompanyDetails, setCompanyDetails } from "@/state/companySlice";
+import { handleApiResponse } from "@/utils/apiResponseHandler";
 // import input from "../../../components/fields/input";
 
 export default function EditProfile({ setIsAdminAuthenticated }) {
@@ -22,22 +24,25 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
   const [details, setDetails] = useState([]);
   const [catagories, setCatagories] = useState([]);
   const [website, setWebsite] = useState([]);
+  
+  const companyDetails = useSelector(selectCompanyDetails);
+
 
   useEffect(() => {
-    const storedDetails = localStorage.getItem("details");
-    if (storedDetails) {
-      const details = JSON.parse(storedDetails);
-      setDetails(details);
+    if (companyDetails) {
+      setDetails(companyDetails);
       // console.log(details);
-      setName(details.name);
-      setEmail(details.email);
-      setPhono(details.phono);
-      setLocation(details.location);
-      setDescription(details.description);
-      setWebsite(details.website);
-      setCatagories(details.catagories);
+      setName(companyDetails.name);
+      setEmail(companyDetails.email);
+      setPhono(companyDetails.phono);
+      setLocation(companyDetails.location);
+      setDescription(companyDetails.description);
+      setWebsite(companyDetails.website);
+      setCatagories(companyDetails.catagories);
     }
-  }, []);
+  }, [companyDetails]);
+
+
 
   const handleUser = async (e) => {
     e.preventDefault();
@@ -63,7 +68,9 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
         }
       );
       if (res.data) {
-        alert("Profile Updated")
+  handleApiResponse(res);
+        dispatch(setCompanyDetails(res.data.company));
+
       }
     } catch (error) {
       if (error.response.status === "401") {

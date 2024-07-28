@@ -17,11 +17,7 @@ import Meeting from "./components/create-meeting/Meeting";
 
 const App = () => {
 
-  // console.log(isAuth);
 
-
-  // const token = localStorage.getItem("token");
-  // const isAuth = useMemo(() => token, [token]);
 
   const isLoggedIn = useSelector(selectAuthChecked); 
  

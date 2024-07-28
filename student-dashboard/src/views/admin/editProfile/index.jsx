@@ -18,9 +18,7 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // const storedDetails = localStorage.getItem("details");
     if (userDetails) {
-      // const details = JSON.parse(storedDetails);
       for (const key in userDetails) {
         setValue(key, userDetails[key]);
       }

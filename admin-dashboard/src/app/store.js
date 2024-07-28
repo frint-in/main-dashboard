@@ -1,28 +1,24 @@
 import { configureStore } from '@reduxjs/toolkit'
-import Shopreducer from '../feature/Shop/ShopSlice'
-import datereducer from '../feature/Date/DateSlice'
-import popupreducer from '../feature/popup/PopupSlice'
-// import { authSlice } from "../features/authSlice";
-
-
-import authReducer from '../state/authSlice'
 import { persistReducer, persistStore } from 'redux-persist';
+// import { authSlice } from "../features/authSlice";
+import authReducer from '../state/authSlice'
+import companyReducer from '../state/companySlice'
 import storage from 'redux-persist/lib/storage'
 
-const persistConfig = {
-  key: 'root',
+const authPersistConfig = {
+  key: 'auth',
   storage,
-  // whitelist: ['auth'] // only auth will be persisted
-}
- 
+};
 
-
-const persistedReducer = persistReducer(persistConfig, authReducer)
-
+const companyPersistConfig = {
+  key: 'company',
+  storage,
+};
 
 export const store =  configureStore({
   reducer: {
-    auth: persistedReducer,
+    auth: persistReducer(authPersistConfig, authReducer),
+    company: persistReducer(companyPersistConfig, companyReducer),
   },
 })
 

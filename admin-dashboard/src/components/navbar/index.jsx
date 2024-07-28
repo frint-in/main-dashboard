@@ -18,40 +18,33 @@ import {
   changetotal,
 } from "../../feature/Date/DateSlice";
 import { deleteAuthChecked } from "@/state/authSlice";
+import { deleteCompanyDetails, selectCompanyDetails } from "@/state/companySlice";
+import { handleApiError, handleApiResponse } from "@/utils/apiResponseHandler";
 
 const Navbar = (props) => {
   const navigate = useNavigate();
   const { onOpenSidenav, brandText } = props;
   const [darkmode, setDarkmode] = React.useState(false);
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const[details, setDetails] = useState([])
 
-  useEffect(()=> {
-    const storedDetails = localStorage.getItem("details");
-    if (storedDetails) {
-      const details = JSON.parse(storedDetails);
-      setDetails(details)
-    }
-  
-  },[])
+
+  const companyDetails = useSelector(selectCompanyDetails);
+
 
 
 
   const logout = async () => {
     try {
-      await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/auth/logout`, {}, { withCredentials: true });
-      // setIsAdminAuthenticated(false);
-      setEmail("");
-      setPassword("");
-      alert("Logged Out");
-      // localStorage.removeItem('token');
-      localStorage.removeItem("details");
+      const res = await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/auth/logout`, {}, { withCredentials: true });
       dispatch(deleteAuthChecked())
+      dispatch(deleteCompanyDetails())
+
+      handleApiResponse(res)
+      
       // navigate("/auth");
     } catch (error) {
-      // console.error("Error logging out:", error);
+      console.error("Error logging out:", error);
+      handleApiError(error)
     }
   };
   return (
@@ -71,7 +64,7 @@ const Navbar = (props) => {
             to="#"
             className="font-bold capitalize hover:text-navy-700 dark:hover:text-white"
           >
-            {details.name}
+            {companyDetails.name}
           </Link>
         </p>
       </div>

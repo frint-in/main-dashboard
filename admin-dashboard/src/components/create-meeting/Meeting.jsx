@@ -29,8 +29,6 @@ const formSchema = z.object({
 
 const Meeting = () => {
 
-  const companyDetails = localStorage.getItem("details")
-
 
   const {id} = useParams()
   const form = useForm({

@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { Toaster, toast } from 'sonner'
 import { setAuthChecked } from "@/state/authSlice";
 import Oauth from "@/components/OAuth/Oauth";
+import { setCompanyDetails } from "@/state/companySlice";
+import { handleApiResponse } from "@/utils/apiResponseHandler";
 
 export default function SignIn({setIsAdminAuthenticated}) {
   const dispatch = useDispatch();
@@ -29,10 +31,12 @@ export default function SignIn({setIsAdminAuthenticated}) {
       );
       if (res.data) {
         // localStorage.setItem('token', res.data.token);
-        localStorage.setItem("details", JSON.stringify(res.data.others));
+        // localStorage.setItem("details", JSON.stringify(res.data.others));
         dispatch(setAuthChecked())
+        dispatch(setCompanyDetails(res.data.others))
         // navigate('/admin/default');
-        toast.success('Sign in successfull')
+        // toast.success('Sign in successfull')
+        handleApiResponse(res)
 
       } else {
         toast.error('Invalid Credentials')

@@ -6,25 +6,20 @@ import Storage from "./components/Storage";
 import Upload from "./components/Upload";
 import TaskCard from "./components/TaskCard";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectCompanyDetails } from "@/state/companySlice";
+import axiosInstance from "@/utils/axiosIntance";
 
 const ProfileOverview = () => {
-  const [details, setDetails] = useState([]);
   const [posted, setPosted] = useState([]);
 
+  const companyDetails = useSelector(selectCompanyDetails);
 
-  useEffect(() => {
-    const storedDetails = localStorage.getItem("details");
-    if (storedDetails) {
-      const details = JSON.parse(storedDetails);
-      setDetails(details);
-      // console.log(details)
-    }
-  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await axiosInstance.get(
-        `${import.meta.env.VITE_REACT_API_URL}api/company/mycompany`,
+        `${import.meta.env.VITE_REACT_API_URL}api/company/getAllInternship`,
         {
           withCredentials: true,
           headers: { "Content-Type": "multipart/form-data" },
@@ -40,21 +35,21 @@ const ProfileOverview = () => {
       <div className="w-ful mt-3 flex h-fit flex-col gap-5 lg:grid lg:grid-cols-12">
         <div className="col-span-4 lg:!mb-0">
           <Banner
-            name={details.name}
+            name={companyDetails.name}
             internship={posted?.length}
-            image={details.imgurl}
+            image={companyDetails.imgurl}
           />
         </div>
 
         <div className="z-0 col-span-8 lg:!mb-0">
           {/* <Upload /> */}
           <General
-            description={details.description}
-            catagory={details.catagories}
-            website={details.website}
-            location={details.location}
-            email={details.email}
-            phono={details.phono}
+            description={companyDetails.description}
+            catagory={companyDetails.catagories}
+            website={companyDetails.website}
+            location={companyDetails.location}
+            email={companyDetails.email}
+            phono={companyDetails.phono}
           />
         </div>
         {/* <div className="col-span-5 lg:!mb-0">
