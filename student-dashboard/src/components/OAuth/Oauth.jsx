@@ -60,7 +60,7 @@ const Oauth = () => {
     <Button
       type="button"
       onClick={() => login()}
-      className='flex items-center justify-center gap-2 py-2 linear mt-2 w-full rounded-xl bg-brand-500 text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200'
+      className='w-full shadow-xl gap-4 py-2.5 px-4 text-sm tracking-wide rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none'
     >
       <GrGoogle className='w-6 h-6' />
       Continue with Google
