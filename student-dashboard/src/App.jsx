@@ -18,28 +18,27 @@ import { setAuthChecked, selectAuthChecked } from "./state/authSlice";
 import VerifyEmailPage from "./views/verifyemail/page";
 import NewLogin from "./views/New Auth/NewLogin";
 import NewSignup from "./views/New Auth/NewSignup";
-import NewLogin2 from "./views/New Auth/NewLogin2";
 
 const App = () => {
   const isLoggedIn = useSelector(selectAuthChecked);
 
-  console.log("App render, isLoggedIn:", isLoggedIn);
+  // console.log("App render, isLoggedIn:", isLoggedIn);
 
   useEffect(() => {
-    console.log("App useEffect, isLoggedIn:", isLoggedIn);
+    // console.log("App useEffect, isLoggedIn:", isLoggedIn);
   }, [isLoggedIn]);
 
   return (
     <Router>
       <Routes>
-        <Route
+        {/* <Route
           path="/login"
           element={!isLoggedIn ? <Auth /> : <Navigate to="/admin" replace />}
         />
         <Route
           path="/sign-up"
           element={!isLoggedIn ? <Signup /> : <Navigate to="/admin" replace />}
-        />
+        /> */}
         <Route path="/verifyemail" element={<VerifyEmailPage />} />
         <Route
           path="/"
@@ -47,7 +46,7 @@ const App = () => {
             isLoggedIn ? (
               <Navigate to="/admin" replace />
             ) : (
-              <Navigate to="/login" replace />
+              <Navigate to="/new-login" replace />
             )
           }
         />
@@ -58,13 +57,18 @@ const App = () => {
               <Admin />
             ) : (
               // <DelayedRedirect to="/login" delay={5000} />
-              <Navigate to="/login" replace />
+              <Navigate to="/new-login" replace />
             )
           }
         />
-        <Route path="/new-login" element={<NewLogin />}/>
-        <Route path="/new-login2" element={<NewLogin2 />}/>
-        <Route path="/new-signup" element={<NewSignup />}/>
+        <Route
+          path="/new-login"
+          element={!isLoggedIn ? <NewLogin /> : <Navigate to="/admin" replace />}
+        />
+        <Route
+          path="/new-signup"
+          element={!isLoggedIn ? <NewSignup /> : <Navigate to="/admin" replace />}
+        />
       </Routes>
     </Router>
   );
