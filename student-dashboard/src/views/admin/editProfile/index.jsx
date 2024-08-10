@@ -8,10 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleApiError, handleApiResponse } from "../../../utils/apiResponseHandler";
 import axiosInstance from "@/utils/axiosIntance";
 import OauthLink from "@/components/OAuth/OauthLink";
+import useApiHandler from "@/utils/useApiHandler";
 
 export default function EditProfile({ setIsAdminAuthenticated }) {
   const navigate = useNavigate();
   const dispatch = useDispatch()
+  const { handleApiCall } = useApiHandler();
   const { register, handleSubmit, setValue, formState: { isSubmitting } } = useForm();
   const [image, setImage] = useState(null);
   const [resume, setResume] = useState(null);
@@ -31,7 +33,7 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
     const formData = new FormData();
 
     for (const key in data) {
-      if (key !== "image" && key !== "resume" && data[key] !== "") {
+      if (key !== "image" && key !== "resume" && key !== "applications" && data[key] !== "" &&  key !== "_id") {
         formData.append(key, data[key]);
       }
     }
@@ -39,16 +41,28 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
     if (resume) formData.append("resume", resume);
 
     try {
-      const res = await axiosInstance.put(
-        `${import.meta.env.VITE_REACT_API_URL}api/user/updateuser`,
-        formData,
-        {
-          withCredentials: true,
-          headers: { "Content-Type": "multipart/form-data" },
-        }
+      // const res = await axiosInstance.put(
+      //   `${import.meta.env.VITE_REACT_API_URL}api/user/updateuser`,
+      //   formData,
+      //   {
+      //     withCredentials: true,
+      //     headers: { "Content-Type": "multipart/form-data" },
+      //   }
+      // );
+      const res = await handleApiCall(() =>
+        axios.put(
+          `${import.meta.env.VITE_REACT_API_URL}api/user/updateuser`,
+          formData,
+          {
+            withCredentials: true,
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        )
       );
+
+
       if (res.data) {
-        handleApiResponse(res);
+        // handleApiResponse(res);
         dispatch(setUserDetails(res.data.user));
 
       }
@@ -61,7 +75,7 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
       // } else {
       //   alert("Access Token Error");
       // }
-      handleApiError(error);
+      // handleApiError(error);
     } finally {
       setLoading(false);
     }
