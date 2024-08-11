@@ -6,63 +6,55 @@ import { RiMoonFill, RiSunFill } from "react-icons/ri";
 import { IoSettingsSharp } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
 import { FiAlignJustify } from "react-icons/fi";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 import { changezooroad, changehengrabari } from "../../feature/Shop/ShopSlice";
 import axios from "axios";
 
-
-import { useMutation, useQuery, useQueryClient   } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getStudentByToken } from "../../api/student";
 
-
-
 import avatar from "../../assets/img/avatars/avatar4.png";
-import { changethismonth, changethisyear, changetoday, changetotal } from "../../feature/Date/DateSlice";
+import {
+  changethismonth,
+  changethisyear,
+  changetoday,
+  changetotal,
+} from "../../feature/Date/DateSlice";
 import { deleteAuthChecked, setAuthChecked } from "../../state/authSlice";
 import { clearUserDetails, selectUserDetails } from "@/state/userSlice";
 import { handleApiError, handleApiResponse } from "@/utils/apiResponseHandler";
 
 const Navbar = (props) => {
-
-
   // console.log('the logged in user',student );
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { onOpenSidenav, brandText } = props;
   const [darkmode, setDarkmode] = React.useState(false);
 
-  const dispatch = useDispatch()
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const[details, setDetails] = useState([])
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [details, setDetails] = useState();
 
-  useEffect(()=> {
-    const storedDetails = localStorage.getItem("details");
-    if (storedDetails) {
-      const details = JSON.parse(storedDetails);
-      setDetails(details)
-    }
-    
-  },[])
-  
   const userDetails = useSelector(selectUserDetails);
 
   const logout = async () => {
-    
     try {
-      const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}api/auth/logout`, {}, { withCredentials: true });
+      const response = await axios.post(
+        `${import.meta.env.VITE_REACT_API_URL}api/auth/logout`,
+        {},
+        { withCredentials: true }
+      );
       // setIsAdminAuthenticated(false);
       handleApiResponse(response);
-      
+
       setEmail("");
       setPassword("");
       // alert("Logged Out");
       // localStorage.removeItem('token');
       // localStorage.removeItem("details");
-      dispatch(deleteAuthChecked())
-      dispatch(clearUserDetails())
-
-      
+      dispatch(deleteAuthChecked());
+      dispatch(clearUserDetails());
 
       // navigate("/login");
     } catch (error) {
@@ -74,34 +66,26 @@ const Navbar = (props) => {
     <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
       <div className="ml-[6px]">
         <div className="h-6 w-[224px] pt-1">
-          <Link
-            className="text-sm font-normal text-navy-700 hover:underline dark:text-white dark:hover:text-white"
-            to=" "
-          >
-            Welcome 
-            <span className="mx-1 text-sm text-navy-700 hover:text-navy-700 dark:text-white">
-            </span>
-          </Link>
+          <div className="text-sm font-normal text-navy-700 dark:text-white dark:hover:text-white">
+            Welcome
+            <span className="mx-1 text-sm text-navy-700 hover:text-navy-700 dark:text-white"></span>
+          </div>
         </div>
-        <p className="shrink text-[33px] capitalize text-navy-700 dark:text-white">
-          <Link
-            to="#"
-            className="font-bold capitalize hover:text-navy-700 dark:hover:text-white"
-          >
-            {details?.uname}
-          </Link>
-        </p>
+        <div className="shrink text-[33px] capitalize text-navy-700 dark:text-white">
+          <div className="font-bold capitalize hover:text-navy-700 dark:hover:text-white">
+            {userDetails?.uname}
+          </div>
+        </div>
       </div>
 
       <div className="relative mt-[3px] flex h-[61px] w-[355px] flex-grow items-center justify-around gap-2 rounded-full bg-white px-2 py-2 shadow-xl shadow-shadow-500 dark:!bg-navy-800 dark:shadow-none md:w-[365px] md:flex-grow-0 md:gap-1 xl:w-[200px] xl:gap-2">
-
-      <span
+        <span
           className="flex cursor-pointer text-xl text-gray-600 dark:text-white xl:hidden"
           onClick={onOpenSidenav}
         >
           <FiAlignJustify className="h-5 w-5" />
         </span>
- 
+
         {/* start Notification */}
         {/* <Dropdown
           button={
@@ -128,7 +112,6 @@ const Navbar = (props) => {
           classNames={"py-2 top-6 -left-[250px] md:-left-[330px] w-max"}
           animation="origin-[75%_0%] md:origin-top-right transition-all duration-300 ease-in-out"
         /> */}
-        
 
         {/* <Dropdown
           button={
@@ -192,19 +175,15 @@ const Navbar = (props) => {
         {/* Profile & Dropdown */}
         <Dropdown
           button={
-            <img
-              className="h-10 w-10 rounded-full"
-              src={avatar}
-              alt="Avater"
-            />
+            <img className="h-10 w-10 rounded-full cursor-pointer" src={userDetails?.avatar} alt="Avater" />
           }
           children={
             <div className="flex w-56 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
               <div className="p-4">
                 <div className="flex items-center gap-2">
                   <p className="text-sm font-bold text-navy-700 dark:text-white">
-                    👋 Hello dear...
-                  </p>{" "}
+                  {userDetails?.gender === "Male" ? "👋 Hello dear..." : "👋 Hey Cutie"}
+                  </p>
                 </div>
               </div>
               <div className="h-px w-full bg-gray-200 dark:bg-white/20 " />

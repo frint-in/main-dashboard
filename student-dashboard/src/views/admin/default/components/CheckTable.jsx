@@ -14,6 +14,7 @@ function formatDate(dateString) {
 const CheckTable = ({ name, tableData, action, status }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
+  
 
 
   return (
@@ -53,11 +54,11 @@ const CheckTable = ({ name, tableData, action, status }) => {
               </th>
             </tr>
           </thead>
-          
+          {console.log(tableData)}
           {tableData.length ? (
-            tableData?.map((row) => (
-              <tbody className="flex-1 justify-evenly">
-              <tr key={row.internshipId}>
+            tableData?.map((row, index) => (
+              <tbody className="flex-1 justify-evenly" key={index}>
+              <tr>
                 <td className="text-sm text-center font-bold text-navy-700 dark:text-white cursor-default mx-2 p-3">
                   {row.internship?.companyName}
                 </td>

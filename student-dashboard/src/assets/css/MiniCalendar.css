@@ -44,7 +44,7 @@ abbr[title] {
 }
 .react-calendar__navigation__label:hover,
 .react-calendar__navigation__label:focus {
-	background-color: unset !important;
+	background-color: #4318ff !important;
 	border-radius: 10px;
 }
 .react-calendar__tile {
