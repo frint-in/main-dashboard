@@ -5,16 +5,24 @@ import { useNavigate } from "react-router-dom";
 import Card from "../../../components/card";
 import { selectUserDetails, setUserDetails } from "@/state/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { handleApiError, handleApiResponse } from "../../../utils/apiResponseHandler";
+import {
+  handleApiError,
+  handleApiResponse,
+} from "../../../utils/apiResponseHandler";
 import axiosInstance from "@/utils/axiosIntance";
 import OauthLink from "@/components/OAuth/OauthLink";
 import useApiHandler from "@/utils/useApiHandler";
 
 export default function EditProfile({ setIsAdminAuthenticated }) {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { handleApiCall } = useApiHandler();
-  const { register, handleSubmit, setValue, formState: { isSubmitting } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { isSubmitting },
+  } = useForm();
   const [image, setImage] = useState(null);
   const [resume, setResume] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -26,14 +34,20 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
       }
     }
   }, [setValue]);
-  
+
   const userDetails = useSelector(selectUserDetails);
   const onSubmit = async (data) => {
     setLoading(true);
     const formData = new FormData();
 
     for (const key in data) {
-      if (key !== "image" && key !== "resume" && key !== "applications" && data[key] !== "" &&  key !== "_id") {
+      if (
+        key !== "image" &&
+        key !== "resume" &&
+        key !== "applications" &&
+        data[key] !== "" &&
+        key !== "_id"
+      ) {
         formData.append(key, data[key]);
       }
     }
@@ -60,14 +74,10 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
         )
       );
 
-
       if (res.data) {
         // handleApiResponse(res);
         dispatch(setUserDetails(res.data.user));
-
       }
-
-
     } catch (error) {
       // if (error.response.status === 401) {
       //   localStorage.removeItem("token");
@@ -99,7 +109,12 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
           Edit Profile
         </h4>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="uname">Name</label>
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="uname"
+          >
+            Name
+          </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
             placeholder="Company Name"
@@ -108,18 +123,28 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
             {...register("uname")}
           />
         </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="email"
+            >
+              Email
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              placeholder="text@mail.com"
+              id="email"
+              type="text"
+              {...register("email")}
+            />
+          </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Email</label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
-            placeholder="text@mail.com"
-            id="email"
-            type="text"
-            {...register("email")}
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">Profile Photo</label>
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="image"
+          >
+            Profile Photo
+          </label>
           <input
             id="image"
             name="image"
@@ -129,7 +154,12 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phno">Phone Number</label>
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="phno"
+          >
+            Phone Number
+          </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
             placeholder="+91-**********"
@@ -139,7 +169,12 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="gender">Gender</label>
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="gender"
+          >
+            Gender
+          </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
             placeholder=""
@@ -149,7 +184,12 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">Description</label>
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="description"
+          >
+            Description
+          </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
             placeholder="a short description"
@@ -159,7 +199,12 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="specialisation">Specialisation</label>
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="specialisation"
+          >
+            Specialisation
+          </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
             placeholder=""
@@ -169,7 +214,12 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="education">Education</label>
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="education"
+          >
+            Education
+          </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
             placeholder="education"
@@ -179,7 +229,12 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="dob">Date of Birth</label>
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="dob"
+          >
+            Date of Birth
+          </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
             id="dob"
@@ -189,7 +244,12 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="languages">Languages</label>
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="languages"
+          >
+            Languages
+          </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
             placeholder="languages"
@@ -199,7 +259,12 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="skills">Skills</label>
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="skills"
+          >
+            Skills
+          </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
             placeholder="skills"
@@ -209,7 +274,12 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="resume">Resume</label>
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="resume"
+          >
+            Resume
+          </label>
           <input
             id="resume"
             name="resume"
@@ -223,12 +293,12 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
             disabled={isSubmitting}
-            >
+          >
             Update Profile
           </button>
+          <OauthLink />
         </div>
       </form>
-              <OauthLink/>
     </Card>
   );
 }

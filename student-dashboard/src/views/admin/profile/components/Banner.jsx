@@ -3,8 +3,10 @@ import avatar from "../../../../assets/img/avatars/avatar11.png";
 import banner from "../../../../assets/img/profile/banner.png";
 import Card from "../../../../components/card";
 import { FaFileDownload } from "react-icons/fa";
-const Banner = ({data}) => {
+import { Link } from "react-router-dom";
+const Banner = ({ data }) => {
   return (
+
     <Card extra={"items-center w-full h-full p-[16px] bg-cover"}>
       {/* Background and profile */}
       <div
@@ -12,7 +14,11 @@ const Banner = ({data}) => {
         style={{ backgroundImage: `url(${banner})` }}
       >
         <div className="absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700">
-          <img className="h-full w-full rounded-full" src={data?.avatar} alt="" />
+          <img
+            className="h-full w-full rounded-full"
+            src={data?.avatar}
+            alt=""
+          />
         </div>
       </div>
 
@@ -21,22 +27,25 @@ const Banner = ({data}) => {
         <h4 className="text-xl font-bold text-navy-700 dark:text-white">
           {data?.uname}
         </h4>
-        <p className="text-base font-normal text-gray-600">{data?.specialisation}</p>
+        <p className="text-base font-normal text-gray-600">
+          {data?.specialisation}
+        </p>
       </div>
 
       <div className="mt-16 flex  items-center">
         <h4 className="text-basefont-normal text-gray-600 dark:text-white mx-2">
           Resume
         </h4>
-        {data.resume ? (<button onClick={() => {
-              window.location.href = data.resume;
-        }}>
-        <FaFileDownload />
-        </button>): (
-        <p className="text-sm font-normal text-gray-600">❌</p>
-          
+        {data.resume ? (
+          <Link
+            to={data.resume}
+            target="blank"
+          >
+            <FaFileDownload />
+          </Link>
+        ) : (
+          <p className="text-sm font-normal text-gray-600">❌</p>
         )}
-        
       </div>
 
       {/* Post followers */}

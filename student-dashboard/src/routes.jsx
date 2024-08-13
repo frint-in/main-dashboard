@@ -73,14 +73,6 @@ const routes = [
     icon: <BiSolidShoppingBags className="h-6 w-6" />,
     component: <NFTMarketplace />,
   },
-  
-  // {
-  //   name: "All Delivered",
-  //   layout: "/admin",
-  //   icon: <MdDoneOutline className="h-6 w-6" />,
-  //   path: "delivered-list",
-  //   component: <DeliveredDashboard />,
-  // },
   {
     name: "Profile",
     layout: "/admin",
@@ -96,34 +88,11 @@ const routes = [
     component: <EditProfile />,
   },
   {
-    // name: "Edit Profile",
     layout: "/admin",
     path: "single internship/:id",
-    // icon: <FaUserEdit className="h-6 w-6" />,
     component: <SingleInternship />,
+    display: "none"
   },
-  // {
-  //   name: "Data Tables",
-  //   layout: "/admin",
-  //   icon: <MdBarChart className="h-6 w-6" />,
-  //   path: "data-tables",
-  //   component: <DataTables />,
-  // },
-  // {
-  //   name: "Sign In",
-  //   layout: "/auth",
-  //   path: "",
-  //   icon: <MdLock className="h-6 w-6" />,
-  //   component: <Auth />,
-  // },
-  // {
-  //   name: "Sign In",
-  //   layout: "/auth",
-  //   path: "sign-in",
-  //   icon: <MdLock className="h-6 w-6" />,
-  //   component: <SignIn />,
-  // },
- 
   
 ];
 export default routes;

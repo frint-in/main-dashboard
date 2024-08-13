@@ -42,7 +42,7 @@ const OauthLink = ({ user }) => {
     <div>
       <button
         onClick={() => login()}
-        className="flex items-center justify-center gap-2 p-3 linear mt-2 w-full rounded-xl bg-brand-500 text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
+        className="flex items-center justify-center gap-2 py-2 px-4 linear mt-2 w-full rounded bg-blue-500 text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
       >
         Link Google Account
       </button>
