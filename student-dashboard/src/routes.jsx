@@ -44,7 +44,6 @@ const routes = [
     icon: <MdHome className="h-6 w-6" />,
     component: <MainDashboard />,
   },
- 
   {
     name: "Applied Works",
     layout: "/admin",
