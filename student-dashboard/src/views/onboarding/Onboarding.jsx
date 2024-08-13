@@ -1,497 +1,98 @@
-// import { Building, Star, User } from "lucide-react";
 
-// import { Step, Stepper, useStepper } from "@/components/stepper";
-// import { Button } from "@/components/ui/button";
-
-// const steps = [
-// 	{ label: "Basic Details", icon: User },
-// 	{ label: "Education", icon: Building },
-// 	{ label: "Skills", icon: Star },
-// ] 
-
-// const data = ''
-
-// export default function StepperCustomIcons() {
-// 	return (
-// 		<div className="flex min-h-screen justify-center items-center w-full items flex-col">
-//             <div className="w-[500px] ">
-//             <Stepper state={data} initialStep={0} steps={steps}>
-// 				{steps.map((stepProps, index) => {
-// 					return (
-// 						<Step key={stepProps.label} {...stepProps}>
-// 							<div className="h-40 flex items-center justify-center my-2 border bg-secondary text-primary rounded-md">
-// 								<h1 className="text-xl">Step {index + 1}</h1>
-// 							</div>
-//                             <StepButtons />
-// 						</Step>
-// 					);
-// 				})}
-// 				{/* <Footer /> */}
-//                 <FinalStep />
-// 			</Stepper>
-//             </div>
-//             <StepperCustomIcons1/>
-            
-//             {/* 
-//             <div className="w-[500px]">
-//             </div> */}
-
-// 		</div>
-        
-        
-// 	);
-// }
-
-// const Footer = () => {
-// 	const {
-// 		nextStep,
-// 		prevStep,
-// 		resetSteps,
-// 		isDisabledStep,
-// 		hasCompletedAllSteps,
-// 		isLastStep,
-// 		isOptionalStep,
-// 	} = useStepper();
-// 	return (
-// 		<>
-// 			{hasCompletedAllSteps && (
-// 				<div className="h-40 flex items-center justify-center my-2 border bg-secondary text-primary rounded-md">
-// 					<h1 className="text-xl">Woohoo! All steps completed! 🎉</h1>
-// 				</div>
-// 			)}
-// 			<div className="w-full flex justify-end gap-2">
-// 				{hasCompletedAllSteps ? (
-// 					<Button size="sm" onClick={resetSteps}>
-// 						Reset
-// 					</Button>
-// 				) : (
-// 					<>
-// 						<Button
-// 							disabled={isDisabledStep}
-// 							onClick={prevStep}
-// 							size="sm"
-// 							variant="secondary"
-// 						>
-// 							Prev
-// 						</Button>
-// 						<Button size="sm" onClick={nextStep}>
-// 							{isLastStep ? "Finish" : isOptionalStep ? "Skip" : "Next"}
-// 						</Button>
-// 					</>
-// 				)}
-// 			</div>
-// 		</>
-// 	);
-// };
-
-
-// const StepButtons = () => {
-//     const { nextStep, prevStep, isLastStep, isOptionalStep, isDisabledStep } = useStepper();
-//     return (
-//       <div className="w-full my-3 flex gap-2 mb-4">
-//         <Button disabled={isDisabledStep} onClick={prevStep} size="sm" variant="default">
-//           Prev
-//         </Button>
-//         <Button size="sm" onClick={nextStep}>
-//           {isLastStep ? "Finish" : isOptionalStep ? "Skip" : "Next"}
-//         </Button>
-//       </div>
-//     );
-//   };
-  
-//   const FinalStep = () => {
-//     const { hasCompletedAllSteps, resetSteps, steps } = useStepper();
-//     if (!hasCompletedAllSteps) {
-//       return null;
-//     }
-//     return (
-//       <>
-//         <div className="h-40 my-6 flex items-center justify-center border bg-secondary text-primary rounded-md">
-//           <h1 className="text-xl">Woohoo! All steps completed! 🎉</h1>
-//         </div>
-//         <div className="w-full flex justify-end gap-2">
-//           <Button size="sm" onClick={resetSteps}>
-//             Reset
-//           </Button>
-//         </div>
-//       </>
-//     );
-//   };
-
-
-// // import { Building, Star, User } from "lucide-react";
-// import { useForm } from "react-hook-form";
-// // import { Step, Stepper, useStepper } from "@/components/stepper";
-// // import { Button } from "@/components/ui/button";
-// import axios from "axios";
-// import { useState } from "react";
-// // import { useState } from "react";
-
-// // const steps = [
-// //   { label: "Basic Details", icon: User },
-// //   { label: "Education", icon: Building },
-// //   { label: "Skills", icon: Star },
-// // ];
-
-// export  function StepperCustomIcons1() {
-//   const [stepState, setStepState] = useState('');
-//   const { prevStep, isLastStep, isOptionalStep, nextStep } = useStepper();
-//   const onSubmit = async (data) => {
-//     // // setStepState('loading');
-//     // // try {
-//     // //   await axios.post('/api/submit', data);
-//     // //   setStepState('');
-//     // //   nextStep();
-//     // // } catch (error) {
-//     // //   setStepState('error');
-//     // // }
-//     // setStepState('loading');
-//     // // Simulate an API call with setTimeout
-//     // setTimeout(() => {
-//     //   // Simulate success or error
-//     //   const isSuccess = Math.random() > 0.5;
-//     //   if (isSuccess) {
-//     //     setStepState('');
-//     //     nextStep();
-//     //   } else {
-//     //     setStepState('error');
-//     //   }
-//     // }, 3000); // Simulate a 2-second API call delay
-//     nextStep();
-
-//   };
-
-//   return (
-//     <div className="">
-//       <div className="w-[500px] ">
-//         <Stepper state={stepState} initialStep={0} steps={steps}>
-//           {steps.map((stepProps, index) => {
-//             return (
-//               <Step key={stepProps.label} {...stepProps}>
-//                 <StepForm stepIndex={index} onSubmit={onSubmit} />
-//               </Step>
-//             );
-//           })}
-//           <FinalStep />
-//         </Stepper>
-//       </div>
-//     </div>
-//   );
-// }
-
-// const StepForm = ({ stepIndex, onSubmit }) => {
-//   const { register, handleSubmit } = useForm();
-//   const { prevStep, isLastStep, isOptionalStep } = useStepper();
-
-//   return (
-//     <form onSubmit={handleSubmit(onSubmit)}>
-//       <div className="h-40 flex items-center justify-center my-2 border bg-secondary text-primary rounded-md">
-//         <h1 className="text-xl">Step {stepIndex + 1}</h1>
-//       </div>
-//       <div className="w-full flex flex-col gap-2">
-//         <input {...register('field1')} placeholder="Field 1" className="input" />
-//         <input {...register('field2')} placeholder="Field 2" className="input" />
-//       </div>
-//       <div className="w-full my-3 flex gap-2 mb-4">
-//         <Button onClick={prevStep} size="sm" variant="default">
-//           Prev
-//         </Button>
-//         <Button type="submit" size="sm">
-//           {isLastStep ? "Finish" : isOptionalStep ? "Skip" : "Next"}
-//         </Button>
-//       </div>
-//     </form>
-//   );
-// };
-
-// // const FinalStep = () => {
-// //   const { hasCompletedAllSteps, resetSteps } = useStepper();
-
-// //   if (!hasCompletedAllSteps) {
-// //     return null;
-// //   }
-
-// //   return (
-// //     <>
-// //       <div className="h-40 my-6 flex items-center justify-center border bg-secondary text-primary rounded-md">
-// //         <h1 className="text-xl">Woohoo! All steps completed! 🎉</h1>
-// //       </div>
-// //       <div className="w-full flex justify-end gap-2">
-// //         <Button size="sm" onClick={resetSteps}>
-// //           Reset
-// //         </Button>
-// //       </div>
-// //     </>
-// //   );
-// // };
-
-
-//3
-
-
-// import { Building, Star, User } from "lucide-react";
-// import { useForm } from "react-hook-form";
-// import { Step, Stepper, useStepper } from "@/components/stepper";
-// import { Button } from "@/components/ui/button";
-// import { useState } from "react";
-
-// const steps = [
-//   { label: "Basic Details", icon: User },
-//   { label: "Education", icon: Building },
-//   { label: "Skills", icon: Star },
-// ];
-
-// export default function StepperCustomIcons() {
-//   return (
-//     <div className="flex min-h-screen justify-center items-center w-full flex-col">
-//       <div className="w-[500px]">
-//         <StepperContainer steps={steps} />
-//       </div>
-//     </div>
-//   );
-// }
-
-// const StepperContainer = ({ steps }) => {
-//   const [stepState, setStepState] = useState('');
-
-//   return (
-//     <Stepper state={stepState} initialStep={0} steps={steps}>
-//       {steps.map((stepProps, index) => (
-//         <Step key={stepProps.label} {...stepProps}>
-//           <StepContent stepIndex={index} setStepState={setStepState} />
-//         </Step>
-//       ))}
-//       <FinalStep />
-//     </Stepper>
-//   );
-// };
-
-
-// const StepContent = ({ stepIndex, setStepState }) => {
-//   const { register, handleSubmit } = useForm();
-//   const { prevStep, isLastStep, isOptionalStep, nextStep, isDisabledStep } = useStepper();
-
-//   const onSubmit = (data) => {
-//     setStepState('loading');
-//     setTimeout(() => {
-//       const isSuccess = Math.random() > 0.5;
-//       if (isSuccess) {
-//         setStepState('');
-//         nextStep();
-//       } else {
-//         setStepState('error');
-//       }
-//     }, 2000);
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit(onSubmit)}>
-//       <div className="h-40 flex items-center justify-center my-2 border bg-secondary text-primary rounded-md">
-//         <input {...register('field1')} placeholder="Field 1" className="input" />
-//         <input {...register('field2')} placeholder="Field 2" className="input" />
-//       </div>
-
-//       <div className="w-full my-3 flex gap-2 mb-4">
-//         <Button disabled={isDisabledStep} onClick={prevStep} size="sm" variant="default">
-//           Prev
-//         </Button>
-//         <Button type="submit" size="sm">
-//           {isLastStep ? "Finish" : isOptionalStep ? "Skip" : "Next"}
-//         </Button>
-//       </div>
-//     </form>
-//   );
-// };
-
-// const FinalStep = () => {
-//   const { hasCompletedAllSteps, resetSteps } = useStepper();
-
-//   if (!hasCompletedAllSteps) {
-//     return null;
-//   }
-
-//   return (
-//     <>
-//       <div className="h-40 my-6 flex items-center justify-center border bg-secondary text-primary rounded-md">
-//         <h1 className="text-xl">Woohoo! All steps completed! 🎉</h1>
-//       </div>
-//       <div className="w-full flex justify-end gap-2">
-//         <Button size="sm" onClick={resetSteps}>
-//           Reset
-//         </Button>
-//       </div>
-//     </>
-//   );
-// };
-
-
-
-
-
-
-
-
-//4
-
-// import { Building, Star, User } from "lucide-react";
-// import { useForm } from "react-hook-form";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { z } from "zod";
-// import { Step, Stepper, useStepper } from "@/components/stepper";
-// import { Button } from "@/components/ui/button";
-// import { useState } from "react";
-
-// const steps = [
-//   { label: "Basic Details", icon: User },
-//   { label: "Education", icon: Building },
-//   { label: "Skills", icon: Star },
-// ];
-
-// const schema = z.object({
-//   field1: z.string("Field 1 is required").nonempty("Field 1 is required"),
-//   field2: z.string().nonempty("Field 2 is required"),
-// });
-
-// export default function StepperCustomIcons() {
-//   return (
-//     <div className="flex min-h-screen justify-center items-center w-full flex-col">
-//       <div className="w-[500px]">
-//         <StepperContainer steps={steps} />
-//       </div>
-//     </div>
-//   );
-// }
-
-// const StepperContainer = ({ steps }) => {
-//   const [stepState, setStepState] = useState('');
-
-//   return (
-//     <Stepper state={stepState} initialStep={0} steps={steps}>
-//       {steps.map((stepProps, index) => (
-//         <Step key={stepProps.label} {...stepProps}>
-//           <StepContent stepIndex={index} setStepState={setStepState} />
-//         </Step>
-//       ))}
-//       <FinalStep />
-//     </Stepper>
-//   );
-// };
-
-// const StepContent = ({ stepIndex, setStepState }) => {
-//   const { register, handleSubmit, formState: { errors, isValid } } = useForm({
-//     resolver: zodResolver(schema),
-//   });
-//   const { prevStep, isLastStep, isOptionalStep, nextStep, isDisabledStep } = useStepper();
-
-//   const onSubmit = (data) => {
-//     setStepState('loading');
-//     setTimeout(() => {
-//       const isSuccess = Math.random() > 0.5;
-//       if (isSuccess) {
-//         setStepState('');
-//         nextStep();
-//       } else {
-//         setStepState('error');
-//       }
-//     }, 2000);
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit(onSubmit)}>
-//       <div className="h-40 flex flex-col items-center justify-center my-2 border bg-secondary text-primary rounded-md">
-//         <input {...register('field1')} placeholder="Field 1" className="input" />
-//         {errors.field1 && <p className="text-red-500">{errors.field1.message}</p>}
-//         <input {...register('field2')} placeholder="Field 2" className="input" />
-//         {errors.field2 && <p className="text-red-500">{errors.field2.message}</p>}
-//       </div>
-
-//       <div className="w-full my-3 flex gap-2 mb-4">
-//         <Button disabled={isDisabledStep} className={`${isDisabledStep ? 'bg-gray-300' : 'text-blueSecondary bg-gray-50'}`} onClick={prevStep} size="sm" variant="default">
-//           Prev
-//         </Button>
-//         <Button type="submit" className='bg-blueSecondary text-white' size="sm">
-//           {isLastStep ? "Finish" : isOptionalStep ? "Skip" : "Next"}
-//         </Button>
-//       </div>
-//     </form>
-//   );
-// };
-
-// const FinalStep = () => {
-//   const { hasCompletedAllSteps, resetSteps } = useStepper();
-
-//   if (!hasCompletedAllSteps) {
-//     return null;
-//   }
-
-//   return (
-//     <>
-//       <div className="h-40 my-6 flex items-center justify-center border bg-secondary text-primary rounded-md">
-//         <h1 className="text-xl">Woohoo! All steps completed! 🎉</h1>
-//       </div>
-//       <div className="w-full flex justify-end gap-2">
-//         <Button size="sm" onClick={resetSteps}>
-//           Reset
-//         </Button>
-//       </div>
-//     </>
-//   );
-// };
-
-
-
-
-
-
-//5
 import { Building, Star, User } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Step, Stepper, useStepper } from "@/components/stepper";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import axios from "axios";
+import { FancyMultiSelect } from "@/components/multiselect/FancyMultiSelect";
+import { FancySelect } from "@/components/multiselect/FancySelect";
+import { useDispatch } from "react-redux";
+import { setUserDetails } from "@/state/userSlice";
+import { toast } from "sonner";
+import useApiHandler from "@/utils/useApiHandler";
+
+export const fansOptions = [
+  { value: "fan1", label: "Alice Johnson" },
+  { value: "fan2", label: "Bob Smith" },
+  { value: "fan3", label: "Charlie Brown" },
+  { value: "fan4", label: "Diana Prince" },
+  { value: "fan5", label: "Edward Davis" },
+  { value: "fan6", label: "Fiona Lee" },
+];
 
 const steps = [
   { label: "Basic Details", icon: User },
   { label: "Education", icon: Building },
-  { label: "Skills", icon: Star },
+  { label: "Skills and Experience", icon: Star },
+  { label: "Personal Info", icon: User },
 ];
 
 const basicDetailsSchema = z.object({
-  name: z.string().nonempty("Name is required"),
-  phno: z.string().nonempty("Phone number is required"),
-  occupation: z.string().nonempty("Occupation is required"),
-  email: z.string().nonempty("Email is required").email("Invalid email"),
-  description: z.string().nonempty("Description is required"),
+  description: z.string().optional(),
+  gender: z.string().min(1, "Gender is required"),
+  specialisation: z
+    .array(z.string())
+    .nonempty("At least one specialization is required"),
+  languages: z.array(z.string()).nonempty("At least one language is required"),
+  dob: z.string().min(1, "Date of Birth is required"),
 });
 
 const educationSchema = z.object({
-    education: z.object({
-      classX: z.object({
-        school: z.string().nonempty("School is required"),
-        boards: z.string().nonempty("Boards are required"),
-        percentage: z.string().nonempty("Percentage/CGPA is required"),
-        total: z.string().nonempty("Total is required"),
-      }),
-      classXII: z.object({
-        school: z.string().nonempty("School is required"),
-        boards: z.string().nonempty("Boards are required"),
-        percentage: z.string().nonempty("Percentage/CGPA is required"),
-        total: z.string().nonempty("Total is required"),
-      }),
-      graduation: z.object({
-        college: z.string().nonempty("College is required"),
-        university: z.string().nonempty("University is required"),
-        percentage: z.string().nonempty("Percentage/CGPA is required"),
-        total: z.string().nonempty("Total is required"),
-      }),
-      extraCertifications: z.string().optional(),
+  education: z.object({
+    classX: z.object({
+      school: z.string().min(1, "School is required"),
+      boards: z.string().min(1, "Boards are required"),
+      percentage: z.string().min(1, "Percentage/CGPA is required"),
+      total: z.string().min(1, "Total is required"),
     }),
-  });
-const skillsSchema = z.object({
-  skills: z.string().nonempty("Skills are required"),
+    classXII: z.object({
+      school: z.string().min(1, "School is required"),
+      boards: z.string().min(1, "Boards are required"),
+      percentage: z.string().min(1, "Percentage/CGPA is required"),
+      total: z.string().min(1, "Total is required"),
+    }),
+    graduation: z.object({
+      college: z.string().min(1, "College is required"),
+      university: z.string().min(1, "University is required"),
+      percentage: z.string().min(1, "Percentage/CGPA is required"),
+      total: z.string().min(1, "Total is required"),
+    }),
+    extraCertifications: z.string().optional(),
+  }),
 });
+
+const skillsSchema = z.object({
+  skills: z.string().min(1, "Skills are required"),
+  achievements: z.string().optional(),
+  experience: z.string().optional(),
+});
+
+// const fileValidation = (file) => {
+//   if (file && file instanceof File) {
+//     console.log('yes');
+//     return true;
+//   }
+//   console.log('no');
+//   return false;
+// };
+
+const personalInfoSchema = z.object({
+  profilePic: z.any(),
+  resume: z.any(),
+});
+
+// const personalInfoSchema = z.object({
+//   profilePic: z.unknown().refine((file) => file instanceof File, {
+//     message: "Profile picture is required and must be a valid file.",
+//   }),
+//   resume: z.unknown().refine((file) => file instanceof File, {
+//     message: "Resume is required and must be a valid file.",
+//   }),
+// });
 
 export default function StepperCustomIcons() {
   return (
@@ -504,7 +105,7 @@ export default function StepperCustomIcons() {
 }
 
 const StepperContainer = ({ steps }) => {
-  const [stepState, setStepState] = useState('');
+  const [stepState, setStepState] = useState("");
 
   return (
     <Stepper state={stepState} initialStep={0} steps={steps}>
@@ -519,25 +120,131 @@ const StepperContainer = ({ steps }) => {
 };
 
 const StepContent = ({ stepIndex, setStepState }) => {
-  const schema = stepIndex === 0 ? basicDetailsSchema : stepIndex === 1 ? educationSchema : skillsSchema;
-  const { register, handleSubmit, formState: { errors, isValid } } = useForm({
-    resolver: zodResolver(schema),
-    mode: 'onChange',
-  });
-  const { prevStep, isLastStep, isOptionalStep, nextStep, isDisabledStep } = useStepper();
+  const [profilePic, setProfilePic] = useState(null);
+  const [resume, setResume] = useState(null);
+  const dispatch = useDispatch();
+  const { handleApiCall } = useApiHandler();
+  const handleProfilePicChange = (e) => {
+    setProfilePic(e.target.files[0]);
+  };
 
-  const onSubmit = (data) => {
-    console.log('data>>>>>>>', data)
-    setStepState('loading');
-    setTimeout(() => {
-    //   const isSuccess = Math.random() > 0.5;
-    //   if (isSuccess) {
-        setStepState('');
-        nextStep();
-    //   } else {
-    //     setStepState('error');
+  const handleResumeChange = (e) => {
+    setResume(e.target.files[0]);
+  };
+  // const [image, setImage] = useState(null);
+  // const [resume, setResume] = useState(null);
+  const schema =
+    stepIndex === 0
+      ? basicDetailsSchema
+      : stepIndex === 1
+      ? educationSchema
+      : stepIndex === 2
+      ? skillsSchema
+      : personalInfoSchema;
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors, isValid },
+    setValue,
+  } = useForm({
+    resolver: zodResolver(schema),
+    mode: "onChange",
+  });
+
+  const { prevStep, isLastStep, isOptionalStep, nextStep, isDisabledStep } =
+    useStepper();
+
+  const onSubmit = async (data) => {
+    setStepState("loading");
+
+    console.log("Form data before submission:", data);
+
+    // console.log("data profilePic", data.profilePic);
+
+    const formData = new FormData();
+
+    // for (const key in data) {
+    //   if (
+    //     key !== "image" &&
+    //     key !== "resume" &&
+    //     key !== "applications" &&
+    //     data[key] !== "" &&
+    //     key !== "_id"
+    //   ) {
+    //     formData.append(key, data[key]);
     //   }
-    }, 1000);
+    // }
+
+    for (const key in data) {
+      if (
+        key === "specialisation" ||
+        key === "languages" ||
+        key === "education"
+      ) {
+        formData.append(key, JSON.stringify(data[key])); // Convert array to JSON string
+      } else if (
+        key !== "profilePic" &&
+        key !== "resume" &&
+        key !== "applications" &&
+        data[key] !== "" &&
+        key !== "specialisation" &&
+        key !== "languages" &&
+        key !== "_id"
+      ) {
+        formData.append(key, data[key]);
+      }
+    }
+
+    if (isLastStep) {
+      formData.append("finalStep", "true");
+    }
+
+    if (profilePic) formData.append("profileImg", profilePic);
+    if (resume) formData.append("resume", resume);
+
+    try {
+      // Replace with your API endpoint
+      const response = await (isLastStep
+        ? handleApiCall(() =>
+            axios.put(
+              `${import.meta.env.VITE_REACT_API_URL}api/user/onboarding`,
+              formData,
+              {
+                withCredentials: true,
+                headers: { "Content-Type": "multipart/form-data" },
+              }
+            )
+          )
+        : axios.put(
+            `${import.meta.env.VITE_REACT_API_URL}api/user/onboarding`,
+            formData,
+            {
+              withCredentials: true,
+              headers: { "Content-Type": "multipart/form-data" },
+            }
+          ));
+
+      // Handle response or errors
+      if (response.status === 200) {
+        setStepState("");
+        dispatch(setUserDetails(response.data.user));
+        nextStep();
+      } else {
+        setStepState("error");
+      }
+
+      for (let pair of formData.entries()) {
+        console.log(pair[0] + ": " + pair[1]);
+      }
+
+      // setStepState("");
+      // nextStep();
+    } catch (error) {
+      setStepState("error");
+      console.error(error);
+    }
   };
 
   return (
@@ -545,68 +252,288 @@ const StepContent = ({ stepIndex, setStepState }) => {
       <div className="min-h-40 flex flex-col items-center justify-center my-2 border bg-secondary text-primary rounded-md">
         {stepIndex === 0 && (
           <>
-            <input {...register('name')} placeholder="Name" className="input" />
-            {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-            <input {...register('phno')} placeholder="Phone Number" className="input" />
-            {errors.phno && <p className="text-red-500">{errors.phno.message}</p>}
-            <input {...register('occupation')} placeholder="Occupation" className="input" />
-            {errors.occupation && <p className="text-red-500">{errors.occupation.message}</p>}
-            <input {...register('email')} placeholder="Email" className="input" />
-            {errors.email && <p className="text-red-500">{errors.email.message}</p>}
-            <input {...register('description')} placeholder="Description" className="input" />
-            {errors.description && <p className="text-red-500">{errors.description.message}</p>}
+            <Input
+              {...register("description")}
+              placeholder="Description (optional)"
+              className="input"
+            />
+            <p className="text-red-500">{errors.description?.message}</p>
+            <Input
+              {...register("gender")}
+              placeholder="Gender"
+              className="input"
+            />
+            <p className="text-red-500">{errors.gender?.message}</p>
+            {/* Replace FancyMultiSelect and FancySelect with appropriate components */}
+            <Controller
+              name="specialisation"
+              control={control}
+              render={({ field }) => (
+                <FancyMultiSelect
+                  {...field}
+                  options={fansOptions}
+                  placeholder="Select Specialisations"
+                  onChange={(value) => setValue("specialisation", value)}
+                />
+              )}
+            />
+            <Controller
+              name="languages"
+              control={control}
+              render={({ field }) => (
+                <FancySelect
+                  {...field}
+                  options={fansOptions}
+                  placeholder="Select Languages"
+                  onChange={(value) => setValue("languages", value)}
+                />
+              )}
+            />
+            <Input
+              {...register("dob")}
+              placeholder="Date of Birth"
+              className="input"
+            />
+            <p className="text-red-500">{errors.dob?.message}</p>
           </>
         )}
-         {stepIndex === 1 && (
+        {stepIndex === 1 && (
           <>
             <h3>Class X</h3>
-            <input {...register('education.classX.school')} placeholder="School" className="input" />
-            {errors.education?.classX?.school && <p className="text-red-500">{errors.education.classX.school.message}</p>}
-            <input {...register('education.classX.boards')} placeholder="Boards" className="input" />
-            {errors.education?.classX?.boards && <p className="text-red-500">{errors.education.classX.boards.message}</p>}
-            <input {...register('education.classX.percentage')} placeholder="Percentage/CGPA" className="input" />
-            {errors.education?.classX?.percentage && <p className="text-red-500">{errors.education.classX.percentage.message}</p>}
-            <input {...register('education.classX.total')} placeholder="Total" className="input" />
-            {errors.education?.classX?.total && <p className="text-red-500">{errors.education.classX.total.message}</p>}
+            <Controller
+              name="education.classX.school"
+              control={control}
+              render={({ field }) => <Input {...field} placeholder="School" />}
+            />
+            {errors.education?.classX?.school && (
+              <p className="text-red-500">
+                {errors.education.classX.school.message}
+              </p>
+            )}
+
+            <Controller
+              name="education.classX.boards"
+              control={control}
+              render={({ field }) => <Input {...field} placeholder="Boards" />}
+            />
+            {errors.education?.classX?.boards && (
+              <p className="text-red-500">
+                {errors.education.classX.boards.message}
+              </p>
+            )}
+
+            <Controller
+              name="education.classX.percentage"
+              control={control}
+              render={({ field }) => (
+                <Input {...field} placeholder="Percentage/CGPA" />
+              )}
+            />
+            {errors.education?.classX?.percentage && (
+              <p className="text-red-500">
+                {errors.education.classX.percentage.message}
+              </p>
+            )}
+
+            <Controller
+              name="education.classX.total"
+              control={control}
+              render={({ field }) => <Input {...field} placeholder="Total" />}
+            />
+            {errors.education?.classX?.total && (
+              <p className="text-red-500">
+                {errors.education.classX.total.message}
+              </p>
+            )}
 
             <h3>Class XII</h3>
-            <input {...register('education.classXII.school')} placeholder="School" className="input" />
-            {errors.education?.classXII?.school && <p className="text-red-500">{errors.education.classXII.school.message}</p>}
-            <input {...register('education.classXII.boards')} placeholder="Boards" className="input" />
-            {errors.education?.classXII?.boards && <p className="text-red-500">{errors.education.classXII.boards.message}</p>}
-            <input {...register('education.classXII.percentage')} placeholder="Percentage/CGPA" className="input" />
-            {errors.education?.classXII?.percentage && <p className="text-red-500">{errors.education.classXII.percentage.message}</p>}
-            <input {...register('education.classXII.total')} placeholder="Total" className="input" />
-            {errors.education?.classXII?.total && <p className="text-red-500">{errors.education.classXII.total.message}</p>}
+            <Controller
+              name="education.classXII.school"
+              control={control}
+              render={({ field }) => <Input {...field} placeholder="School" />}
+            />
+            {errors.education?.classXII?.school && (
+              <p className="text-red-500">
+                {errors.education.classXII.school.message}
+              </p>
+            )}
+
+            <Controller
+              name="education.classXII.boards"
+              control={control}
+              render={({ field }) => <Input {...field} placeholder="Boards" />}
+            />
+            {errors.education?.classXII?.boards && (
+              <p className="text-red-500">
+                {errors.education.classXII.boards.message}
+              </p>
+            )}
+
+            <Controller
+              name="education.classXII.percentage"
+              control={control}
+              render={({ field }) => (
+                <Input {...field} placeholder="Percentage/CGPA" />
+              )}
+            />
+            {errors.education?.classXII?.percentage && (
+              <p className="text-red-500">
+                {errors.education.classXII.percentage.message}
+              </p>
+            )}
+
+            <Controller
+              name="education.classXII.total"
+              control={control}
+              render={({ field }) => <Input {...field} placeholder="Total" />}
+            />
+            {errors.education?.classXII?.total && (
+              <p className="text-red-500">
+                {errors.education.classXII.total.message}
+              </p>
+            )}
 
             <h3>Graduation</h3>
-            <input {...register('education.graduation.college')} placeholder="College" className="input" />
-            {errors.education?.graduation?.college && <p className="text-red-500">{errors.education.graduation.college.message}</p>}
-            <input {...register('education.graduation.university')} placeholder="University" className="input" />
-            {errors.education?.graduation?.university && <p className="text-red-500">{errors.education.graduation.university.message}</p>}
-            <input {...register('education.graduation.percentage')} placeholder="Percentage/CGPA" className="input" />
-            {errors.education?.graduation?.percentage && <p className="text-red-500">{errors.education.graduation.percentage.message}</p>}
-            <input {...register('education.graduation.total')} placeholder="Total" className="input" />
-            {errors.education?.graduation?.total && <p className="text-red-500">{errors.education.graduation.total.message}</p>}
+            <Controller
+              name="education.graduation.college"
+              control={control}
+              render={({ field }) => <Input {...field} placeholder="College" />}
+            />
+            {errors.education?.graduation?.college && (
+              <p className="text-red-500">
+                {errors.education.graduation.college.message}
+              </p>
+            )}
 
-            <h3>Extra Certifications (if any)</h3>
-            <input {...register('education.extraCertifications')} placeholder="Extra Certifications" className="input" />
-            {errors.education?.extraCertifications && <p className="text-red-500">{errors.education.extraCertifications.message}</p>}
+            <Controller
+              name="education.graduation.university"
+              control={control}
+              render={({ field }) => (
+                <Input {...field} placeholder="University" />
+              )}
+            />
+            {errors.education?.graduation?.university && (
+              <p className="text-red-500">
+                {errors.education.graduation.university.message}
+              </p>
+            )}
+
+            <Controller
+              name="education.graduation.percentage"
+              control={control}
+              render={({ field }) => (
+                <Input {...field} placeholder="Percentage/CGPA" />
+              )}
+            />
+            {errors.education?.graduation?.percentage && (
+              <p className="text-red-500">
+                {errors.education.graduation.percentage.message}
+              </p>
+            )}
+
+            <Controller
+              name="education.graduation.total"
+              control={control}
+              render={({ field }) => <Input {...field} placeholder="Total" />}
+            />
+            {errors.education?.graduation?.total && (
+              <p className="text-red-500">
+                {errors.education.graduation.total.message}
+              </p>
+            )}
+
+            <Controller
+              name="education.extraCertifications"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  placeholder="Extra Certifications (optional)"
+                />
+              )}
+            />
+            {errors.education?.extraCertifications && (
+              <p className="text-red-500">
+                {errors.education.extraCertifications.message}
+              </p>
+            )}
           </>
         )}
         {stepIndex === 2 && (
           <>
-            <input {...register('skills')} placeholder="Skills" className="input" />
-            {errors.skills && <p className="text-red-500">{errors.skills.message}</p>}
+            <Input
+              {...register("skills")}
+              placeholder="Skills"
+              className="input"
+            />
+            <p className="text-red-500">{errors.skills?.message}</p>
+            <Input
+              {...register("achievements")}
+              placeholder="Achievements (optional)"
+              className="input"
+            />
+            <p className="text-red-500">{errors.achievements?.message}</p>
+            <Input
+              {...register("experience")}
+              placeholder="Experience (optional)"
+              className="input"
+            />
+            <p className="text-red-500">{errors.experience?.message}</p>
+          </>
+        )}
+        {stepIndex === 3 && (
+          <>
+            <input
+              id="profilePic"
+              name="profilePic"
+              type="file"
+              accept="image/*"
+              onChange={handleProfilePicChange}
+            />
+
+            <input
+              id="resume"
+              name="resume"
+              type="file"
+              accept=".pdf,.doc,.docx"
+              onChange={handleResumeChange}
+            />
           </>
         )}
       </div>
 
       <div className="w-full my-3 flex gap-2 mb-4">
-     <Button disabled={isDisabledStep} className={`${isDisabledStep ? 'bg-gray-300' : 'text-blueSecondary bg-gray-50'}`} onClick={prevStep} size="sm" variant="default">
-        Prev
-      </Button>
-        <Button type="submit" className={`${!isValid ? 'bg-gray-300' : 'bg-blueSecondary text-white'}`} size="sm" disabled={!isValid}>
+        <Button
+          disabled={isDisabledStep}
+          className={
+            isDisabledStep ? "bg-gray-300" : "text-blueSecondary bg-gray-50"
+          }
+          onClick={prevStep}
+          size="sm"
+          variant="default"
+        >
+          Prev
+        </Button>
+        {/* <Button
+          type="submit"
+          className={isValid ? "bg-blueSecondary text-white" : "bg-gray-300"}
+          size="sm"
+          disabled={!isValid}
+        >
+          {isLastStep ? "Finish" : isOptionalStep ? "Skip" : "Next"}
+        </Button> */}
+        <Button
+          type="submit"
+          className={
+            isLastStep
+              ? resume && profilePic
+                ? "bg-blueSecondary text-white"
+                : "bg-gray-300"
+              : "bg-blueSecondary text-white"
+          }
+          size="sm"
+          disabled={isLastStep ? !(resume && profilePic) : !isValid}
+        >
           {isLastStep ? "Finish" : isOptionalStep ? "Skip" : "Next"}
         </Button>
       </div>
@@ -624,11 +551,11 @@ const FinalStep = () => {
   return (
     <>
       <div className="h-40 my-6 flex items-center justify-center border bg-secondary text-primary rounded-md">
-        <h1 className="text-xl">Woohoo! All steps completed! 🎉</h1>
+        <div>All steps completed!</div>
       </div>
-      <div className="w-full flex justify-end gap-2">
-        <Button size="sm" onClick={resetSteps}>
-          Reset
+      <div className="w-full flex gap-2 mb-4">
+        <Button onClick={resetSteps} size="sm" variant="default">
+          Restart
         </Button>
       </div>
     </>
