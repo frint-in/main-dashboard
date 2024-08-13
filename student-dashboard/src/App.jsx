@@ -20,14 +20,9 @@ import Onboarding from "./views/onboarding/Onboarding";
 import NewLogin from "./views/New Auth/NewLogin";
 import NewSignup from "./views/New Auth/NewSignup";
 import { selectUserDetails } from "./state/userSlice";
-import { selectUserDetails } from "./state/userSlice";
 
 const App = () => {
   const isLoggedIn = useSelector(selectAuthChecked);
-
-  const user = useSelector(selectUserDetails)
-
-  
 
   const user = useSelector(selectUserDetails)
 
@@ -43,17 +38,15 @@ const App = () => {
     <Router>
       <Routes>
       <Route path="/onboarding" element={isLoggedIn ? (user.isOnboarded ? <Navigate to="/admin" replace /> : <Onboarding />) : <Navigate to="/new-login" replace />} />
-        <Route path="/onboarding" element={<Onboarding /> }/>
-       {/* <Route path="/login" element={!isLoggedIn ? <Auth /> : <Navigate to="/admin" replace />} />
-        <Route path="/sign-up" element={!isLoggedIn ? <Signup /> : <Navigate to="/admin" replace />} />  */}
+       <Route path="/login" element={!isLoggedIn ? <Auth /> : <Navigate to="/admin" replace />} />
+        <Route path="/sign-up" element={!isLoggedIn ? <Signup /> : <Navigate to="/admin" replace />} /> 
         <Route path="/verifyemail" element={<VerifyEmailPage />} />
         <Route
           path="/"
           element={
             isLoggedIn ? (
-              user.isOnboarded ? user.isOnboarded ? <Navigate to="/admin" replace /> : <Navigate to="/onboarding" replace /> : <Navigate to="/onboarding" replace />
+              user.isOnboarded ? <Navigate to="/admin" replace /> : <Navigate to="/onboarding" replace />
             ) : (
-              <Navigate to="/login" replace />
               <Navigate to="/login" replace />
             )
           }
@@ -62,9 +55,8 @@ const App = () => {
           path="/admin/*"
           element={
             isLoggedIn ? (
-              user.isOnboarded ? user.isOnboarded ? <Admin /> : <Navigate to="/onboarding" replace /> : <Navigate to="/onboarding" replace />
+              user.isOnboarded ? <Admin /> : <Navigate to="/onboarding" replace />
             ) : (
-              <Navigate to="/login" replace />
               <Navigate to="/login" replace />
             )
           }
