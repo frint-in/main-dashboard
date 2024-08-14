@@ -38,8 +38,8 @@ const App = () => {
     <Router>
       <Routes>
       <Route path="/onboarding" element={isLoggedIn ? (user.isOnboarded ? <Navigate to="/admin" replace /> : <Onboarding />) : <Navigate to="/new-login" replace />} />
-       <Route path="/login" element={!isLoggedIn ? <Auth /> : <Navigate to="/admin" replace />} />
-        <Route path="/sign-up" element={!isLoggedIn ? <Signup /> : <Navigate to="/admin" replace />} /> 
+       {/* <Route path="/login" element={!isLoggedIn ? <Auth /> : <Navigate to="/admin" replace />} />
+        <Route path="/sign-up" element={!isLoggedIn ? <Signup /> : <Navigate to="/admin" replace />} />  */}
         <Route path="/verifyemail" element={<VerifyEmailPage />} />
         <Route
           path="/"
@@ -47,7 +47,7 @@ const App = () => {
             isLoggedIn ? (
               user.isOnboarded ? <Navigate to="/admin" replace /> : <Navigate to="/onboarding" replace />
             ) : (
-              <Navigate to="/login" replace />
+              <Navigate to="/new-login" replace />
             )
           }
         />
@@ -57,7 +57,7 @@ const App = () => {
             isLoggedIn ? (
               user.isOnboarded ? <Admin /> : <Navigate to="/onboarding" replace />
             ) : (
-              <Navigate to="/login" replace />
+              <Navigate to="/new-login" replace />
             )
           }
         />

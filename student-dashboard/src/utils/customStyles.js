@@ -1,21 +1,23 @@
 // customStyles.js
 
+import { PaddingIcon } from "@radix-ui/react-icons";
+
 
 
 export const customStyles = {
   control: (provided, state) => ({
     ...provided,
-    borderColor: state.isFocused ? '#FFC107' : provided.borderColor,
+    borderColor: state.isFocused ? '#72C1FA' : provided.borderColor,
     '&:hover': {
-      borderColor: state.isFocused ? '#FFC107' : provided.borderColor,
+      borderColor: state.isFocused ? '#72C1FA' : provided.borderColor,
     },
-    boxShadow: state.isFocused ? '0 0 0 1px #FFC107' : provided.boxShadow,
+    boxShadow: state.isFocused ? '0 0 0 1px #72C1FA' : provided.boxShadow,
     borderRadius: '0.375rem', // Adjust border radius
     width: '100%', // Make the width full
   }),
   multiValue: (provided) => ({
     ...provided,
-    backgroundColor: '#FFC107',
+    backgroundColor: '#72C1FA',
     color: 'white',
     borderRadius: '0.375rem',
   }),
@@ -27,17 +29,17 @@ export const customStyles = {
     ...provided,
     color: 'white',
     ':hover': {
-      backgroundColor: '#FFB300',
+      backgroundColor: '#72C1FA',
       color: 'white',
     },
   }),
   placeholder: (provided) => ({
     ...provided,
-    color: '#9E9E9E',
+    color: '#BBB',
   }),
   input: (provided) => ({
     ...provided,
-    color: '#212121',
+    color: 'black',
   }),
   menu: (provided) => ({
     ...provided,
@@ -46,10 +48,11 @@ export const customStyles = {
   }),
   option: (provided, state) => ({
     ...provided,
-    backgroundColor: state.isSelected ? '#FFC107' : state.isFocused ? '#FFF8E1' : provided.backgroundColor,
+    borderRadius: 10,
+    backgroundColor: state.isSelected ? '#72C1FA' : state.isFocused ? '#CEE9FD' : provided.backgroundColor,
     color: state.isSelected ? 'white' : provided.color,
     ':hover': {
-      backgroundColor: state.isSelected ? '#FFB300' : '#FFECB3',
+      backgroundColor: state.isSelected ? '#72C1FA' : '#CEE9FD',
       color: state.isSelected ? 'white' : provided.color,
     },
   }),

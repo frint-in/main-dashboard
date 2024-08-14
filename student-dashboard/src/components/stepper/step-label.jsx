@@ -58,6 +58,7 @@ const StepLabel = ({
 						"stepper__step-label",
 						labelVariants({ size }),
 						styles?.["step-label"],
+						"dark:text-gray-100"
 					)}
 				>
 					{label}

@@ -23,7 +23,7 @@ export function FancySelect({
 
   return (
     <div className="relative w-full">
-      <div className="flex flex-col gap-2 my-3">
+      <div className="flex flex-col gap-2">
         <Select
           isMulti
           value={options.filter((option) => selected.includes(option.value))}
@@ -35,7 +35,7 @@ export function FancySelect({
           isClearable
           styles={customStyles}
         />
-        <div className="flex flex-wrap gap-1 my-3">
+        <div className="flex flex-wrap gap-1">
           {selected.map((value) => {
             const label = options.find((option) => option.value === value)?.label || value;
             return (

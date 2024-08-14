@@ -211,7 +211,7 @@ const StepIcon = React.forwardRef((props, ref) => {
 		if (Icon) {
 			return (
 				<div key="step-icon">
-					<Icon className={cn(iconVariants({ size }))} />
+					<Icon className={cn(iconVariants({ size }), "dark:text-gray-100")} />
 				</div>
 			);
 		}

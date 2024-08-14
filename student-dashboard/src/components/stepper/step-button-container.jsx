@@ -102,8 +102,8 @@ const StepButtonContainer = ({
 				"w-[var(--step-icon-size)] h-[var(--step-icon-size)]",
 				"border-2 flex rounded-full justify-center items-center",
 				"data-[clickable=true]:pointer-events-auto",
-				"data-[active=true]:bg-brandLinear data-[active=true]:border-blue-900 data-[active=true]:text-white",
-				"data-[current=true]:border-green-700 data-[current=true]:bg-green-500  data-[current=true]:text-white",
+				"data-[active=true]:bg-[#72C1FA] data-[active=true]:border-[#0361FD] data-[active=true]:text-black",
+				"data-[current=true]:border-[#0361FD]-700 data-[current=true]:bg-[#0361FD] data-[current=true]:text-white",
 				"data-[invalid=true]:bg-red-400 data-[invalid=true]:border-red-800 data-[invalid=true]:text-red-500",
 				styles?.["step-button-container"]
 			)}

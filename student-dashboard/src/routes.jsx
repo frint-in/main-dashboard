@@ -35,6 +35,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { BiSolidShoppingBags } from "react-icons/bi";
 import EditProfile from "./views/admin/editProfile";
 import SingleInternship from "./views/admin/singleInternship";
+import Onboarding from "./views/onboarding/Onboarding"
 
 const routes = [
   {
@@ -79,12 +80,19 @@ const routes = [
     icon: <CgProfile className="h-6 w-6" />,
     component: <Profile />,
   },
+  // {
+  //   name: "Edit Profile",
+  //   layout: "/admin",
+  //   path: "editProfile",
+  //   icon: <FaUserEdit className="h-6 w-6" />,
+  //   component: <EditProfile />,
+  // },
   {
     name: "Edit Profile",
     layout: "/admin",
-    path: "editProfile",
+    path: "onboarding",
     icon: <FaUserEdit className="h-6 w-6" />,
-    component: <EditProfile />,
+    component: <Onboarding />,
   },
   {
     layout: "/admin",

@@ -29,20 +29,20 @@ export function FancyMultiSelect({
 
   return (
     <div className="relative w-full">
-      <div className="flex flex-col gap-2 my-3">
+      <div className="flex flex-col gap-2 mb-2">
         <CreatableSelect
           isMulti
           value={selected}
           onChange={handleChange}
           options={options}
-          className="basic-multi-select"
+          className="basic-multi-select text-black"
           classNamePrefix="select"
           placeholder={placeholder}
           isClearable
           formatCreateLabel={(inputValue) => `Create "${inputValue}"`}
           styles={customStyles}
         />
-        <div className="flex flex-wrap gap-1 my-3">
+        <div className="flex flex-wrap">
           {selected.map((framework) => (
             <Badge key={framework.value} variant="default">
               {framework.label}

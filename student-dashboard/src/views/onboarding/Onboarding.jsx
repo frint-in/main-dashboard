@@ -1,4 +1,3 @@
-
 import { Building, Star, User } from "lucide-react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -6,7 +5,7 @@ import { z } from "zod";
 import { Step, Stepper, useStepper } from "@/components/stepper";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { FancyMultiSelect } from "@/components/multiselect/FancyMultiSelect";
 import { FancySelect } from "@/components/multiselect/FancySelect";
@@ -14,31 +13,53 @@ import { useDispatch } from "react-redux";
 import { setUserDetails } from "@/state/userSlice";
 import { toast } from "sonner";
 import useApiHandler from "@/utils/useApiHandler";
+import { Textarea } from "@/components/ui/textarea";
+import { clearUserDetails, selectUserDetails } from "@/state/userSlice";
+import { useSelector } from "react-redux";
 
-export const fansOptions = [
-  { value: "fan1", label: "Alice Johnson" },
-  { value: "fan2", label: "Bob Smith" },
-  { value: "fan3", label: "Charlie Brown" },
-  { value: "fan4", label: "Diana Prince" },
-  { value: "fan5", label: "Edward Davis" },
-  { value: "fan6", label: "Fiona Lee" },
+export const languages = [
+  { value: "lang1", label: "Assamese" },
+  { value: "lang2", label: "English" },
+  { value: "lang3", label: "Hindi" },
+  { value: "lang4", label: "Bengali" },
+];
+export const specialisations = [
+  { value: "spec1", label: "Tecchnical" },
+  { value: "spec2", label: "Marketing" },
+  { value: "spec3", label: "Sales" },
+  { value: "spec4", label: "Design" },
+  { value: "spec5", label: "Content" },
+];
+export const skills = [
+  { value: "skill1", label: "Web Development" },
+  { value: "skill2", label: "App Development" },
+  { value: "skill3", label: "Digital Marketing" },
+  { value: "skill4", label: "Social Media Marketing" },
+  { value: "skill5", label: "Content writing" },
+  { value: "skill6", label: "Content curator" },
+  { value: "skill7", label: "Graphics Designing" },
+  { value: "skill8", label: "3D designing" },
+  { value: "skill9", label: "Sales executive" },
+  { value: "skill10", label: "Backend Development" },
+  { value: "skill11", label: "DevOps Engineer" },
+  { value: "skill12", label: "Physical marketing" },
 ];
 
 const steps = [
   { label: "Basic Details", icon: User },
   { label: "Education", icon: Building },
-  { label: "Skills and Experience", icon: Star },
+  { label: "Professional Details", icon: Star },
   { label: "Personal Info", icon: User },
 ];
 
 const basicDetailsSchema = z.object({
-  description: z.string().optional(),
   gender: z.string().min(1, "Gender is required"),
   specialisation: z
     .array(z.string())
     .nonempty("At least one specialization is required"),
   languages: z.array(z.string()).nonempty("At least one language is required"),
   dob: z.string().min(1, "Date of Birth is required"),
+  description: z.string().optional(),
 });
 
 const educationSchema = z.object({
@@ -47,29 +68,33 @@ const educationSchema = z.object({
       school: z.string().min(1, "School is required"),
       boards: z.string().min(1, "Boards are required"),
       percentage: z.string().min(1, "Percentage/CGPA is required"),
-      total: z.string().min(1, "Total is required"),
+      // total: z.string().min(1, "Total is required"),
     }),
     classXII: z.object({
       school: z.string().min(1, "School is required"),
       boards: z.string().min(1, "Boards are required"),
       percentage: z.string().min(1, "Percentage/CGPA is required"),
-      total: z.string().min(1, "Total is required"),
+      // total: z.string().min(1, "Total is required"),
     }),
-    graduation: z.object({
-      college: z.string().min(1, "College is required"),
-      university: z.string().min(1, "University is required"),
-      percentage: z.string().min(1, "Percentage/CGPA is required"),
-      total: z.string().min(1, "Total is required"),
-    }),
+    graduation: z
+      .object({
+        college: z.string().optional(),
+        university: z.string().optional(),
+        percentage: z.string().optional(),
+        // total: z.string().optional(),
+      })
+      .optional(),
     extraCertifications: z.string().optional(),
   }),
 });
 
-const skillsSchema = z.object({
-  skills: z.string().min(1, "Skills are required"),
-  achievements: z.string().optional(),
-  experience: z.string().optional(),
-});
+const skillsSchema = z
+  .object({
+    skills: z.array(z.string()).optional(),
+    achievements: z.array(z.string()).optional(),
+    experience: z.array(z.string()).optional(),
+  })
+  .optional();
 
 // const fileValidation = (file) => {
 //   if (file && file instanceof File) {
@@ -96,8 +121,8 @@ const personalInfoSchema = z.object({
 
 export default function StepperCustomIcons() {
   return (
-    <div className="flex min-h-screen justify-center items-center w-full flex-col">
-      <div className="w-[500px]">
+    <div className="flex justify-center items-center w-full flex-col">
+      <div className="w-full p-2 md:w-4/5 h-full my-12">
         <StepperContainer steps={steps} />
       </div>
     </div>
@@ -122,8 +147,12 @@ const StepperContainer = ({ steps }) => {
 const StepContent = ({ stepIndex, setStepState }) => {
   const [profilePic, setProfilePic] = useState(null);
   const [resume, setResume] = useState(null);
+  const [addGraduation, setAddGraduation] = useState();
   const dispatch = useDispatch();
   const { handleApiCall } = useApiHandler();
+
+  const userDetails = useSelector(selectUserDetails);
+
   const handleProfilePicChange = (e) => {
     setProfilePic(e.target.files[0]);
   };
@@ -131,6 +160,11 @@ const StepContent = ({ stepIndex, setStepState }) => {
   const handleResumeChange = (e) => {
     setResume(e.target.files[0]);
   };
+
+  const toggleGraduation = () => {
+    setAddGraduation(!addGraduation);
+  };
+
   // const [image, setImage] = useState(null);
   // const [resume, setResume] = useState(null);
   const schema =
@@ -155,6 +189,14 @@ const StepContent = ({ stepIndex, setStepState }) => {
 
   const { prevStep, isLastStep, isOptionalStep, nextStep, isDisabledStep } =
     useStepper();
+
+  useEffect(() => {
+    if (userDetails) {
+      for (const key in userDetails) {
+        setValue(key, userDetails[key]);
+      }
+    }
+  }, [setValue]);
 
   const onSubmit = async (data) => {
     setStepState("loading");
@@ -181,7 +223,10 @@ const StepContent = ({ stepIndex, setStepState }) => {
       if (
         key === "specialisation" ||
         key === "languages" ||
-        key === "education"
+        key === "education" ||
+        key === "skills" ||
+        key === "achievements" ||
+        key === "experience"
       ) {
         formData.append(key, JSON.stringify(data[key])); // Convert array to JSON string
       } else if (
@@ -191,6 +236,9 @@ const StepContent = ({ stepIndex, setStepState }) => {
         data[key] !== "" &&
         key !== "specialisation" &&
         key !== "languages" &&
+        key !== "skills" &&
+        key !== "achievements" &&
+        key !== "experience" &&
         key !== "_id"
       ) {
         formData.append(key, data[key]);
@@ -249,57 +297,91 @@ const StepContent = ({ stepIndex, setStepState }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="min-h-40 flex flex-col items-center justify-center my-2 border bg-secondary text-primary rounded-md">
+      <div className="flex flex-col my-2 border bg-secondary text-primary rounded-md p-8">
         {stepIndex === 0 && (
           <>
-            <Input
-              {...register("description")}
-              placeholder="Description (optional)"
-              className="input"
-            />
-            <p className="text-red-500">{errors.description?.message}</p>
+            <label
+              htmlFor="gender"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Gender
+            </label>
             <Input
               {...register("gender")}
-              placeholder="Gender"
+              name="gender"
+              id="gender"
+              placeholder="Your gender"
               className="input"
             />
             <p className="text-red-500">{errors.gender?.message}</p>
-            {/* Replace FancyMultiSelect and FancySelect with appropriate components */}
+            <label
+              htmlFor="specialisation"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Specialisation
+            </label>
             <Controller
               name="specialisation"
+              id="specialisation"
               control={control}
               render={({ field }) => (
-                <FancyMultiSelect
+                <FancySelect
                   {...field}
-                  options={fansOptions}
+                  options={specialisations}
                   placeholder="Select Specialisations"
                   onChange={(value) => setValue("specialisation", value)}
                 />
               )}
             />
+            <label
+              htmlFor="languages"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Languages
+            </label>
             <Controller
+              id="languages"
               name="languages"
               control={control}
               render={({ field }) => (
-                <FancySelect
+                <FancyMultiSelect
                   {...field}
-                  options={fansOptions}
+                  options={languages}
                   placeholder="Select Languages"
                   onChange={(value) => setValue("languages", value)}
                 />
               )}
             />
+            <label
+              htmlFor="dob"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Date of Birth
+            </label>
             <Input
               {...register("dob")}
               placeholder="Date of Birth"
               className="input"
             />
             <p className="text-red-500">{errors.dob?.message}</p>
+            <label
+              htmlFor="description"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Description (optional)
+            </label>
+            <Textarea
+              {...register("description")}
+              name="description"
+              id="description"
+              placeholder="Write about yourself"
+            />
+            <p className="text-red-500">{errors.description?.message}</p>
           </>
         )}
         {stepIndex === 1 && (
           <>
-            <h3>Class X</h3>
+            <h3 className="my-2 dark:text-gray-100">Class X</h3>
             <Controller
               name="education.classX.school"
               control={control}
@@ -335,7 +417,7 @@ const StepContent = ({ stepIndex, setStepState }) => {
               </p>
             )}
 
-            <Controller
+            {/* <Controller
               name="education.classX.total"
               control={control}
               render={({ field }) => <Input {...field} placeholder="Total" />}
@@ -344,9 +426,9 @@ const StepContent = ({ stepIndex, setStepState }) => {
               <p className="text-red-500">
                 {errors.education.classX.total.message}
               </p>
-            )}
+            )} */}
 
-            <h3>Class XII</h3>
+            <h3 className="my-2 dark:text-gray-100">Class XII</h3>
             <Controller
               name="education.classXII.school"
               control={control}
@@ -382,7 +464,7 @@ const StepContent = ({ stepIndex, setStepState }) => {
               </p>
             )}
 
-            <Controller
+            {/*<Controller
               name="education.classXII.total"
               control={control}
               render={({ field }) => <Input {...field} placeholder="Total" />}
@@ -391,107 +473,170 @@ const StepContent = ({ stepIndex, setStepState }) => {
               <p className="text-red-500">
                 {errors.education.classXII.total.message}
               </p>
-            )}
+            )} */}
+            <div
+              className="border border-gray-500 border-dashed py-2 rounded-xl cursor-pointer w-[200px] flex items-center justify-center dark:text-gray-100"
+              onClick={toggleGraduation}
+            >
+              {addGraduation ? "- Remove Graduation" : "+ Add Graduation"}
+            </div>
 
-            <h3>Graduation</h3>
-            <Controller
-              name="education.graduation.college"
-              control={control}
-              render={({ field }) => <Input {...field} placeholder="College" />}
-            />
-            {errors.education?.graduation?.college && (
-              <p className="text-red-500">
-                {errors.education.graduation.college.message}
-              </p>
-            )}
+            {addGraduation && (
+              <>
+                <h3 className="my-2 dark:text-gray-100">Graduation</h3>
 
-            <Controller
-              name="education.graduation.university"
-              control={control}
-              render={({ field }) => (
-                <Input {...field} placeholder="University" />
-              )}
-            />
-            {errors.education?.graduation?.university && (
-              <p className="text-red-500">
-                {errors.education.graduation.university.message}
-              </p>
-            )}
-
-            <Controller
-              name="education.graduation.percentage"
-              control={control}
-              render={({ field }) => (
-                <Input {...field} placeholder="Percentage/CGPA" />
-              )}
-            />
-            {errors.education?.graduation?.percentage && (
-              <p className="text-red-500">
-                {errors.education.graduation.percentage.message}
-              </p>
-            )}
-
-            <Controller
-              name="education.graduation.total"
-              control={control}
-              render={({ field }) => <Input {...field} placeholder="Total" />}
-            />
-            {errors.education?.graduation?.total && (
-              <p className="text-red-500">
-                {errors.education.graduation.total.message}
-              </p>
-            )}
-
-            <Controller
-              name="education.extraCertifications"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  placeholder="Extra Certifications (optional)"
+                <Controller
+                  name="education.graduation.college"
+                  control={control}
+                  render={({ field }) => (
+                    <Input {...field} placeholder="College" />
+                  )}
                 />
-              )}
-            />
-            {errors.education?.extraCertifications && (
-              <p className="text-red-500">
-                {errors.education.extraCertifications.message}
-              </p>
+                {errors.education?.graduation?.college && (
+                  <p className="text-red-500">
+                    {errors.education.graduation.college.message}
+                  </p>
+                )}
+
+                <Controller
+                  name="education.graduation.university"
+                  control={control}
+                  render={({ field }) => (
+                    <Input {...field} placeholder="University" />
+                  )}
+                />
+                {errors.education?.graduation?.university && (
+                  <p className="text-red-500">
+                    {errors.education.graduation.university.message}
+                  </p>
+                )}
+
+                <Controller
+                  name="education.graduation.percentage"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      placeholder="Percentage/CGPA (Till now)"
+                    />
+                  )}
+                />
+                {errors.education?.graduation?.percentage && (
+                  <p className="text-red-500">
+                    {errors.education.graduation.percentage.message}
+                  </p>
+                )}
+              </>
             )}
           </>
         )}
         {stepIndex === 2 && (
           <>
-            <Input
+            <label
+              htmlFor="skills"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Skills
+            </label>
+            {/* <Input
               {...register("skills")}
-              placeholder="Skills"
+              placeholder="minimum 3 skills"
               className="input"
+              id="skills"
+              name="skills"
+            /> */}
+            <Controller
+              id="skills"
+              name="skills"
+              control={control}
+              render={({ field }) => (
+                <FancyMultiSelect
+                  {...field}
+                  options={skills}
+                  placeholder="Minimum 3 Skils Required"
+                  onChange={(value) => setValue("skills", value)}
+                />
+              )}
             />
             <p className="text-red-500">{errors.skills?.message}</p>
-            <Input
+            <label
+              htmlFor="achievements"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Achievements (optional)
+            </label>
+            {/* <Input
               {...register("achievements")}
               placeholder="Achievements (optional)"
               className="input"
+            /> */}
+            <Controller
+              id="achievements"
+              name="achievements"
+              control={control}
+              render={({ field }) => (
+                <FancyMultiSelect
+                  {...field}
+                  // options={achievements}
+                  placeholder="Add memoriable achievements"
+                  onChange={(value) => setValue("achievements", value)}
+                />
+              )}
             />
             <p className="text-red-500">{errors.achievements?.message}</p>
-            <Input
+            <label
+              htmlFor="experience"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Experience (optional)
+            </label>
+            <Controller
+              id="experience"
+              name="experience"
+              control={control}
+              render={({ field }) => (
+                <FancyMultiSelect
+                  {...field}
+                  // options={experience}
+                  placeholder="If any experinence"
+                  onChange={(value) => setValue("experience", value)}
+                />
+              )}
+            />
+            {/* <Input
               {...register("experience")}
               placeholder="Experience (optional)"
               className="input"
-            />
+            /> */}
             <p className="text-red-500">{errors.experience?.message}</p>
           </>
         )}
         {stepIndex === 3 && (
           <>
+            <label
+              className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
+              htmlFor="profilePic"
+            >
+              Profile Pic
+            </label>
             <input
+              className="block px-1 w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+              aria-describedby="user_avatar_help"
               id="profilePic"
               name="profilePic"
               type="file"
               accept="image/*"
               onChange={handleProfilePicChange}
             />
-
+            <label
+              className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
+              htmlFor="resume"
+            >
+              Resume
+            </label>
             <input
+              className="block px-1 w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+              aria-describedby="user_avatar_help"
               id="resume"
               name="resume"
               type="file"
@@ -527,14 +672,14 @@ const StepContent = ({ stepIndex, setStepState }) => {
           className={
             isLastStep
               ? resume && profilePic
-                ? "bg-blueSecondary text-white"
+                ? "bg-[#0361FD] text-white"
                 : "bg-gray-300"
-              : "bg-blueSecondary text-white"
+              : "bg-[#0361FD] text-white"
           }
           size="sm"
-          disabled={isLastStep ? !(resume && profilePic) : !isValid}
+          // disabled={isLastStep ? !(resume && profilePic) : !isValid}
         >
-          {isLastStep ? "Finish" : isOptionalStep ? "Skip" : "Next"}
+          {isLastStep ? "Finish" : "Next"}
         </Button>
       </div>
     </form>
