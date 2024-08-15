@@ -296,9 +296,10 @@ export default function EditProfile({ setIsAdminAuthenticated }) {
           >
             Update Profile
           </button>
-          <OauthLink />
         </div>
       </form>
+      <OauthLink />
+
     </Card>
   );
 }
