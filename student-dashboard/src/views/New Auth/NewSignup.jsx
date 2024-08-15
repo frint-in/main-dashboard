@@ -155,7 +155,7 @@ const NewSignup = () => {
       const message = res.data.message;
 
       if (res.data) {
-        navigate("/login");
+        navigate("/new-login");
         toast.success(message || "Sign up successful");
       } else {
         toast.error(message || "Invalid credentials");
@@ -201,10 +201,10 @@ const NewSignup = () => {
                     placeholder="Full Name"
                     value={uname}
                     onChange={handleUnameChange}
-                    error={errors.uname}
                   />
                   <IoPersonOutline className="w-[18px] h-[18px] absolute right-2 text-[#1e1e1e]" />
                 </div>
+                <p className="text-red-500">{errors.uname}</p>
               </div>
               <div className="mt-4">
                 <label className="text-gray-800 text-xs block mb-2">
@@ -222,6 +222,7 @@ const NewSignup = () => {
                   />
                   <BsEnvelopeAt className="w-[18px] h-[18px] absolute right-2 text-[#1e1e1e]" />
                 </div>
+                <p className="text-red-500">{errors.email}</p>
               </div>
               <div className="mt-4">
                 <label className="text-gray-800 text-xs block mb-2">
@@ -236,10 +237,10 @@ const NewSignup = () => {
                     placeholder="Enter Phone Number"
                     value={phno}
                     onChange={handlePhnoChange}
-                    error={errors.phno}
                   />
                   <MdOutlinePhoneEnabled className="w-[18px] h-[18px] absolute right-2 text-[#1e1e1e]" />
                 </div>
+                <p className="text-red-500">{errors.phno}</p>
               </div>
 
               <div className="mt-4">
@@ -268,6 +269,7 @@ const NewSignup = () => {
                     )}
                   </div>
                 </div>
+                <p className="text-red-500">{errors.password}</p>
               </div>
 
               <div className="flex flex-wrap items-center justify-between gap-4 mt-6">
@@ -295,9 +297,10 @@ const NewSignup = () => {
 
               <div className="mt-8 mb-2">
                 <button
-                  type="button"
+                  type="submit"
                   className="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
                   disabled={loading}
+                  // onClick={handleUser}
                 >
                   {loading ? "Signing In..." : "Sign In"}
                 </button>

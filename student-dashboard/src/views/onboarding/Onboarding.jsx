@@ -16,6 +16,7 @@ import useApiHandler from "@/utils/useApiHandler";
 import { Textarea } from "@/components/ui/textarea";
 import { clearUserDetails, selectUserDetails } from "@/state/userSlice";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export const languages = [
   { value: "Assamese", label: "Assamese" },
@@ -196,11 +197,11 @@ const StepContent = ({ stepIndex, setStepState }) => {
       // Prepopulate form fields based on step index
       switch (stepIndex) {
         case 0:
-          setValue("gender", userDetails.gender || "");
-          setValue("specialisation", userDetails.specialisation || []);
-          setValue("languages", userDetails.languages || []);
-          setValue("dob", userDetails.dob || "");
-          setValue("description", userDetails.description || "");
+          setValue("gender", userDetails?.gender || "");
+          setValue("specialisation", userDetails?.specialisation || []);
+          setValue("languages", userDetails?.languages || []);
+          setValue("dob", userDetails?.dob || "");
+          setValue("description", userDetails?.description || "");
           break;
         case 1:
           setValue("education.classX.school", userDetails.education?.classX?.school || "");
@@ -214,9 +215,9 @@ const StepContent = ({ stepIndex, setStepState }) => {
           setValue("education.graduation.percentage", userDetails.education?.graduation?.percentage || "");
           break;
         case 2:
-          setValue("skills", userDetails.skills || []);
-          setValue("achievements", userDetails.achievements || []);
-          setValue("experience", userDetails.experience || []);
+          setValue("skills", userDetails?.skills || []);
+          setValue("achievements", userDetails?.achievements || []);
+          setValue("experience", userDetails?.experience || []);
           break;
         case 3:
           // For file inputs, you cannot set value directly
@@ -722,10 +723,15 @@ const StepContent = ({ stepIndex, setStepState }) => {
 };
 
 const FinalStep = () => {
+  const navigate = useNavigate();
   const { hasCompletedAllSteps, resetSteps } = useStepper();
 
   if (!hasCompletedAllSteps) {
     return null;
+  }
+
+  else {
+    navigate("/admin/default");
   }
 
   return (

@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FaFileDownload } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const languages = [
   { value: "Assamese", label: "Assamese" },
@@ -148,7 +148,7 @@ const StepperContainer = ({ steps }) => {
           <StepContent stepIndex={index} setStepState={setStepState} />
         </Step>
       ))}
-      {/* <FinalStep /> */}
+      <FinalStep />
     </Stepper>
   );
 };
@@ -333,6 +333,7 @@ const StepContent = ({ stepIndex, setStepState }) => {
       if (response.status === 200) {
         setStepState("");
         dispatch(setUserDetails(response.data.user));
+        nextStep();
       } else {
         setStepState("error");
       }
@@ -654,10 +655,7 @@ const StepContent = ({ stepIndex, setStepState }) => {
             </label>
             <div className="my-5">
               <Avatar className="w-[200px] h-[200px]">
-                <AvatarImage
-                  src={userDetails.avatar}
-                  alt="@frint"
-                />
+                <AvatarImage src={userDetails.avatar} alt="@frint" />
                 <AvatarFallback>User</AvatarFallback>
               </Avatar>
             </div>
@@ -671,22 +669,19 @@ const StepContent = ({ stepIndex, setStepState }) => {
               onChange={handleProfilePicChange}
             />
             <div className="flex items-center gap-4 py-2">
-            <label
-              className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
-              htmlFor="resume"
-            >
-              Resume
-            </label>
-            {userDetails.resume ? (
-          <Link
-            to={userDetails.resume}
-            target="blank"
-          >
-            <FaFileDownload />
-          </Link>
-        ) : (
-          <p className="text-sm font-normal text-gray-600">❌</p>
-        )}
+              <label
+                className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="resume"
+              >
+                Resume
+              </label>
+              {userDetails.resume ? (
+                <Link to={userDetails.resume} target="blank">
+                  <FaFileDownload />
+                </Link>
+              ) : (
+                <p className="text-sm font-normal text-gray-600">❌</p>
+              )}
             </div>
             <input
               className="block px-1 w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
@@ -701,19 +696,34 @@ const StepContent = ({ stepIndex, setStepState }) => {
         )}
       </div>
 
-      <div className="w-full my-3 flex gap-2 mb-4">
-        <Button
-          disabled={isDisabledStep}
-          className={
-            isDisabledStep ? "bg-gray-300" : "text-blueSecondary bg-gray-50"
-          }
-          onClick={prevStep}
-          size="sm"
-          variant="default"
-        >
-          Prev
-        </Button>
+      <div className="w-full my-3 flex mb-4 justify-between">
+        <div className="flex gap-2">
+          <Button
+            disabled={isDisabledStep}
+            className={
+              isDisabledStep ? "bg-gray-300" : "text-black bg-[#72C1FA]"
+            }
+            onClick={prevStep}
+            size="sm"
+            variant="default"
+          >
+            Prev
+          </Button>
 
+          <Button
+            type="submit"
+            className={
+              isLastStep
+                ? resume && profilePic
+                  ? "bg-[#0361FD] text-white"
+                  : "bg-gray-300"
+                : "bg-[#72C1FA] text-black"
+            }
+            size="sm"
+          >
+            {isLastStep ? "Finish" : "Next"}
+          </Button>
+        </div>
         <Button type="submit" className={"bg-[#0361FD] text-white"} size="sm">
           Save
         </Button>
@@ -723,10 +733,15 @@ const StepContent = ({ stepIndex, setStepState }) => {
 };
 
 const FinalStep = () => {
+  const navigate = useNavigate();
   const { hasCompletedAllSteps, resetSteps } = useStepper();
 
   if (!hasCompletedAllSteps) {
     return null;
+  }
+
+  else {
+    navigate("/admin/default");
   }
 
   return (
