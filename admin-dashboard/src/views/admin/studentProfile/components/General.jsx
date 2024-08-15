@@ -2,6 +2,7 @@ import Card from "../../../../components/card";
 import React from "react";
 
 const General = ({ data }) => {
+  const education = data?.education;
   return (
     <Card extra={"w-full h-full p-3"}>
       {/* Header */}
@@ -14,23 +15,43 @@ const General = ({ data }) => {
       {/* Cards */}
       <div className="grid md:grid-cols-2 grid-cols-1 gap-4 px-2">
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
-          <p className="text-sm text-gray-600">Education</p>
+          <p className="text-sm text-gray-600">Class X Education</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            {data?.education}
+            School: {education?.classX?.school} <br />
+            Board: {education?.classX?.boards} <br />
+            Percentage: {education?.classX?.percentage}%
+          </p>
+        </div>
+
+        <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+          <p className="text-sm text-gray-600">Class XII Education</p>
+          <p className="text-base font-medium text-navy-700 dark:text-white">
+            School: {education?.classXII?.school} <br />
+            Board: {education?.classXII?.boards} <br />
+            Percentage: {education?.classXII?.percentage}%
+          </p>
+        </div>
+
+        <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+          <p className="text-sm text-gray-600">Graduation</p>
+          <p className="text-base font-medium text-navy-700 dark:text-white">
+            College: {education?.graduation?.college} <br />
+            University: {education?.graduation?.university} <br />
+            Percentage: {education?.graduation?.percentage}%
           </p>
         </div>
 
         <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Languages</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            {data?.languages}
+            {data?.languages.join(', ')}
           </p>
         </div>
 
         <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Skills</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
-            {data?.skills}
+            {data?.skills.join(', ')}
           </p>
         </div>
 

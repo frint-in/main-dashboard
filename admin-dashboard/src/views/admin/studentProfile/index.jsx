@@ -23,6 +23,8 @@ const StudentProfile = () => {
     const fetchUser = async () => {
       try {
         const userData = await getUserById(id);
+
+        console.log('userData>>>>>>>>>>', userData);
         setUser(userData);
       } catch (err) {
         setError(err);
