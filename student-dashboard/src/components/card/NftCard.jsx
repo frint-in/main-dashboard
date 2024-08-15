@@ -1,8 +1,9 @@
-import { FaRegBookmark, FaBookmark } from "react-icons/fa";
+import { RiSendPlaneLine, RiSendPlaneFill } from "react-icons/ri";
 import { GiStopwatch } from "react-icons/gi";
 import { useState } from "react";
 import Card from "../card";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 const NftCard = ({
   title,
@@ -20,13 +21,26 @@ const NftCard = ({
   location,
   logo,
 }) => {
-  const [heart, setHeart] = useState(true);
+  const [pressed, setPressed] = useState(false);
+
+  const handleClick = () => {
+    navigator.clipboard.writeText(`https://www.student.frint.in${link}`);
+  };
+
+  const handleMouseDown = () => {
+    setPressed(true);
+  };
+
+  const handleMouseUp = () => {
+    setPressed(false);
+  };
+
   return (
     <Card
       extra={`flex flex-col w-full h-full !p-4 3xl:p-![18px] bg-white ${extra}`}
     >
       <div className="h-full w-full">
-      <div className="relative w-full">
+        <div className="relative w-full">
           <img
             src={image}
             className="mb-3 h-full w-full rounded-xl 3xl:h-full 3xl:w-full"
@@ -60,14 +74,18 @@ const NftCard = ({
             </div>
           </div>
           <button
-            onClick={() => setHeart(!heart)}
-            className="absolute top-3 right-3 flex items-center justify-center rounded-full bg-white p-2 text-brand-500 hover:cursor-pointer"
+            onClick={handleClick}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            className={`absolute top-3 right-3 flex items-center justify-center rounded-full p-2 text-brand-500 hover:cursor-pointer ${
+              pressed ? "bg-gray-200" : "bg-white"
+            }`}
           >
             <div className="flex h-full w-full items-center justify-center rounded-full text-xl hover:bg-gray-50 dark:text-navy-900">
-              {heart ? (
-                <FaRegBookmark />
+              {pressed ? (
+                <RiSendPlaneFill />
               ) : (
-                <FaBookmark className="text-brand-500" />
+                <RiSendPlaneLine className="text-brand-500" />
               )}
             </div>
           </button>

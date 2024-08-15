@@ -53,54 +53,54 @@ const General = ({details}) => {
       </div>
       {/* Cards */}
       <div className="grid md:grid-cols-2 grid-cols-1 gap-4 px-2">
-        <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+        <div className="flex flex-col items-start justify-center rounded-2xl bg-[#F4F7FE] bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Position</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
           {details?.position}
           </p>
         </div>
-        <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+        <div className="flex flex-col items-start justify-center rounded-2xl bg-[#F4F7FE] bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Location</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
             {details?.location}
           </p>
         </div>
-        <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+        <div className="flex flex-col items-start justify-center rounded-2xl bg-[#F4F7FE] bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Mode</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
           {details?.mode || 'mode'}
           </p>
         </div>
 
-        <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+        <div className="flex flex-col justify-center rounded-2xl bg-[#F4F7FE] bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Deadline </p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
           {details?.deadline || 'deadline'}
           </p>
         </div>
 
-        <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+        <div className="flex flex-col items-start justify-center rounded-2xl bg-[#F4F7FE] bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Stipend</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
           {details?.stipend || 'stipend'}
           </p>
         </div>
 
-        <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+        <div className="flex flex-col justify-center rounded-2xl bg-[#F4F7FE] bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Type</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
           {details?.type || 'remote/onsite'}
           </p>
         </div>
 
-        <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+        <div className="flex flex-col items-start justify-center rounded-2xl bg-[#F4F7FE] bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Experience</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
           {details?.experience || 'experience'}
           </p>
         </div>
 
-        <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+        <div className="flex flex-col justify-center rounded-2xl bg-[#F4F7FE] bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
           <p className="text-sm text-gray-600">Skills</p>
           <p className="text-base font-medium text-navy-700 dark:text-white">
             {details?.skills || 'Skills'}
