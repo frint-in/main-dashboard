@@ -18,31 +18,31 @@ import { clearUserDetails, selectUserDetails } from "@/state/userSlice";
 import { useSelector } from "react-redux";
 
 export const languages = [
-  { value: "lang1", label: "Assamese" },
-  { value: "lang2", label: "English" },
-  { value: "lang3", label: "Hindi" },
-  { value: "lang4", label: "Bengali" },
+  { value: "Assamese", label: "Assamese" },
+  { value: "English", label: "English" },
+  { value: "Hindi", label: "Hindi" },
+  { value: "Bengali", label: "Bengali" },
 ];
 export const specialisations = [
-  { value: "spec1", label: "Tecchnical" },
-  { value: "spec2", label: "Marketing" },
-  { value: "spec3", label: "Sales" },
-  { value: "spec4", label: "Design" },
-  { value: "spec5", label: "Content" },
+  { value: "Technical", label: "Technical" },
+  { value: "Marketing", label: "Marketing" },
+  { value: "Sales", label: "Sales" },
+  { value: "Design", label: "Design" },
+  { value: "Content", label: "Content" },
 ];
 export const skills = [
-  { value: "skill1", label: "Web Development" },
-  { value: "skill2", label: "App Development" },
-  { value: "skill3", label: "Digital Marketing" },
-  { value: "skill4", label: "Social Media Marketing" },
-  { value: "skill5", label: "Content writing" },
-  { value: "skill6", label: "Content curator" },
-  { value: "skill7", label: "Graphics Designing" },
-  { value: "skill8", label: "3D designing" },
-  { value: "skill9", label: "Sales executive" },
-  { value: "skill10", label: "Backend Development" },
-  { value: "skill11", label: "DevOps Engineer" },
-  { value: "skill12", label: "Physical marketing" },
+  { value: "Web Development", label: "Web Development" },
+  { value: "App Development", label: "App Development" },
+  { value: "Digital Marketing", label: "Digital Marketing" },
+  { value: "Social Media Marketing", label: "Social Media Marketing" },
+  { value: "Content writing", label: "Content writing" },
+  { value: "Content curator", label: "Content curator" },
+  { value: "Graphics Designing", label: "Graphics Designing" },
+  { value: "3D designing", label: "3D designing" },
+  { value: "Sales executive", label: "Sales executive" },
+  { value: "Backend Development", label: "Backend Development" },
+  { value: "DevOps Engineer", label: "DevOps Engineer" },
+  { value: "Physical marketing", label: "Physical marketing" },
 ];
 
 const steps = [
@@ -151,8 +151,6 @@ const StepContent = ({ stepIndex, setStepState }) => {
   const dispatch = useDispatch();
   const { handleApiCall } = useApiHandler();
 
-  const userDetails = useSelector(selectUserDetails);
-
   const handleProfilePicChange = (e) => {
     setProfilePic(e.target.files[0]);
   };
@@ -164,6 +162,8 @@ const StepContent = ({ stepIndex, setStepState }) => {
   const toggleGraduation = () => {
     setAddGraduation(!addGraduation);
   };
+
+  
 
   // const [image, setImage] = useState(null);
   // const [resume, setResume] = useState(null);
@@ -187,16 +187,50 @@ const StepContent = ({ stepIndex, setStepState }) => {
     mode: "onChange",
   });
 
-  const { prevStep, isLastStep, isOptionalStep, nextStep, isDisabledStep } =
-    useStepper();
+
+
+  const userDetails = useSelector(selectUserDetails);
 
   useEffect(() => {
     if (userDetails) {
-      for (const key in userDetails) {
-        setValue(key, userDetails[key]);
+      // Prepopulate form fields based on step index
+      switch (stepIndex) {
+        case 0:
+          setValue("gender", userDetails.gender || "");
+          setValue("specialisation", userDetails.specialisation || []);
+          setValue("languages", userDetails.languages || []);
+          setValue("dob", userDetails.dob || "");
+          setValue("description", userDetails.description || "");
+          break;
+        case 1:
+          setValue("education.classX.school", userDetails.education?.classX?.school || "");
+          setValue("education.classX.boards", userDetails.education?.classX?.boards || "");
+          setValue("education.classX.percentage", userDetails.education?.classX?.percentage || "");
+          setValue("education.classXII.school", userDetails.education?.classXII?.school || "");
+          setValue("education.classXII.boards", userDetails.education?.classXII?.boards || "");
+          setValue("education.classXII.percentage", userDetails.education?.classXII?.percentage || "");
+          setValue("education.graduation.college", userDetails.education?.graduation?.college || "");
+          setValue("education.graduation.university", userDetails.education?.graduation?.university || "");
+          setValue("education.graduation.percentage", userDetails.education?.graduation?.percentage || "");
+          break;
+        case 2:
+          setValue("skills", userDetails.skills || []);
+          setValue("achievements", userDetails.achievements || []);
+          setValue("experience", userDetails.experience || []);
+          break;
+        case 3:
+          // For file inputs, you cannot set value directly
+          // For profilePic and resume, handle file input separately
+          break;
+        default:
+          break;
       }
     }
-  }, [setValue]);
+  }, [stepIndex, userDetails, setValue]);
+
+
+  const { prevStep, isLastStep, isOptionalStep, nextStep, isDisabledStep } =
+    useStepper();
 
   const onSubmit = async (data) => {
     setStepState("loading");
@@ -278,6 +312,7 @@ const StepContent = ({ stepIndex, setStepState }) => {
       if (response.status === 200) {
         setStepState("");
         dispatch(setUserDetails(response.data.user));
+        // dispatch(setUserDetails(data));
         nextStep();
       } else {
         setStepState("error");

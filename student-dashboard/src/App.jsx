@@ -37,7 +37,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
-      <Route path="/onboarding" element={isLoggedIn ? (user.isOnboarded ? <Navigate to="/admin" replace /> : <Onboarding />) : <Navigate to="/new-login" replace />} />
+      {/* <Route path="/onboarding" element={isLoggedIn ? (user.isOnboarded ? <Navigate to="/admin" replace /> : <Onboarding />) : <Navigate to="/new-login" replace />} /> */}
+      <Route path="/onboarding" element={<Onboarding />} />
        {/* <Route path="/login" element={!isLoggedIn ? <Auth /> : <Navigate to="/admin" replace />} />
         <Route path="/sign-up" element={!isLoggedIn ? <Signup /> : <Navigate to="/admin" replace />} />  */}
         <Route path="/verifyemail" element={<VerifyEmailPage />} />
