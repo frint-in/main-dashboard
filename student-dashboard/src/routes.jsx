@@ -91,7 +91,7 @@ const routes = [
   {
     name: "Edit Profile",
     layout: "/admin",
-    path: "edit-profile",
+    path: "editProfile",
     icon: <FaUserEdit className="h-6 w-6" />,
     component: <EditProfileMain/>,
   },

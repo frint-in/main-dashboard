@@ -19,10 +19,10 @@ const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <PostHogProvider
+    {/* <PostHogProvider
       apiKey={import.meta.env.VITE_REACT_PUBLIC_POSTHOG_KEY}
       options={options}
-    >
+    > */}
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
           <GoogleOAuthProvider
@@ -35,6 +35,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </Provider>
       </QueryClientProvider>
       <Toaster richColors={true} position="bottom-center" />
-    </PostHogProvider>
+    {/* </PostHogProvider> */}
   </React.StrictMode>
 );
