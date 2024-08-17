@@ -16,7 +16,6 @@ import useApiHandler from "@/utils/useApiHandler";
 import { Textarea } from "@/components/ui/textarea";
 import { clearUserDetails, selectUserDetails } from "@/state/userSlice";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 export const languages = [
   { value: "Assamese", label: "Assamese" },
@@ -61,6 +60,7 @@ const basicDetailsSchema = z.object({
   languages: z.array(z.string()).nonempty("At least one language is required"),
   dob: z.string().min(1, "Date of Birth is required"),
   description: z.string().optional(),
+  address: z.string().optional(),
 });
 
 const educationSchema = z.object({
@@ -79,12 +79,11 @@ const educationSchema = z.object({
     }),
     graduation: z
       .object({
-        college: z.string().optional(),
-        university: z.string().optional(),
-        percentage: z.string().optional(),
+        college: z.string().min(1, "College is required"),
+        university: z.string().min(1, "University is required"),
+        percentage: z.string().min(1, "Percentage/CGPA is required"),
         // total: z.string().optional(),
-      })
-      .optional(),
+      }),
     extraCertifications: z.string().optional(),
   }),
 });
@@ -197,11 +196,11 @@ const StepContent = ({ stepIndex, setStepState }) => {
       // Prepopulate form fields based on step index
       switch (stepIndex) {
         case 0:
-          setValue("gender", userDetails?.gender || "");
-          setValue("specialisation", userDetails?.specialisation || []);
-          setValue("languages", userDetails?.languages || []);
-          setValue("dob", userDetails?.dob || "");
-          setValue("description", userDetails?.description || "");
+          setValue("gender", userDetails.gender || "");
+          setValue("specialisation", userDetails.specialisation || []);
+          setValue("languages", userDetails.languages || []);
+          setValue("dob", userDetails.dob || "");
+          setValue("description", userDetails.description || "");
           break;
         case 1:
           setValue("education.classX.school", userDetails.education?.classX?.school || "");
@@ -215,9 +214,9 @@ const StepContent = ({ stepIndex, setStepState }) => {
           setValue("education.graduation.percentage", userDetails.education?.graduation?.percentage || "");
           break;
         case 2:
-          setValue("skills", userDetails?.skills || []);
-          setValue("achievements", userDetails?.achievements || []);
-          setValue("experience", userDetails?.experience || []);
+          setValue("skills", userDetails.skills || []);
+          setValue("achievements", userDetails.achievements || []);
+          setValue("experience", userDetails.experience || []);
           break;
         case 3:
           // For file inputs, you cannot set value directly
@@ -510,14 +509,6 @@ const StepContent = ({ stepIndex, setStepState }) => {
                 {errors.education.classXII.total.message}
               </p>
             )} */}
-            <div
-              className="border border-gray-500 border-dashed py-2 rounded-xl cursor-pointer w-[200px] flex items-center justify-center dark:text-gray-100"
-              onClick={toggleGraduation}
-            >
-              {addGraduation ? "- Remove Graduation" : "+ Add Graduation"}
-            </div>
-
-            {addGraduation && (
               <>
                 <h3 className="my-2 dark:text-gray-100">Graduation</h3>
 
@@ -563,7 +554,7 @@ const StepContent = ({ stepIndex, setStepState }) => {
                   </p>
                 )}
               </>
-            )}
+
           </>
         )}
         {stepIndex === 2 && (
@@ -723,15 +714,10 @@ const StepContent = ({ stepIndex, setStepState }) => {
 };
 
 const FinalStep = () => {
-  const navigate = useNavigate();
   const { hasCompletedAllSteps, resetSteps } = useStepper();
 
   if (!hasCompletedAllSteps) {
     return null;
-  }
-
-  else {
-    navigate("/admin/default");
   }
 
   return (

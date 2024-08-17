@@ -68,6 +68,7 @@ const basicDetailsSchema = z.object({
     .optional(),
   dob: z.string().min(1, "Date of Birth is required").optional(),
   description: z.string().optional(),
+  address: z.string().optional(),
 });
 
 const educationSchema = z.object({
@@ -206,6 +207,9 @@ const StepContent = ({ stepIndex, setStepState }) => {
           setValue("languages", userDetails.languages || []);
           setValue("dob", userDetails.dob || "");
           setValue("description", userDetails.description || "");
+          setValue("uname", userDetails.uname || "");
+          setValue("phno", userDetails.phno || "");
+          setValue("address", userDetails.address || "");
           break;
         case 1:
           setValue(
@@ -369,6 +373,63 @@ const StepContent = ({ stepIndex, setStepState }) => {
               className="input"
             />
             <p className="text-red-500">{errors.gender?.message}</p>
+
+
+            <label
+              htmlFor="uname"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Name
+            </label>
+            <Input
+              {...register("uname")}
+              name="uname"
+              id="uname"
+              placeholder="Your name"
+              className="input"
+            />
+            <p className="text-red-500">{errors.uname?.message}</p>
+
+
+
+            <label
+              htmlFor="phno"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Phone Number
+            </label>
+            <Input
+              {...register("phno")}
+              name="phno"
+              id="phno"
+              placeholder="Your Phone Number"
+              className="input"
+            />
+            <p className="text-red-500">{errors.phno?.message}</p>
+
+
+
+
+
+
+            <label
+              htmlFor="address"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Address
+            </label>
+            <Input
+              {...register("address")}
+              name="address"
+              id="address"
+              placeholder="Your address"
+              className="input"
+            />
+            <p className="text-red-500">{errors.address?.message}</p>
+
+
+
+            
             <label
               htmlFor="specialisation"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -724,6 +785,21 @@ const StepContent = ({ stepIndex, setStepState }) => {
             {isLastStep ? "Finish" : "Next"}
           </Button>
         </div>
+
+      {/* <div className="w-full my-3 flex gap-2 mb-4">
+        <Button
+          disabled={isDisabledStep}
+          className={
+            isDisabledStep ? "bg-gray-300" : "text-blueSecondary bg-gray-50"
+          }
+          onClick={prevStep}
+          size="sm"
+          variant="default"
+        >
+          Prev
+        </Button> */}
+
+
         <Button type="submit" className={"bg-[#0361FD] text-white"} size="sm">
           Save
         </Button>
