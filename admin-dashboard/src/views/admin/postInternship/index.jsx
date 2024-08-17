@@ -34,6 +34,7 @@ const PostInternship = () => {
     formData.append("skills", data.skills);
     formData.append("position", data.position);
     formData.append("mode", data.mode);
+    formData.append("price", data.price);
     if (data.image && data.image.length > 0) {
       formData.append("image", data.image[0]);
     }
@@ -86,6 +87,7 @@ const PostInternship = () => {
           skills: data.skills,
           position: data.position,
           mode: data.mode,
+          price: data.price,
         }
       );
       if (response.data) {
@@ -307,6 +309,30 @@ const PostInternship = () => {
             {errors.stipend && (
               <span className="text-red-600 text-sm">
                 {errors.stipend.message}
+              </span>
+            )}
+          </div>
+
+
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="price"
+            >
+              Price
+            </label>
+            <input
+              type="text"
+              {...register("price", { required: "Price is required" })}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              placeholder="100"
+              id="price"
+              name="price"
+              required
+            />
+            {errors.price && (
+              <span className="text-red-600 text-sm">
+                {errors.price.message}
               </span>
             )}
           </div>

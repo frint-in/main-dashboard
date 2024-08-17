@@ -17,6 +17,7 @@ const PostInternship = () => {
     skills: "",
     position: "",
     mode: "",
+    price: ""
   });
 
   // const [response, setResponse] = useState(null);
@@ -224,6 +225,25 @@ const PostInternship = () => {
               type="text"
               placeholder="Stipend"
               value={formData.stipend}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="price"
+            >
+              Price <span style={{ color: "red" }}>*</span>
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white pl-3 dark:!bg-navy-800"
+              id="price"
+              name="price"
+              type="text"
+              placeholder="Price"
+              value={formData.price}
               onChange={handleInputChange}
               required
             />

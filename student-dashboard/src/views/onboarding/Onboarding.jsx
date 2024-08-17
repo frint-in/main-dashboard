@@ -60,6 +60,7 @@ const basicDetailsSchema = z.object({
   languages: z.array(z.string()).nonempty("At least one language is required"),
   dob: z.string().min(1, "Date of Birth is required"),
   description: z.string().optional(),
+  address: z.string().optional(),
 });
 
 const educationSchema = z.object({
@@ -78,12 +79,11 @@ const educationSchema = z.object({
     }),
     graduation: z
       .object({
-        college: z.string().optional(),
-        university: z.string().optional(),
-        percentage: z.string().optional(),
+        college: z.string().min(1, "College is required"),
+        university: z.string().min(1, "University is required"),
+        percentage: z.string().min(1, "Percentage/CGPA is required"),
         // total: z.string().optional(),
-      })
-      .optional(),
+      }),
     extraCertifications: z.string().optional(),
   }),
 });
@@ -509,14 +509,6 @@ const StepContent = ({ stepIndex, setStepState }) => {
                 {errors.education.classXII.total.message}
               </p>
             )} */}
-            <div
-              className="border border-gray-500 border-dashed py-2 rounded-xl cursor-pointer w-[200px] flex items-center justify-center dark:text-gray-100"
-              onClick={toggleGraduation}
-            >
-              {addGraduation ? "- Remove Graduation" : "+ Add Graduation"}
-            </div>
-
-            {addGraduation && (
               <>
                 <h3 className="my-2 dark:text-gray-100">Graduation</h3>
 
@@ -562,7 +554,7 @@ const StepContent = ({ stepIndex, setStepState }) => {
                   </p>
                 )}
               </>
-            )}
+
           </>
         )}
         {stepIndex === 2 && (
